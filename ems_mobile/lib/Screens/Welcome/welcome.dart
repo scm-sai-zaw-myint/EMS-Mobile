@@ -28,8 +28,14 @@ class Welcome extends StatelessWidget {
             ),
           );
         } else {
-          return controller.credential?.employeeId == null ? LoginPage()
-              : const Dashboard();
+          // return controller.credential?.employeeId == null ? LoginPage()
+          //     : const Dashboard();
+          return
+              // controller.credential != null &&
+              //         controller.credential?.employeeId != null
+              //     ?
+              const Dashboard();
+          //     : LoginPage();
         }
       }),
     );
