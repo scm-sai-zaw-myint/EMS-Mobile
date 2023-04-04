@@ -17,36 +17,47 @@ class LoginService extends GetxController{
   var loginIdController = TextEditingController().obs;
   var passwordController = TextEditingController().obs;
   var isSecurePassword = true.obs;
-  late ApiService api;
+  ApiService api = ApiService();
 
+  var processingLogin = false.obs;
   var loginSuccess = false.obs;
+  var showSnackbar = false.obs;
+  var loginMessage = "".obs;
 
   Credential? get credential => _credential;
 
   @override
   void onInit() {
-    api = ApiService();
     _processCredential();
+    Credential.clearStorage();
     super.onInit();
   }
 
-  void login() async {
+  Future<bool> login() async {
+    processingLogin(true);
+    showSnackbar(true);
     final response = await api.post("${Config.domainUrl}${Config.login}", {
       "loginId" : loginIdController.value.text,
       "password" : passwordController.value.text
     });
+    processingLogin(false);
     if(response.statusCode == 503){
       loginSuccess(false);
-      return;
+      loginMessage("Enable to fetch the api!");
+      return false;
     }
     final body = response.body;
     AuthResponse authResponse = AuthResponse.fromJson(jsonDecode(body));
     if(authResponse.responseCode != 200){
       loginSuccess(false);
-      return;
+      showSnackbar(true);
+      loginMessage(authResponse.responseDescription);
+      return false;
     }
     Credential.setCredential(authResponse);
     loginSuccess(true);
+    showSnackbar(false);
+    return true;
   }
 
   _processCredential() async{

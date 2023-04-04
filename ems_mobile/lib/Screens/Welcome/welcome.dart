@@ -1,5 +1,6 @@
 import 'package:ems_mobile/Screens/Dashboard.dart/dashboard.dart';
 import 'package:ems_mobile/Screens/Login/login_page.dart';
+import 'package:ems_mobile/Screens/Profile/change_password.dart';
 import 'package:ems_mobile/Services/Login/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,7 @@ class Welcome extends StatelessWidget {
           );
         } else {
           return controller.credential?.employeeId == null ? LoginPage()
-              : const Dashboard();
+              : ChangePassword();
         }
       }),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 typedef EyeCallback = Function();
 class CommonWidget {
-  
+  //Decoration goes here
   static InputDecoration loginInputDecoration(String name) => InputDecoration(
       hintText: name,
       labelText: name,
@@ -25,4 +25,24 @@ class CommonWidget {
       padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
       backgroundColor: const Color.fromARGB(255, 224, 224, 224),
       foregroundColor: Colors.black);
+
+
+  //validor goes here
+  static String? validatePassword(String? pass,[String? prefix]){
+    String p = prefix??"Password";
+    if(pass!.isEmpty) return "$p cannot be empty";
+    if(pass.length < 6) return "$p must contain at least 6 chracters!";
+    return null;
+  }
+
+  static String? validateAndComparePassword(String? pass, String? compare, [String? prefix]){
+    String p = prefix??"Password";
+    String? valid = validatePassword(pass,prefix);
+    if(valid != null) return valid;
+    if(pass != compare){
+      return "$p do not match";
+    } 
+    return null;
+  }
+
 }

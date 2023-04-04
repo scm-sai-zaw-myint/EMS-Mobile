@@ -1,13 +1,9 @@
 // ignore_for_file: prefer_const_declarations
 
 class Config{
-  static final String xAppKey = "kBJDFFMW6mVfF38mXFqvBNcwWjg=";
-  static final String domainUrl = "http://10.0.2.2:9000/ems/api";
+  static final String domainUrl = "http://172.20.30.89:8080/ems/api";
   static final String contentType = "application/json";
 
   static final String login = "/showLogin";
-  static final String customerCreate = "/create";
-  static final String customerUpdate = "/update";
-  static final String customerDelete = "/delete";
-  static final String customerPatchDelete = "/patchDelete";
+  static final String changePassword = "/changePassword?update=update";
 }
