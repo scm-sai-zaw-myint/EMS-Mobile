@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ems_mobile/Models/Auth/auth_response.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Credential {
@@ -45,7 +46,13 @@ class Credential {
       token: token,
     );
   }
-
+  static void setCredential(AuthResponse authResponse){
+    if(authResponse.userInformation == null) return;
+    setEmployeeId(authResponse.userInformation!.employeeId);
+    setEmployeeName(authResponse.userInformation!.employeeName);
+    setEmployeeType(authResponse.userInformation!.employeeType);
+    setToken(authResponse.token);
+  }
   static void clearStorage() async {
     await storage.deleteAll();
   }

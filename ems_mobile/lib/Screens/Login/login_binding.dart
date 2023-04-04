@@ -1,9 +1,9 @@
-import 'package:ems_mobile/Screens/Login/login_controller.dart';
+import 'package:ems_mobile/Services/Login/login_service.dart';
 import 'package:get/get.dart';
 
 class LoginBinding extends Bindings{
   @override
   void dependencies() {
-    Get.lazyPut(() => LoginController());
+    Get.lazyPut(() => LoginService());
   }
 }
