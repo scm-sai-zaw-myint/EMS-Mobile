@@ -25,6 +25,7 @@ class EmsApp extends StatelessWidget {
       home: pageDefault,
       initialBinding: ServiceBinding(),
       getPages: PagesConfig.pages,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
