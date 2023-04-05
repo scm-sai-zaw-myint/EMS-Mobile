@@ -41,7 +41,7 @@ class CommonWidget {
                 child: Text(
                   left,
                   textAlign: TextAlign.left,
-                  style: profileTextStyle(Colors.green),
+                  style: profileTextStyle(Colors.blue),
                 ),
               ),
             ),
@@ -61,10 +61,19 @@ class CommonWidget {
   static Text profileTitle(String title) => Text(
         title,
         style: const TextStyle(
-            fontSize: 14, color: Colors.green, fontWeight: FontWeight.bold),
+            fontSize: 14, color: Colors.blue, fontWeight: FontWeight.bold),
       );
   static TextStyle profileTextStyle(Color color) => TextStyle(
         fontSize: 14,
         color: color,
+      );
+  static BoxDecoration commonBackground() => const BoxDecoration(
+      image: DecorationImage(
+          image: AssetImage("assets/images/img_bg.png"),
+          repeat: ImageRepeat.repeat));
+  static Text commonLeftLeave(String text) => Text(
+        text,
+        textAlign: TextAlign.right,
+        style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.blue),
       );
 }

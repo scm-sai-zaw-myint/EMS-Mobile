@@ -1,5 +1,5 @@
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
-import 'package:ems_mobile/Services/Profile/profile_service.dart';
+// import 'package:ems_mobile/Services/Profile/profile_service.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -12,17 +12,14 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    ProfileService.getProfile();
+    // ProfileService.getProfile();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Employee Management System"),
       ),
       body: SingleChildScrollView(
         child: Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/img_bg.png"),
-                    repeat: ImageRepeat.repeat)),
+            decoration: CommonWidget.commonBackground(),
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
               children: [
@@ -39,18 +36,13 @@ class _ProfileState extends State<Profile> {
                             height: 100,
                           ),
                           const SizedBox(height: 5),
-                          const Text(
-                            "Zaw Lwin Tun",
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold),
-                          ),
+                          CommonWidget.profileTitle("Zaw Lwin Tun"),
                         ],
                       ),
                     ),
                   ),
                 ),
+                const SizedBox(height: 5),
                 Center(
                   child: Card(
                     child: Padding(
@@ -81,6 +73,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 5),
                 Center(
                   child: Card(
                     child: Padding(
@@ -104,6 +97,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 5),
                 Center(
                   child: Card(
                     child: Padding(
