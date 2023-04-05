@@ -1,14 +1,30 @@
-import 'package:ems_mobile/Screens/Common/screen_pages.dart';
-import 'package:ems_mobile/Screens/Welcome/welcome.dart';
-import 'package:ems_mobile/Screens/Welcome/welcome_binding.dart';
+import 'package:ems_mobile/Screens/Dashboard.dart/dashboard.dart';
+import 'package:ems_mobile/Screens/Login/login_page.dart';
+import 'package:ems_mobile/Services/Common/pages_config.dart';
+import 'package:ems_mobile/Services/Common/service_binding.dart';
+import 'package:ems_mobile/Services/Credential/credential.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(GetMaterialApp(
-    title: "EMS Mobile",
-    home: const Welcome(),
-    initialBinding: WelcomeBinding(),
-    getPages: ScreenPages.pages,
-  ));
+Widget pageDefault = LoginPage();
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final result = await Credential.isLoggedIn();
+  if(result){
+    pageDefault = const Dashboard();
+  }
+  runApp(const EmsApp());
+}
+class EmsApp extends StatelessWidget {
+  const EmsApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      title: "EMS Mobile",
+      home: pageDefault,
+      initialBinding: ServiceBinding(),
+      getPages: PagesConfig.pages,
+    );
+  }
 }

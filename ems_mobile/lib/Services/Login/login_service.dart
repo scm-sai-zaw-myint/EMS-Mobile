@@ -11,49 +11,46 @@ import 'package:get/get.dart';
 class LoginService extends GetxController{
 
   Credential? _credential;
+  ApiService api = ApiService();
   var isLoadingCredential = false.obs;
 
   var step = 1.obs;
   var loginIdController = TextEditingController().obs;
   var passwordController = TextEditingController().obs;
   var isSecurePassword = true.obs;
-  late ApiService api;
 
+  var processingLogin = false.obs;
   var loginSuccess = false.obs;
+  var showSnackbar = false.obs;
+  var loginMessage = "".obs;
 
   Credential? get credential => _credential;
 
-  @override
-  void onInit() {
-    api = ApiService();
-    _processCredential();
-    super.onInit();
-  }
-
-  void login() async {
+  Future<bool> login() async {
+    processingLogin(true);
+    showSnackbar(true);
     final response = await api.post("${Config.domainUrl}${Config.login}", {
       "loginId" : loginIdController.value.text,
       "password" : passwordController.value.text
     });
+    processingLogin(false);
     if(response.statusCode == 503){
       loginSuccess(false);
-      return;
+      loginMessage("Enable to fetch the api!");
+      return false;
     }
     final body = response.body;
     AuthResponse authResponse = AuthResponse.fromJson(jsonDecode(body));
     if(authResponse.responseCode != 200){
       loginSuccess(false);
-      return;
+      showSnackbar(true);
+      loginMessage(authResponse.responseDescription);
+      return false;
     }
     Credential.setCredential(authResponse);
     loginSuccess(true);
-  }
-
-  _processCredential() async{
-    isLoadingCredential(true);
-    await Future.delayed(const Duration(seconds: 2));
-    _credential = await Credential.getCredential();
-    isLoadingCredential(false);
+    showSnackbar(false);
+    return true;
   }
 
 }
