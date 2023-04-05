@@ -13,30 +13,30 @@ class LoginPage extends StatelessWidget {
     return Obx(() => controller.step.value == 1
         ? TextFormField(
             controller: controller.loginIdController.value,
-            decoration: CommonWidget.loginInputDecoration("Login ID"),
-            validator: (value){
-              if(value == null) return "Login Id cannot be null!";
-              if(value.isEmpty) return "Login Id cannot be empty";
+            decoration: CommonWidget.inputDecoration("Login ID"),
+            validator: (value) {
+              if (value == null) return "Login Id cannot be null!";
+              if (value.isEmpty) return "Login Id cannot be empty";
               return null;
             },
-            
           )
         : TextFormField(
             controller: controller.passwordController.value,
             decoration: CommonWidget.passwordInputDecoration(
               "Password",
-              controller.isSecurePassword.value ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+              controller.isSecurePassword.value
+                  ? const Icon(Icons.visibility)
+                  : const Icon(Icons.visibility_off),
               () => {
                 controller.isSecurePassword(!controller.isSecurePassword.value)
               },
-              ),
+            ),
             obscureText: controller.isSecurePassword.value,
-            validator: (value){
-              if(value == null) return "Password cannot be null!";
-              if(value.isEmpty) return "Password cannot be empty";
+            validator: (value) {
+              if (value == null) return "Password cannot be null!";
+              if (value.isEmpty) return "Password cannot be empty";
               return null;
             },
-
           ));
   }
 
@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    if(_formKey.currentState!.validate()){
+                    if (_formKey.currentState!.validate()) {
                       controller.step(2);
                     }
                   },
@@ -63,7 +63,7 @@ class LoginPage extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     _formKey.currentState!.reset();
                     controller.step(1);
                   },
@@ -77,9 +77,7 @@ class LoginPage extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    if(_formKey.currentState!.validate()){
-                      
-                    }
+                    if (_formKey.currentState!.validate()) {}
                   },
                   style: CommonWidget.primaryButtonStyle(),
                   child: Text("Login".toUpperCase()),
