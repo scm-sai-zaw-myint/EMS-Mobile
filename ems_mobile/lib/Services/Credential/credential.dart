@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+// ignore_for_file: file_names
 import 'package:ems_mobile/Models/Auth/auth_response.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -34,6 +33,16 @@ class Credential {
     await storage.write(key: "token", value: token);
   }
 
+  static Future<bool> isLoggedIn() async {
+    final token = await storage.read(key: "token");
+    if(token != null){
+      //check jwt token time 
+      //ok 
+      return true;
+    }
+    return false;
+  }
+
   static Future<Credential> getCredential() async {
     final employeeId = await storage.read(key: "employeeId");
     final employeeName = await storage.read(key: "employeeName");
@@ -57,13 +66,4 @@ class Credential {
     await storage.deleteAll();
   }
 
-  @override
-  String toString() {
-    return jsonEncode({
-      "employeeId": employeeId,
-      "employeeName": employeeName,
-      "employeeType": employeeType,
-      "token": token,
-    });
-  }
 }
