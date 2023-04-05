@@ -40,7 +40,7 @@ class LoginService extends GetxController{
       return false;
     }
     final body = response.body;
-    AuthResponse authResponse = AuthResponse.fromJson(jsonDecode(body));
+    AuthResponse authResponse = AuthResponse.successJson(jsonDecode(body));
     if(authResponse.responseCode != 200){
       loginSuccess(false);
       showSnackbar(true);

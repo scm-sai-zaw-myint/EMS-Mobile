@@ -18,23 +18,20 @@ class AuthResponse{
     this.userInformation
   }
   );
-  factory AuthResponse.fromJson(Map<String, dynamic> json) {
-    final responseCode = json["responseCode"];
-    if(responseCode == 200){
-        return AuthResponse(
+  factory AuthResponse.successJson(Map<String, dynamic> json){
+    return AuthResponse(
           timestamp: json['timestamp'],
           responseCode: json['responseCode'],
           responseDescription: json['responseDescription'],
           token: json['token'],
           userInformation: User.fromJson(json['userInfomation'])
         );
-      }else{
-        return AuthResponse(
-          timestamp: json['timestamp'],
-          responseCode: json['responseCode'],
-          responseDescription: json['responseDescription']
-        );
-      }
+  }
+  factory AuthResponse.failJson(Map<String, dynamic> json) {
+    return AuthResponse(
+        timestamp: json['timestamp'],
+        responseCode: json['responseCode'],
+        responseDescription: json['responseDescription']);
   }
   @override
   String toString() {
