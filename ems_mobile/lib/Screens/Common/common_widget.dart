@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 typedef EyeCallback = Function();
 class CommonWidget {
   //Decoration goes here
-  static InputDecoration loginInputDecoration(String name) => InputDecoration(
+  static InputDecoration inputDecoration(String name) => InputDecoration(
       hintText: name,
       labelText: name,
       contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -44,5 +44,4 @@ class CommonWidget {
     } 
     return null;
   }
-
 }
