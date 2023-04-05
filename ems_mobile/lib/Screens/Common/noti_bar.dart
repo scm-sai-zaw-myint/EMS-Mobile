@@ -1,6 +1,5 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class NotiBar {
   static void showSnackbar(context, String title, String message, ContentType type) {

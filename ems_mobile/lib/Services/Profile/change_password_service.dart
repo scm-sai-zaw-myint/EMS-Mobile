@@ -19,22 +19,6 @@ class ChangePasswordService extends GetxController{
 
   late ApiService api;
 
-  @override
-  void onInit() {
-    _loadCredential();    
-    super.onInit();
-  }
-
-  void _loadCredential() async{
-    credential = await Credential.getCredential();
-    if(credential == null) return;
-    employeeId = credential!.employeeId;
-    api = ApiService.authorized({
-      "Content-Type": Config.contentType,
-      "Authorization": "Bearer ${credential!.token}"
-    });
-  }
-
   TextEditingController get currentPasswordController => _currentPasswordController.value;
   TextEditingController get newPasswordController => _newPasswordController.value;
   TextEditingController get confirmPasswordController => _confirmPasswordController.value;

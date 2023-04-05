@@ -1,9 +1,18 @@
 // ignore_for_file: prefer_const_declarations
 
 class Config{
-  static final String domainUrl = "http://172.20.30.89:8080/ems/api";
-  static final String contentType = "application/json";
 
+  static final String domainUrl = "http://172.31.240.1:8080/ems/api";
+
+  /// Pages Routes Start ///
+  static const String welcomePage = "/";
+  static const String loginPage = "/login";
+  static const String dashboardPage = "/dashboard";
+  static const String changePasswordPage = "/changePassword";
+
+  /// Pages Routes End ///
+
+  /// API Routes  ///
   static final String login = "/showLogin";
   static final String changePassword = "/changePassword?update=update";
 }

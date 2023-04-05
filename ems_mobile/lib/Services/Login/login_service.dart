@@ -11,13 +11,13 @@ import 'package:get/get.dart';
 class LoginService extends GetxController{
 
   Credential? _credential;
+  ApiService api = ApiService();
   var isLoadingCredential = false.obs;
 
   var step = 1.obs;
   var loginIdController = TextEditingController().obs;
   var passwordController = TextEditingController().obs;
   var isSecurePassword = true.obs;
-  ApiService api = ApiService();
 
   var processingLogin = false.obs;
   var loginSuccess = false.obs;
@@ -25,13 +25,6 @@ class LoginService extends GetxController{
   var loginMessage = "".obs;
 
   Credential? get credential => _credential;
-
-  @override
-  void onInit() {
-    _processCredential();
-    Credential.clearStorage();
-    super.onInit();
-  }
 
   Future<bool> login() async {
     processingLogin(true);
@@ -58,13 +51,6 @@ class LoginService extends GetxController{
     loginSuccess(true);
     showSnackbar(false);
     return true;
-  }
-
-  _processCredential() async{
-    isLoadingCredential(true);
-    await Future.delayed(const Duration(seconds: 2));
-    _credential = await Credential.getCredential();
-    isLoadingCredential(false);
   }
 
 }
