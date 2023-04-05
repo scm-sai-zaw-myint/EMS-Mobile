@@ -1,6 +1,7 @@
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
 import 'package:ems_mobile/Screens/Common/dashboard_card.dart';
 import 'package:ems_mobile/Screens/Overtime/overtime_report.dart';
+import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: ,
+      appBar: AppBar(key: null,),
       backgroundColor: const Color.fromARGB(255, 192, 235, 255),
       body: SingleChildScrollView(
         child: Container(
@@ -50,9 +51,7 @@ class _DashboardState extends State<Dashboard> {
                       Icons.timer_sharp,
                       "Overtime Request",
                       () => {
-                        Get.to(
-                          const OvertimeReport(),
-                        ),
+                        Get.toNamed(Config.OvertimeRequestPage),
                       },
                     ),
                   ),
