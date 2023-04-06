@@ -12,11 +12,11 @@ class Config {
   static final String profilePage = "/leaveHistory";
   static final String singleLeaveRequestPage = "/singleLeaveRequest";
   static final String longTermLeaveRequestPage = "/longLeaveRequest";
-  static final String overtimeRequestPage = "";
+  static final String overtimeRequestPage = "/overtimeRequest";
   static final String attendanceRequestPage = "";
   static final String transportationRequestPage = "";
-  static final String singleLeaveHistoryPage = "";
-  static final String longTermLeaveHistoryPage = "";
+  static final String leaveHistoryPage = "/leaveHistory";
+  static final String leaveDetailPage = "/leaveDetail";
   static final String overtimeHistoryPage = "";
   static final String attendanceHistoryPage = "";
   static final String transportationHistoryPage = "";
@@ -31,4 +31,5 @@ class Config {
   static final String leaveHistory = "/leaveRecord";
   static final String singleLeaveRequest = "/leaveReport";
   static final String longLeaveRequest = "/longTermLeaveReport";
+  static final String overtimeRegist = "/registerOvertime";
 }

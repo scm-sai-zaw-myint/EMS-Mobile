@@ -1,4 +1,4 @@
-import 'package:ems_mobile/Screens/Dashboard.dart/dashboard.dart';
+import 'package:ems_mobile/Screens/Dashboard/dashboard.dart';
 import 'package:ems_mobile/Screens/Login/login_page.dart';
 import 'package:ems_mobile/Services/Common/pages_config.dart';
 import 'package:ems_mobile/Services/Common/service_binding.dart';

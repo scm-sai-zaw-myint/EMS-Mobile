@@ -177,7 +177,7 @@ class DrawerWidget extends StatelessWidget {
                     ),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Config.longTermLeaveRequestPage);
+                      Get.toNamed(Config.longLeaveRequestPage);
                     },
                   ),
                   ListTile(
@@ -261,7 +261,7 @@ class DrawerWidget extends StatelessWidget {
                     ),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Config.singleLeaveHistoryPage);
+                      Get.toNamed(Config.singleLeaveRequestPage);
                     },
                   ),
                   ListTile(
@@ -273,7 +273,7 @@ class DrawerWidget extends StatelessWidget {
                     ),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Config.longTermLeaveHistoryPage);
+                      Get.toNamed(Config.longLeaveRequestPage);
                     },
                   ),
                   ListTile(

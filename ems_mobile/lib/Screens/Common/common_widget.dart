@@ -6,7 +6,6 @@ typedef OnTimeChange = Function(TimeOfDay time);
 typedef DashboardRoute = Function();
 
 class CommonWidget {
-  static Color appPrimaryColor = Colors.blue;
   static Color primaryColor = const Color(0xff7f00fe);
   static Color lightColor = const Color(0xfff2e5fe);
   static Color softColor = const Color(0xffbf7ffe);
@@ -63,7 +62,7 @@ class CommonWidget {
                 child: Text(
                   left,
                   textAlign: TextAlign.left,
-                  style: profileTextStyle(appPrimaryColor),
+                  style: profileTextStyle(primaryColor),
                 ),
               ),
             ),
@@ -84,7 +83,7 @@ class CommonWidget {
   static Text profileTitle(String title) => Text(
         title,
         style: TextStyle(
-            fontSize: 14, color: appPrimaryColor, fontWeight: FontWeight.bold),
+            fontSize: 14, color: primaryColor, fontWeight: FontWeight.bold),
       );
 
   static TextStyle profileTextStyle(Color color) => TextStyle(
@@ -101,7 +100,7 @@ class CommonWidget {
         text,
         textAlign: TextAlign.right,
         style: TextStyle(
-            fontSize: 16, fontWeight: FontWeight.w500, color: appPrimaryColor),
+            fontSize: 16, fontWeight: FontWeight.w500, color: primaryColor),
       );
 
   //validor goes here
