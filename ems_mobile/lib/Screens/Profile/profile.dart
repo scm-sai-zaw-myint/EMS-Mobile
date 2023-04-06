@@ -1,6 +1,9 @@
+import 'package:ems_mobile/Models/Employee/employee.dart';
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
-// import 'package:ems_mobile/Services/Profile/profile_service.dart';
+// import 'package:ems_mobile/Services/Common/config.dart';
+import 'package:ems_mobile/Services/Profile/profile_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -12,138 +15,174 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    // ProfileService.getProfile();
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Employee Management System"),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-            decoration: CommonWidget.commonBackground(),
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: Column(
-              children: [
-                Center(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 20),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            "assets/images/img_profile.jpg",
-                            width: 100,
-                            height: 100,
+    return GetBuilder<ProfileService>(builder: (controller) {
+      controller.getProfile();
+      return Obx(() => Scaffold(
+            appBar: AppBar(
+              title: const Text("Employee Management System"),
+            ),
+            body: SingleChildScrollView(
+              child: Container(
+                  decoration: CommonWidget.commonBackground(),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            child: Column(
+                              children: [
+                                controller.commonImageWidget(),
+                                const SizedBox(height: 5),
+                                CommonWidget.profileTitle(
+                                    controller.employee.employeeName ?? "-"),
+                              ],
+                            ),
                           ),
-                          const SizedBox(height: 5),
-                          CommonWidget.profileTitle("Zaw Lwin Tun"),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Center(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          CommonWidget.profileTitle("Detail Information"),
-                          const SizedBox(height: 10),
-                          Wrap(
-                            children: [
-                              CommonWidget.profileRow("Employee ID", "E00419"),
-                              CommonWidget.profileRow(
-                                  "Employee Name", "Zaw Lwin Tun"),
-                              CommonWidget.profileRow(
-                                  "Position", "Junior Dveloper"),
-                              CommonWidget.profileRow("Team", "Dev-4"),
-                              CommonWidget.profileRow(
-                                  "Join Date", "26/04/2022"),
-                              CommonWidget.profileRow(
-                                  "Company ", "Head Office"),
-                              CommonWidget.profileRow("Card ID", "18316"),
-                              CommonWidget.profileRow("Department", "Dev-4"),
-                              CommonWidget.profileRow("Type", "Full Time"),
-                            ],
-                          )
-                        ],
+                      const SizedBox(height: 5),
+                      Center(
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                CommonWidget.profileTitle("Detail Information"),
+                                const SizedBox(height: 10),
+                                Wrap(
+                                  children: [
+                                    CommonWidget.profileRow("Employee ID",
+                                        controller.employee.employeeId ?? "-"),
+                                    CommonWidget.profileRow(
+                                        "Employee Name",
+                                        controller.employee.employeeName ??
+                                            "-"),
+                                    CommonWidget.profileRow("Position",
+                                        controller.employee.position ?? "-"),
+                                    CommonWidget.profileRow(
+                                        "Join Date",
+                                        controller.employee.joinDate
+                                                ?.toString() ??
+                                            "-"),
+                                    CommonWidget.profileRow("Company ",
+                                        controller.employee.companyName ?? "-"),
+                                    CommonWidget.profileRow("Card ID",
+                                        controller.employee.cardId ?? "-"),
+                                    CommonWidget.profileRow(
+                                        "Department",
+                                        controller.employee.departmentName ??
+                                            "-"),
+                                    CommonWidget.profileRow("Type",
+                                        controller.employee.type ?? "-"),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Center(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          CommonWidget.profileTitle(
-                              "Education Detail Information"),
-                          const SizedBox(height: 10),
-                          Wrap(
-                            children: [
-                              CommonWidget.profileRow("Language Skill", "N4"),
-                              CommonWidget.profileRow("IQ Mark", "100.0"),
-                              CommonWidget.profileRow("Programming", "Java"),
-                              CommonWidget.profileRow("Graduated University",
-                                  "University of Computer Studies, Yangon"),
-                            ],
-                          )
-                        ],
+                      const SizedBox(height: 5),
+                      Center(
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                CommonWidget.profileTitle(
+                                    "Education Detail Information"),
+                                const SizedBox(height: 10),
+                                Wrap(
+                                  children: [
+                                    CommonWidget.profileRow("Language Skill",
+                                        controller.employee.jlpt ?? "-"),
+                                    CommonWidget.profileRow(
+                                        "IQ Mark",
+                                        controller.employee.iqTestRemark
+                                                .toString()
+                                                .isEmpty
+                                            ? "-"
+                                            : controller.employee.iqTestRemark
+                                                .toString()),
+                                    CommonWidget.profileRow(
+                                        "Programming",
+                                        controller.employee.languageSkill ??
+                                            "-"),
+                                    CommonWidget.profileRow(
+                                        "Graduated University",
+                                        controller
+                                                .employee.graduateUniversity ??
+                                            "-"),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Center(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          CommonWidget.profileTitle(
-                              "Personal Detail Information"),
-                          const SizedBox(height: 10),
-                          Wrap(
-                            children: [
-                              CommonWidget.profileRow("DOB", "04/04/2023"),
-                              CommonWidget.profileRow("NRC DOB", "04/04/2023"),
-                              CommonWidget.profileRow("Gender", "Male"),
-                              CommonWidget.profileRow(
-                                  "NRC No.", "12/AAAAAA(N)123456"),
-                              CommonWidget.profileRow(
-                                  "Phone", "09789456123, 0931456987"),
-                              CommonWidget.profileRow(
-                                  "Email", "scm.zawlwintun@gmail.com"),
-                              CommonWidget.profileRow(
-                                  "BankAccount", "0000 0000 0000 0000"),
-                              CommonWidget.profileRow("SSB No.", ""),
-                              CommonWidget.profileRow(
-                                  "SSB Card Issue Date", ""),
-                              CommonWidget.profileRow("Religion", "Atheist"),
-                              CommonWidget.profileRow("PC No.", "P-00464"),
-                              CommonWidget.profileRow("PC Password", "abcdefg"),
-                              CommonWidget.profileRow(
-                                  "MAC Address", "AA-BB-CC-DD-EE-FF"),
-                              CommonWidget.profileRow("Contact Name", "Ma Ma"),
-                              CommonWidget.profileRow(
-                                  "Contact Phone", "09852147963"),
-                              CommonWidget.profileRow(
-                                  "Relation", "Sugar Mommy"),
-                              CommonWidget.profileRow("Address", "Yangon"),
-                            ],
-                          )
-                        ],
+                      const SizedBox(height: 5),
+                      Center(
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                CommonWidget.profileTitle(
+                                    "Personal Detail Information"),
+                                const SizedBox(height: 10),
+                                Wrap(
+                                  children: [
+                                    CommonWidget.profileRow("DOB",
+                                        controller.employee.dateOfBirth ?? "-"),
+                                    CommonWidget.profileRow("NRC DOB",
+                                        controller.employee.nrcDob ?? "-"),
+                                    CommonWidget.profileRow("Gender",
+                                        controller.employee.gender ?? "-"),
+                                    CommonWidget.profileRow("NRC No.",
+                                        controller.employee.nrc ?? "-"),
+                                    CommonWidget.profileRow("Phone",
+                                        controller.employee.phone ?? "-"),
+                                    CommonWidget.profileRow("Email",
+                                        controller.employee.email ?? "-"),
+                                    CommonWidget.profileRow("BankAccount",
+                                        controller.employee.bankAccount ?? "-"),
+                                    CommonWidget.profileRow("SSB No.", "-"),
+                                    CommonWidget.profileRow(
+                                        "SSB Card Issue Date", "-"),
+                                    CommonWidget.profileRow("Religion",
+                                        controller.employee.religion ?? "-"),
+                                    CommonWidget.profileRow("PC No.",
+                                        controller.employee.pcNo ?? "-"),
+                                    CommonWidget.profileRow("PC Password",
+                                        controller.employee.pcPassword ?? "-"),
+                                    CommonWidget.profileRow("MAC Address",
+                                        controller.employee.macAddress ?? "-"),
+                                    CommonWidget.profileRow(
+                                        "Contact Name",
+                                        controller.employee.contactPerson ??
+                                            "-"),
+                                    CommonWidget.profileRow(
+                                        "Contact Phone",
+                                        controller.employee.contactPhone ??
+                                            "-"),
+                                    CommonWidget.profileRow("Relation",
+                                        controller.employee.relation ?? "-"),
+                                    CommonWidget.profileRow("Address",
+                                        controller.employee.address ?? "-"),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              ],
-            )),
-      ),
-    );
+                    ],
+                  )),
+            ),
+          ));
+    });
   }
 }

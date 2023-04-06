@@ -1,118 +1,123 @@
 import 'dart:io';
+import 'package:ems_mobile/Services/Common/config.dart';
+import 'package:intl/intl.dart';
 
-class Employee{
+class Employee {
+  String? employeeId;
 
-     String? employeeId;
+  int? companyId;
 
-     int? companyId;
- 
-     String? companyType;
+  String? companyType;
 
-     String? cardId;
+  String? companyName;
 
-     String? contractNo;
+  String? cardId;
 
-     int? employeeType;
+  String? contractNo;
 
-     String? position;
+  int? employeeType;
 
-     String? positionStartDate;
+  String? position;
 
-     String? password;
+  String? positionStartDate;
 
-     String? confirmPassword;
+  String? password;
 
-     String? newPassword;
+  String? confirmPassword;
 
-     String? employeeName;
+  String? newPassword;
 
-     String? address;
+  String? employeeName;
 
-     String? phone;
+  String? address;
 
-     String? email;
+  String? phone;
 
-     String? officeEmail;
+  String? email;
 
-     Object? personalInfoForm;
- 
-     String? gender;
- 
-     int? type;
+  String? officeEmail;
 
-     String? nrc;
+  Object? personalInfoForm;
 
- 
-     String? dateOfBirth;
+  String? gender;
 
-     String? nrcDob;
+  String? type;
 
-     String? photo;
+  String? nrc;
 
-     String? basicSalary;
+  String? dateOfBirth;
 
-     String? signOutDate;
+  String? nrcDob;
 
-     String? joinDate;
+  String? photo;
 
-     String? contactPhone;
+  double? basicSalary;
 
-     String? maritalStatus;
+  String? signOutDate;
 
-     String? contactName;
+  String? joinDate;
 
-     String? relation;
+  String? contactPhone;
 
-     String? homeAddress;
+  String? maritalStatus;
 
-     String? macAddress;
+  String? contactPerson;
 
-     String? bankAccountType;
+  String? relation;
 
-     String? bankAccount;
+  String? homeAddress;
 
-     String? graduateUniversity;
+  String? macAddress;
 
-     String? graduateDegree;
+  String? bankAccountType;
 
-     String? pcNo;
+  String? bankAccount;
 
-     String? pcPassword;
+  String? graduateUniversity;
 
-     String? jlpt;
+  String? graduateDegree;
 
-     String? languageSkill;
+  String? pcNo;
 
-     double? iqTestRemark;
+  String? pcPassword;
 
-     bool? useFerry;
+  String? jlpt;
 
-     File? file;
+  String? languageSkill;
 
-     String? createdUserId;
+  String? religion;
 
-     String? updatedUserId;
+  double? iqTestRemark;
 
-     String? departmentName;
+  bool? useFerry;
 
-     String? managerId;
+  File? file;
 
-     String? managerName;
+  String? createdUserId;
 
-     List<String>? divisionName;
- 
-     String? department;
+  String? updatedUserId;
 
-    Employee({
-      required this.address,
+  String? departmentName;
+
+  String? managerId;
+
+  String? managerName;
+
+  List<String>? divisionName;
+
+  String? department;
+
+  Employee(
+      {required this.address,
       required this.bankAccount,
       required this.bankAccountType,
       required this.basicSalary,
       required this.cardId,
       required this.companyId,
       required this.companyType,
+      required this.companyName,
       required this.confirmPassword,
-      required this.contactName,
+      required this.contactPerson,
       required this.contactPhone,
       required this.contractNo,
       required this.createdUserId,
@@ -150,123 +155,122 @@ class Employee{
       required this.position,
       required this.positionStartDate,
       required this.relation,
+      required this.religion,
       required this.signOutDate,
       required this.type,
       required this.updatedUserId,
-      required this.useFerry
-    });
-    
-    Employee.empty();
+      required this.useFerry});
 
-    factory Employee.formJson(Map<String, dynamic> json){
-      return Employee(
-        address: json["address"], 
-        bankAccount: json["bankAccount"], 
-        bankAccountType: json["bankAccountType"], 
-        basicSalary: json["basicSalary"], 
-        cardId: json["cardId"], 
-        companyId: json["companyId"], 
-        companyType: json["companyType"], 
-        confirmPassword: json["confirmPassword"], 
-        contactName: json["contactName"], 
-        contactPhone: json["contactPhone"], 
-        contractNo: json["contractNo"], 
-        createdUserId: json["createdUserId"], 
-        dateOfBirth: json["dateOfBirth"], 
-        department: json["department"], 
-        departmentName: json["departmentName"], 
-        divisionName: json["divisionName"], 
-        email: json["email"], 
-        employeeId: json["employeeId"], 
-        employeeName: json["employeeName"], 
-        employeeType: json["employeeType"], 
-        file: json["file"], 
-        gender: json["gender"], 
-        graduateDegree: json["graduateDegree"], 
-        graduateUniversity: json["graduateUniversity"], 
-        homeAddress: json["homeAddress"], 
-        iqTestRemark: json["iqTestRemark"], 
-        jlpt: json["jlpt"], 
-        joinDate: json["joinDate"], 
-        languageSkill: json["languageSkill"], 
-        macAddress: json["macAddress"], 
-        managerId: json["managerId"], 
-        managerName: json["managerName"], 
-        maritalStatus: json["maritalStatus"], 
-        newPassword: json["newPassword"], 
-        nrc: json["nrc"], 
-        nrcDob: json["nrcDob"], 
-        officeEmail: json["officeEmail"], 
-        password: json["password"], 
-        pcNo: json["pcNo"], 
-        pcPassword: json["pcPassword"], 
-        personalInfoForm: json["personalInfoForm"], 
-        phone: json["phone"], 
-        photo: json["photo"], 
-        position: json["position"], 
-        positionStartDate: json["positionStartDate"], 
-        relation: json["relation"], 
-        signOutDate: json["signOutDate"], 
-        type: json["type"], 
-        updatedUserId: 
-        json["updatedUserId"], 
-        useFerry: json["useFerry"]
-        );
+  Employee.empty();
 
-    }
-    Map<String, dynamic> toJson(){
-      return {
-        "address":  address, 
-        "bankAccount":  bankAccount, 
-        "bankAccountType":  bankAccountType, 
-        "basicSalary":  basicSalary, 
-        "cardId":  cardId, 
-        "companyId":  companyId, 
-        "companyType":  companyType, 
-        "confirmPassword":  confirmPassword, 
-        "contactName":  contactName, 
-        "contactPhone":  contactPhone, 
-        "contractNo":  contractNo, 
-        "createdUserId":  createdUserId, 
-        "dateOfBirth":  dateOfBirth, 
-        "department":  department, 
-        "departmentName":  departmentName, 
-        "divisionName":  divisionName, 
-        "email":  email, 
-        "employeeId":  employeeId, 
-        "employeeName":  employeeName, 
-        "employeeType":  employeeType, 
-        "file":  file, 
-        "gender":  gender, 
-        "graduateDegree":  graduateDegree, 
-        "graduateUniversity":  graduateUniversity, 
-        "homeAddress":  homeAddress, 
-        "iqTestRemark":  iqTestRemark, 
-        "jlpt":  jlpt, 
-        "joinDate":  joinDate, 
-        "languageSkill":  languageSkill, 
-        "macAddress":  macAddress, 
-        "managerId":  managerId, 
-        "managerName":  managerName, 
-        "maritalStatus":  maritalStatus, 
-        "newPassword":  newPassword, 
-        "nrc":  nrc, 
-        "nrcDob":  nrcDob, 
-        "officeEmail":  officeEmail, 
-        "password":  password, 
-        "pcNo":  pcNo, 
-        "pcPassword":  pcPassword, 
-        "personalInfoForm":  personalInfoForm, 
-        "phone":  phone, 
-        "photo":  photo, 
-        "position":  position, 
-        "positionStartDate":  positionStartDate, 
-        "relation":  relation, 
-        "signOutDate":  signOutDate, 
-        "type":  type, 
-        "updatedUserId":  
-        updatedUserId, 
-        "useFerry":  useFerry
-      };
-    }
+  factory Employee.formJson(Map<String, dynamic> json) {
+    return Employee(
+        address: json["address"],
+        bankAccount: json["bankAccount"],
+        bankAccountType: json["bankAccountType"],
+        basicSalary: json["basicSalary"],
+        cardId: json["cardId"],
+        companyId: json["companyId"],
+        companyType: json["companyType"],
+        companyName: json["companyName"],
+        confirmPassword: json["confirmPassword"],
+        contactPerson: json["contactPerson"],
+        contactPhone: json["contactPhone"],
+        contractNo: json["contractNo"],
+        createdUserId: json["createdUserId"],
+        dateOfBirth: json["dateOfBirth"],
+        department: json["department"],
+        departmentName: json["departmentName"],
+        divisionName: json["divisionName"],
+        email: json["email"],
+        employeeId: json["employeeId"],
+        employeeName: json["employeeName"],
+        employeeType: json["employeeType"],
+        file: json["file"],
+        gender: json["gender"],
+        graduateDegree: json["graduateDegree"],
+        graduateUniversity: json["graduateUniversity"],
+        homeAddress: json["homeAddress"],
+        iqTestRemark: json["iqTestRemark"],
+        jlpt: json["jlpt"],
+        joinDate: DateFormat('dd/MM/yyyy')
+            .format(DateTime.fromMillisecondsSinceEpoch(json["joinDate"])),
+        languageSkill: json["languageSkill"],
+        macAddress: json["macAddress"],
+        managerId: json["managerId"],
+        managerName: json["managerName"],
+        maritalStatus: json["maritalStatus"],
+        newPassword: json["newPassword"],
+        nrc: json["nrc"],
+        nrcDob: json["nrcDob"],
+        officeEmail: json["officeEmail"],
+        password: json["password"],
+        pcNo: json["pcNo"],
+        pcPassword: json["pcPassword"],
+        personalInfoForm: json["personalInfoForm"],
+        phone: json["phone"],
+        photo: "${Config.imgUrl}${json["photo"]}",
+        position: json["position"],
+        positionStartDate: json["positionStartDate"],
+        relation: json["relation"],
+        religion: json["religion"],
+        signOutDate: json["signOutDate"],
+        type: json["type"],
+        updatedUserId: json["updatedUserId"],
+        useFerry: json["useFerry"]);
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      "address": address,
+      "bankAccount": bankAccount,
+      "bankAccountType": bankAccountType,
+      "basicSalary": basicSalary,
+      "cardId": cardId,
+      "companyId": companyId,
+      "companyType": companyType,
+      "confirmPassword": confirmPassword,
+      "contactPerson": contactPerson,
+      "contactPhone": contactPhone,
+      "contractNo": contractNo,
+      "createdUserId": createdUserId,
+      "dateOfBirth": dateOfBirth,
+      "department": department,
+      "departmentName": departmentName,
+      "divisionName": divisionName,
+      "email": email,
+      "employeeId": employeeId,
+      "employeeName": employeeName,
+      "employeeType": employeeType,
+      "file": file,
+      "gender": gender,
+      "graduateDegree": graduateDegree,
+      "graduateUniversity": graduateUniversity,
+      "homeAddress": homeAddress,
+      "iqTestRemark": iqTestRemark,
+      "jlpt": jlpt,
+      "joinDate": joinDate,
+      "languageSkill": languageSkill,
+      "macAddress": macAddress,
+      "managerId": managerId,
+      "managerName": managerName,
+      "maritalStatus": maritalStatus,
+      "newPassword": newPassword,
+      "nrc": nrc,
+      "nrcDob": nrcDob,
+      "officeEmail": officeEmail,
+      "password": password,
+      "pcNo": pcNo,
+      "pcPassword": pcPassword,
+      "personalInfoForm": personalInfoForm,
+      "phone": phone,
+      "photo": photo,
+      "position": position,
+      "positionStartDate": positionStartDate,
+      "relation": relation,
+      "signOutDate": signOutDate,
+      "type": type,
+      "updatedUserId": updatedUserId,
+      "useFerry": useFerry
+    };
+  }
 }

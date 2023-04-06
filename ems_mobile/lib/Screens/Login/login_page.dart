@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
                       TextFormField(
                         controller: controller.loginIdController.value,
                         decoration:
-                            CommonWidget.loginInputDecoration("Login ID"),
+                            CommonWidget.inputDecoration("Login ID"),
                         validator: (value) {
                           if (value == null) return "Login Id cannot be null!";
                           if (value.isEmpty) return "Login Id cannot be empty";

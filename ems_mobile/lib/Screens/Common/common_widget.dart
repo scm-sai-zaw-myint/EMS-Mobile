@@ -1,6 +1,4 @@
-import 'package:ems_mobile/Screens/Overtime/overtime_report.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 typedef EyeCallback = Function();
 typedef OnDOBChange = Function(DateTime datetime);
@@ -16,6 +14,7 @@ class CommonWidget {
           borderRadius: BorderRadius.circular(20),
         ),
       );
+
   static InputDecoration passwordInputDecoration(
           String name, Icon icon, EyeCallback callback) =>
       InputDecoration(
@@ -30,17 +29,20 @@ class CommonWidget {
           borderRadius: BorderRadius.circular(20),
         ),
       );
+
   static ButtonStyle primaryButtonStyle() => ElevatedButton.styleFrom(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
         padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
       );
+
   static ButtonStyle secondaryButtonStyle() => ElevatedButton.styleFrom(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
       padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
       backgroundColor: const Color.fromARGB(255, 224, 224, 224),
       foregroundColor: Colors.black);
+
   static Padding profileRow(String left, String right) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -69,44 +71,48 @@ class CommonWidget {
           ],
         ),
       );
+
   static Text profileTitle(String title) => Text(
         title,
         style: const TextStyle(
             fontSize: 14, color: Colors.blue, fontWeight: FontWeight.bold),
       );
+
   static TextStyle profileTextStyle(Color color) => TextStyle(
         fontSize: 14,
         color: color,
       );
+
   static BoxDecoration commonBackground() => const BoxDecoration(
       image: DecorationImage(
           image: AssetImage("assets/images/img_bg.png"),
           repeat: ImageRepeat.repeat));
+
   static Text commonLeftLeave(String text) => Text(
         text,
         textAlign: TextAlign.right,
-        style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.blue),
+        style: const TextStyle(
+            fontSize: 16, fontWeight: FontWeight.w500, color: Colors.blue),
       );
 
-
   //validor goes here
-  static String? validatePassword(String? pass,[String? prefix]){
-    String p = prefix??"Password";
-    if(pass!.isEmpty) return "$p cannot be empty";
-    if(pass.length < 6) return "$p must contain at least 6 chracters!";
+  static String? validatePassword(String? pass, [String? prefix]) {
+    String p = prefix ?? "Password";
+    if (pass!.isEmpty) return "$p cannot be empty";
+    if (pass.length < 6) return "$p must contain at least 6 chracters!";
     return null;
   }
 
-  static String? validateAndComparePassword(String? pass, String? compare, [String? prefix]){
-    String p = prefix??"Password";
-    String? valid = validatePassword(pass,prefix);
-    if(valid != null) return valid;
-    if(pass != compare){
+  static String? validateAndComparePassword(String? pass, String? compare,
+      [String? prefix]) {
+    String p = prefix ?? "Password";
+    String? valid = validatePassword(pass, prefix);
+    if (valid != null) return valid;
+    if (pass != compare) {
       return "$p do not match";
     }
     return null;
   }
-
 
   static Card cardStyle(IconData? cardIcon, text, DashboardRoute route) {
     return Card(

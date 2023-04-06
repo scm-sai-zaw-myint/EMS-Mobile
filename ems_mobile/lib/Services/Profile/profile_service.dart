@@ -1,49 +1,27 @@
-import 'package:ems_mobile/Services/Common/config.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async';
+import 'dart:convert';
 
-class ProfileService {
-  static Future<void> getProfile() async {
-    print("${Config.domainUrl}/employeeProfile");
-    final response = await http.get(
-        Uri.parse("${Config.domainUrl}/employeeProfile"),
-        headers: {'Content-Type': Config.contentType});
-    print(response.body);
+import 'package:ems_mobile/Models/Employee/employee.dart';
+import 'package:ems_mobile/Services/Common/api_service.dart';
+import 'package:ems_mobile/Services/Common/config.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class ProfileService extends GetxController {
+  final _loading = false.obs;
+  var emp = Employee.empty().obs;
+  ApiService api = ApiService();
+
+  Employee get employee => emp.value;
+
+  getProfile() async {
+    _loading(true);
+    final response = await api.get("${Config.domainUrl}${Config.profile}");
+    Map<String, dynamic> map = jsonDecode(response.body);
+    emp.value = Employee.formJson(map["profileForm"]);
+    _loading(false);
   }
 
-// class Login {
-//   String? id;
-//   String? password;
-//   Map<String, dynamic> toJson() {
-//     return {
-//       'loginId': id,
-//       'password': password,
-//     };
-//   }
-// }
-
-// class ResponseBody {
-//   final int timeStamp;
-//   final int responseCode;
-//   final String responseDescription;
-//   final String? token;
-//   final String userInformation;
-
-//   const ResponseBody({
-//     required this.responseCode,
-//     required this.responseDescription,
-//     required this.token,
-//     required this.userInformation,
-//     required this.timeStamp,
-//   });
-
-//   factory ResponseBody.fromJson(Map<String, dynamic> json) {
-//     return ResponseBody(
-//         responseCode: json['responseCode'],
-//         responseDescription: json['responseDescription'],
-//         token: json['token'] ?? "",
-//         userInformation: json['userInformation'] ?? "",
-//         timeStamp: json['timeStamp']);
-//   }
-// }
+  Image commonImageWidget() => _loading.value || employee.photo == null
+      ? Image.asset("assets/images/img_profile.jpg", width: 100, height: 100)
+      : Image.network(employee.photo!, width: 100, height: 100);
 }
