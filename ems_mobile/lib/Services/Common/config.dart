@@ -10,6 +10,8 @@ class Config {
   static const String dashboardPage = "/dashboard";
   static const String changePasswordPage = "/changePassword";
   static const String profilePage = "/profile";
+  static const String leaveHistoryPage = "/leaveHistory";
+  static const String leaveDetailPage = "/leaveDetail";
 
   /// Pages Routes End ///
 
@@ -17,4 +19,5 @@ class Config {
   static final String login = "/showLogin";
   static final String changePassword = "/changePassword?update=update";
   static final String profile = "/employeeProfile";
+  static final String leaveHistory = "/leaveRecord";
 }

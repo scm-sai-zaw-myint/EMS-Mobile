@@ -19,7 +19,25 @@ class _ProfileState extends State<Profile> {
       controller.getProfile();
       return Obx(() => Scaffold(
             appBar: AppBar(
-              title: const Text("Employee Management System"),
+              title: const Text('Profile'),
+              actions: [
+                PopupMenuButton(
+                  icon: const Icon(Icons.settings),
+                  tooltip: "Setting",
+                  offset: const Offset(-50, 0),
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      const PopupMenuItem(
+                        child: Text('Address Change'),
+                      ),
+                      const PopupMenuItem(
+                        child: Text('Password Change'),
+                      ),
+                    ];
+                  },
+                  onSelected: (value) {},
+                ),
+              ],
             ),
             body: SingleChildScrollView(
               child: Container(

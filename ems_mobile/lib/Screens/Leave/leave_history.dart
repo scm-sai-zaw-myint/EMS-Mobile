@@ -154,29 +154,62 @@ class LeaveHistory extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: ListTile(
-                  leading: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CommonWidget.commonLeftLeave("1.0 D"),
-                      CommonWidget.profileTitle("TBD")
-                    ],
-                  ),
-                  title: Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: ListTile(
+                      leading: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("05/04/2022"),
-                          Text("Event Name"),
+                          CommonWidget.commonLeftLeave("1.0 D"),
+                          CommonWidget.profileTitle("TBD")
                         ],
                       ),
-                    ],
-                  ),
-                  trailing: InkWell(
-                    onTap: () {},
-                    child: const Icon(Icons.arrow_back_ios_new, size: 30),
-                  ),
+                      title: Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(Icons.calendar_month,
+                                      color: CommonWidget.appPrimaryColor),
+                                  const SizedBox(width: 8),
+                                  const Text("05/04/2022"),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Icon(Icons.message,
+                                      color: CommonWidget.appPrimaryColor),
+                                  const SizedBox(width: 8),
+                                  const Text("Event Name"),
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      trailing: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          DecoratedBox(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: CommonWidget.appPrimaryColor,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Text("Request",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: CommonWidget.appPrimaryColor)),
+                              )),
+                        ],
+                      )),
                 ),
               ),
             ],
