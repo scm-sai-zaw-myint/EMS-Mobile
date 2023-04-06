@@ -1,6 +1,4 @@
-import 'package:ems_mobile/Screens/Overtime/overtime_report.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 typedef EyeCallback = Function();
 typedef OnDOBChange = Function(DateTime datetime);
@@ -8,6 +6,10 @@ typedef OnTimeChange = Function(TimeOfDay time);
 typedef DashboardRoute = Function();
 
 class CommonWidget {
+  static Color primaryColor = const Color(0xff7f00fe);
+  static Color lightColor = const Color(0xfff2e5fe);
+  static Color softColor = const Color(0xffbf7ffe);
+
   static InputDecoration inputDecoration(String name) => InputDecoration(
         hintText: name,
         labelText: name,
@@ -16,6 +18,7 @@ class CommonWidget {
           borderRadius: BorderRadius.circular(20),
         ),
       );
+
   static InputDecoration passwordInputDecoration(
           String name, Icon icon, EyeCallback callback) =>
       InputDecoration(
@@ -30,17 +33,21 @@ class CommonWidget {
           borderRadius: BorderRadius.circular(20),
         ),
       );
+
   static ButtonStyle primaryButtonStyle() => ElevatedButton.styleFrom(
+    backgroundColor: primaryColor,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
         padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
       );
+
   static ButtonStyle secondaryButtonStyle() => ElevatedButton.styleFrom(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
       padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
       backgroundColor: const Color.fromARGB(255, 224, 224, 224),
       foregroundColor: Colors.black);
+
   static Padding profileRow(String left, String right) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -69,19 +76,23 @@ class CommonWidget {
           ],
         ),
       );
+
   static Text profileTitle(String title) => Text(
         title,
         style: const TextStyle(
             fontSize: 14, color: Colors.blue, fontWeight: FontWeight.bold),
       );
+
   static TextStyle profileTextStyle(Color color) => TextStyle(
         fontSize: 14,
         color: color,
       );
+
   static BoxDecoration commonBackground() => const BoxDecoration(
       image: DecorationImage(
           image: AssetImage("assets/images/img_bg.png"),
           repeat: ImageRepeat.repeat));
+
   static Text commonLeftLeave(String text) => Text(
         text,
         textAlign: TextAlign.right,
@@ -124,18 +135,18 @@ class CommonWidget {
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Icon(
               cardIcon,
-              color: const Color(0xFF1f3053),
+              color: primaryColor,
               size: 50,
             ),
           ),
-          const Divider(
-            color: Colors.white,
+          Divider(
+            color: primaryColor,
             thickness: 1,
             height: 0,
           ),
           Container(
             width: double.infinity,
-            color: const Color(0xFF1f3053),
+            color: primaryColor,
             child: TextButton(
               onPressed: route,
               child: Text(
@@ -177,7 +188,7 @@ class CommonWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("$title"),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         TextFormField(
           initialValue: "$initValue",
           decoration: commonInput("$title", false),
@@ -245,5 +256,50 @@ class CommonWidget {
     if (time != null) {
       onTimeChange(time);
     }
+  }
+
+  /// Menu lists
+  static List<Widget> mainMenuList = [
+    ListTile(
+      title: const Text("Profile"),
+      leading: const Icon(Icons.people),
+      shape: RoundedRectangleBorder(
+        // Change the shape of the tile
+        borderRadius: BorderRadius.circular(8),
+      ),
+      selected: true,
+      selectedColor: Colors.blue,
+    ).wrappedWithContainer(
+      color:
+          Colors.blue.withOpacity(0.2), // set the desired background color here
+    ),
+    Container(
+      color: Colors.blue.withOpacity(0.2), // set the desired background
+      child: ExpansionTile(
+        title: const Text('My List Tile'),
+        collapsedBackgroundColor: Colors.blue.withOpacity(0.1),
+        // set background color
+        children: const <Widget>[
+          Text('Accordion content goes here'),
+        ],
+      ),
+    )
+  ];
+}
+
+extension ListTileWrapper on ListTile {
+  Widget wrappedWithContainer({
+    Key? key,
+    required Color color,
+    double? width,
+    double? height,
+  }) {
+    return Container(
+      key: key,
+      color: color,
+      width: width,
+      height: height,
+      child: this,
+    );
   }
 }

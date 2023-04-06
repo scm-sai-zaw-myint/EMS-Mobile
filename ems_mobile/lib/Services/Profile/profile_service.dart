@@ -7,7 +7,7 @@ class ProfileService {
     print("${Config.domainUrl}/employeeProfile");
     final response = await http.get(
         Uri.parse("${Config.domainUrl}/employeeProfile"),
-        headers: {'Content-Type': 'Application/json'});
+        headers: {'Content-Type': "application/json"});
     print(response.body);
   }
 

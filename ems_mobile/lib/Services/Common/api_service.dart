@@ -31,7 +31,7 @@ class ApiService {
   }
 
   Future<http.Response> post(String url, Map<String, dynamic> body) async {
-    updateHeader();
+    await updateHeader();
     try {
       return await _api.post(Uri.parse(url),
           body: jsonEncode(body), headers: _headers);
@@ -47,7 +47,7 @@ class ApiService {
   }
 
   Future<http.Response> put(String url, Map<String, dynamic> body) async {
-    updateHeader();
+    await updateHeader();
     try {
       return await _api.put(Uri.parse(url),
           body: jsonEncode(body), headers: _headers);
@@ -63,7 +63,7 @@ class ApiService {
   }
 
   Future<http.Response> delete(String url) async {
-    updateHeader();
+    await updateHeader();
     try {
       return await _api.delete(Uri.parse(url), headers: _headers);
     } catch (e) {

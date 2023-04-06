@@ -166,7 +166,7 @@ class LeaveHistory extends StatelessWidget {
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: const [
                           Text("05/04/2022"),
                           Text("Event Name"),
                         ],
