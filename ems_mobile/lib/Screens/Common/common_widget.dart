@@ -7,6 +7,9 @@ typedef DashboardRoute = Function();
 
 class CommonWidget {
   static Color appPrimaryColor = Colors.blue;
+  static Color primaryColor = const Color(0xff7f00fe);
+  static Color lightColor = const Color(0xfff2e5fe);
+  static Color softColor = const Color(0xffbf7ffe);
 
   static InputDecoration inputDecoration(String name) => InputDecoration(
         hintText: name,
@@ -16,6 +19,7 @@ class CommonWidget {
           borderRadius: BorderRadius.circular(20),
         ),
       );
+
 
   static InputDecoration passwordInputDecoration(
           String name, Icon icon, EyeCallback callback) =>
@@ -32,11 +36,14 @@ class CommonWidget {
         ),
       );
 
+
   static ButtonStyle primaryButtonStyle() => ElevatedButton.styleFrom(
+    backgroundColor: primaryColor,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
         padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
       );
+
 
   static ButtonStyle secondaryButtonStyle() => ElevatedButton.styleFrom(
       shape: const RoundedRectangleBorder(
@@ -132,18 +139,18 @@ class CommonWidget {
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Icon(
               cardIcon,
-              color: const Color(0xFF2b98f0),
+              color: primaryColor,
               size: 50,
             ),
           ),
-          const Divider(
-            color: Colors.white,
+          Divider(
+            color: primaryColor,
             thickness: 1,
             height: 0,
           ),
           Container(
             width: double.infinity,
-            color: const Color(0xFF1f3053),
+            color: primaryColor,
             child: TextButton(
               onPressed: route,
               child: Text(
@@ -185,7 +192,7 @@ class CommonWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("$title"),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         TextFormField(
           initialValue: "$initValue",
           decoration: commonInput("$title", false),
@@ -253,5 +260,50 @@ class CommonWidget {
     if (time != null) {
       onTimeChange(time);
     }
+  }
+
+  /// Menu lists
+  static List<Widget> mainMenuList = [
+    ListTile(
+      title: const Text("Profile"),
+      leading: const Icon(Icons.people),
+      shape: RoundedRectangleBorder(
+        // Change the shape of the tile
+        borderRadius: BorderRadius.circular(8),
+      ),
+      selected: true,
+      selectedColor: Colors.blue,
+    ).wrappedWithContainer(
+      color:
+          Colors.blue.withOpacity(0.2), // set the desired background color here
+    ),
+    Container(
+      color: Colors.blue.withOpacity(0.2), // set the desired background
+      child: ExpansionTile(
+        title: const Text('My List Tile'),
+        collapsedBackgroundColor: Colors.blue.withOpacity(0.1),
+        // set background color
+        children: const <Widget>[
+          Text('Accordion content goes here'),
+        ],
+      ),
+    )
+  ];
+}
+
+extension ListTileWrapper on ListTile {
+  Widget wrappedWithContainer({
+    Key? key,
+    required Color color,
+    double? width,
+    double? height,
+  }) {
+    return Container(
+      key: key,
+      color: color,
+      width: width,
+      height: height,
+      child: this,
+    );
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 import 'package:ems_mobile/Models/Auth/auth_response.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 class Credential {
   String? employeeId;
@@ -37,8 +38,10 @@ class Credential {
     final token = await storage.read(key: "token");
     if(token != null){
       //check jwt token time 
-      //ok 
-      return true;
+      DateTime expiryDate = Jwt.getExpiryDate(token)??DateTime.now();
+      if(DateTime.now().isBefore(expiryDate)){
+        return true;
+      }
     }
     return false;
   }

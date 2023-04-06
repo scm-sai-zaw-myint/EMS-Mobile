@@ -14,7 +14,6 @@ class LoginService extends GetxController{
   ApiService api = ApiService();
   var isLoadingCredential = false.obs;
 
-  var step = 1.obs;
   var loginIdController = TextEditingController().obs;
   var passwordController = TextEditingController().obs;
   var isSecurePassword = true.obs;
@@ -40,7 +39,7 @@ class LoginService extends GetxController{
       return false;
     }
     final body = response.body;
-    AuthResponse authResponse = AuthResponse.fromJson(jsonDecode(body));
+    AuthResponse authResponse = AuthResponse.successJson(jsonDecode(body));
     if(authResponse.responseCode != 200){
       loginSuccess(false);
       showSnackbar(true);

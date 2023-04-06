@@ -81,7 +81,7 @@ class LoginPage extends StatelessWidget {
                                       const Duration(seconds: 3));
                                   bool login = await controller.login();
                                   if (login) {
-                                    Get.offNamed(Config.changePasswordPage);
+                                    Get.offNamed(Config.dashboardPage);
                                   } else {
                                     NotiBar.showSnackbar(
                                         context,

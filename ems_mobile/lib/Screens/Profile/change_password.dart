@@ -1,4 +1,3 @@
-import 'package:ems_mobile/Screens/Common/app_layout.dart';
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
 import 'package:ems_mobile/Services/Profile/change_password_service.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +13,13 @@ class ChangePassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ChangePasswordService>(
       builder: (c) {
-        return Obx(() => AppLayout(
-              title: "Change Password",
-              noBottomBar: false,
-              content: SingleChildScrollView(
+        return Obx(() => Scaffold(
+            backgroundColor: CommonWidget.lightColor,
+              appBar: AppBar(
+                backgroundColor: CommonWidget.primaryColor,
+                title: const Text("Change Password"),
+              ),
+              body: SingleChildScrollView(
                 child: Column(
                   children: [
                     const SizedBox(height: kToolbarHeight),
@@ -104,8 +106,8 @@ class ChangePassword extends StatelessWidget {
                                           onPressed: () {
                                             if (_formKey.currentState!
                                                 .validate()) {
-                                                  controller.changePassword();
-                                                }
+                                              controller.changePassword();
+                                            }
                                           },
                                           child:
                                               const Text("Change Password"))),
@@ -118,7 +120,7 @@ class ChangePassword extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: TextButton(
-                                          onPressed: () {},
+                                          onPressed: () {Get.back();},
                                           child: const Text("Cancel"))),
                                 ],
                               )
