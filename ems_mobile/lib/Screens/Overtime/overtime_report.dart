@@ -1,7 +1,6 @@
 import 'package:ems_mobile/Models/Overtime/overtime_model.dart';
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class OvertimeReport extends StatefulWidget {
   const OvertimeReport({super.key});
@@ -19,6 +18,7 @@ class _OvertimeReportState extends State<OvertimeReport> {
 
   @override
   void initState() {
+    super.initState();
     _dateController.text = DateTime.now().toString().split(" ")[0];
   }
 
@@ -181,8 +181,8 @@ class _OvertimeReportState extends State<OvertimeReport> {
                         flex: 1,
                         child: ElevatedButton(
                           onPressed: () => {},
-                          child: Text("Save"),
                           style: CommonWidget.secondaryButtonStyle(),
+                          child: const Text("Save"),
                         ),
                       ),
                       const SizedBox(width: 20),
@@ -190,8 +190,8 @@ class _OvertimeReportState extends State<OvertimeReport> {
                         flex: 1,
                         child: ElevatedButton(
                           onPressed: () => {},
-                          child: Text("Request"),
                           style: CommonWidget.primaryButtonStyle(),
+                          child: const Text("Request"),
                         ),
                       )
                     ],

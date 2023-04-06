@@ -14,7 +14,6 @@ class LoginService extends GetxController{
   ApiService api = ApiService();
   var isLoadingCredential = false.obs;
 
-  var step = 1.obs;
   var loginIdController = TextEditingController().obs;
   var passwordController = TextEditingController().obs;
   var isSecurePassword = true.obs;
