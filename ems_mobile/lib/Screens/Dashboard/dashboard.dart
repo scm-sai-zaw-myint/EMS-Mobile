@@ -14,6 +14,7 @@ class _DashboardState extends State<Dashboard> {
   void dispose() {
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +55,7 @@ class _DashboardState extends State<Dashboard> {
                       child: CommonWidget.cardStyle(
                         Icons.timer_sharp,
                         "Overtime Request",
-                            () => {
+                        () => {
                           // Get.toNamed(Config.OvertimeRequestPage),
                         },
                       ),
@@ -73,8 +74,10 @@ class _DashboardState extends State<Dashboard> {
                     Flexible(
                       fit: FlexFit.loose,
                       flex: 1,
-                      child: CommonWidget.cardStyle(Icons.maps_home_work_outlined,
-                          "Address Change", () => {}),
+                      child: CommonWidget.cardStyle(
+                          Icons.maps_home_work_outlined,
+                          "Address Change",
+                          () => {}),
                     ),
                   ],
                 ),
@@ -103,7 +106,7 @@ class _DashboardState extends State<Dashboard> {
         ),
       ),
       drawer: const SafeArea(
-        child:  DrawerWidget(
+        child: DrawerWidget(
           employeeName: "Ma May Soe Thinzar Moe",
         ),
       ),
