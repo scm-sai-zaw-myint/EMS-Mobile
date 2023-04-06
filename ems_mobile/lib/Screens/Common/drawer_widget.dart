@@ -256,24 +256,12 @@ class DrawerWidget extends StatelessWidget {
                     dense: true,
                     title: const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 40),
-                      child: Text("Single leave history",
+                      child: Text("Leave history",
                           style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Config.singleLeaveHistoryPage);
-                    },
-                  ),
-                  ListTile(
-                    dense: true,
-                    title: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40),
-                      child: Text("Long term history",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                    ),
-                    onTap: () {
-                      Get.back();
-                      Get.toNamed(Config.longTermLeaveHistoryPage);
+                      Get.toNamed(Config.leaveHistoryPage);
                     },
                   ),
                   ListTile(

@@ -172,7 +172,7 @@ class LeaveHistory extends StatelessWidget {
                               Row(
                                 children: [
                                   Icon(Icons.calendar_month,
-                                      color: CommonWidget.appPrimaryColor),
+                                      color: CommonWidget.primaryColor),
                                   const SizedBox(width: 8),
                                   const Text("05/04/2022"),
                                 ],
@@ -181,7 +181,7 @@ class LeaveHistory extends StatelessWidget {
                               Row(
                                 children: [
                                   Icon(Icons.message,
-                                      color: CommonWidget.appPrimaryColor),
+                                      color: CommonWidget.primaryColor),
                                   const SizedBox(width: 8),
                                   const Text("Event Name"),
                                 ],
@@ -196,7 +196,7 @@ class LeaveHistory extends StatelessWidget {
                           DecoratedBox(
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: CommonWidget.appPrimaryColor,
+                                  color: CommonWidget.primaryColor,
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.circular(4),
@@ -206,7 +206,7 @@ class LeaveHistory extends StatelessWidget {
                                 child: Text("Request",
                                     style: TextStyle(
                                         fontSize: 12,
-                                        color: CommonWidget.appPrimaryColor)),
+                                        color: CommonWidget.primaryColor)),
                               )),
                         ],
                       )),

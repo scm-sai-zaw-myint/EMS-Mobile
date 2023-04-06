@@ -59,7 +59,7 @@ class CommonWidget {
                 child: Text(
                   left,
                   textAlign: TextAlign.left,
-                  style: profileTextStyle(appPrimaryColor),
+                  style: profileTextStyle(primaryColor),
                 ),
               ),
             ),
@@ -80,7 +80,7 @@ class CommonWidget {
   static Text profileTitle(String title) => Text(
         title,
         style: TextStyle(
-            fontSize: 14, color: appPrimaryColor, fontWeight: FontWeight.bold),
+            fontSize: 14, color: primaryColor, fontWeight: FontWeight.bold),
       );
 
   static TextStyle profileTextStyle(Color color) => TextStyle(
