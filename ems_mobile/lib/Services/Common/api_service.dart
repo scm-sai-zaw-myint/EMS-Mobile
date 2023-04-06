@@ -16,7 +16,7 @@ class ApiService {
   }
 
   Future<http.Response> get(String url) async {
-    updateHeader();
+    await updateHeader();
     try {
       return await _api.get(Uri.parse(url), headers: _headers);
     } catch (e) {

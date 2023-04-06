@@ -85,28 +85,28 @@ class CommonWidget {
   static Text commonLeftLeave(String text) => Text(
         text,
         textAlign: TextAlign.right,
-        style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.blue),
+        style: const TextStyle(
+            fontSize: 16, fontWeight: FontWeight.w500, color: Colors.blue),
       );
 
-
   //validor goes here
-  static String? validatePassword(String? pass,[String? prefix]){
-    String p = prefix??"Password";
-    if(pass!.isEmpty) return "$p cannot be empty";
-    if(pass.length < 6) return "$p must contain at least 6 chracters!";
+  static String? validatePassword(String? pass, [String? prefix]) {
+    String p = prefix ?? "Password";
+    if (pass!.isEmpty) return "$p cannot be empty";
+    if (pass.length < 6) return "$p must contain at least 6 chracters!";
     return null;
   }
 
-  static String? validateAndComparePassword(String? pass, String? compare, [String? prefix]){
-    String p = prefix??"Password";
-    String? valid = validatePassword(pass,prefix);
-    if(valid != null) return valid;
-    if(pass != compare){
+  static String? validateAndComparePassword(String? pass, String? compare,
+      [String? prefix]) {
+    String p = prefix ?? "Password";
+    String? valid = validatePassword(pass, prefix);
+    if (valid != null) return valid;
+    if (pass != compare) {
       return "$p do not match";
     }
     return null;
   }
-
 
   static Card cardStyle(IconData? cardIcon, text, DashboardRoute route) {
     return Card(
@@ -124,7 +124,7 @@ class CommonWidget {
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Icon(
               cardIcon,
-              color: const Color(0xFF2b98f0),
+              color: const Color(0xFF1f3053),
               size: 50,
             ),
           ),

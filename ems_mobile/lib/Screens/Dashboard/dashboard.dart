@@ -25,7 +25,9 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(key: null,),
+      appBar: AppBar(
+        key: null,
+      ),
       backgroundColor: const Color.fromARGB(255, 192, 235, 255),
       body: SingleChildScrollView(
         child: Container(
@@ -51,7 +53,7 @@ class _DashboardState extends State<Dashboard> {
                       Icons.timer_sharp,
                       "Overtime Request",
                       () => {
-                        Get.toNamed(Config.OvertimeRequestPage),
+                        Get.toNamed(Config.overtimeRequestPage),
                       },
                     ),
                   ),
