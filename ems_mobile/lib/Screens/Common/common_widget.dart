@@ -249,6 +249,9 @@ class CommonWidget {
     );
   }
 
+  static BoxDecoration calendarDayActive() => BoxDecoration(
+      borderRadius: BorderRadius.circular(10), color: primaryColor);
+
   static Future displayTimePicker(
       BuildContext context, OnTimeChange onTimeChange) async {
     var time =
