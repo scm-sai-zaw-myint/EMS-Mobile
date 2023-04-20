@@ -30,7 +30,7 @@ class ApiService {
     }
   }
 
-  Future<http.Response> post(String url, Map<String, dynamic> body) async {
+  Future<http.Response> post(String url, Map<String, dynamic>? body) async {
     await updateHeader();
     try {
       return await _api.post(Uri.parse(url),

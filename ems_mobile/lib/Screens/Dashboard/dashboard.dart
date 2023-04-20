@@ -14,13 +14,26 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  final String _month = DateFormat('MMMM').format(DateTime.now());
+  final List<String> periods = [
+    "Morning",
+    "Evening",
+    "Full"
+  ];
+  final List<String> status = [
+    "Casual",
+    "Sick",
+    "Absent",
+    "Special Leave",
+    "Compensatory",
+    "Unpaid"
+  ];
 
   @override
   void dispose() {
     super.dispose();
   }
 
+  String _getPeriod(int index)=>periods[index - 1];
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DashboardService>(
@@ -100,44 +113,37 @@ class _DashboardState extends State<Dashboard> {
                                 ),
                               ]),
                               const SizedBox(height: 10),
-                              Wrap(
-                                spacing: 0.5,
-                                runSpacing: 0.5,
-                                children: [
-                                  Chip(
-                                    avatar: const CircleAvatar(
-                                      backgroundColor: Color(0xFF009865),
-                                      child: Text('A'),
-                                    ),
-                                    backgroundColor: const Color(0xFF006C3F),
-                                    label: Text("${DateFormat('MM/d/y').format(DateTime.now())} ( Full )"
-                                    ,style: const TextStyle(color: Colors.white),
-                                    )
-                                  ),
-                                  const SizedBox(width: 10,),
-                                  Chip(
-                                      avatar: const CircleAvatar(
-                                        backgroundColor: Color(0xFFFFFFFF),
-                                        child: Text('P'),
-                                      ),
-                                      backgroundColor: const Color(0xFF868686),
-                                      label: Text("${DateFormat('MM/d/y').format(DateTime.now())} ( Full )"
-                                        ,style: const TextStyle(color: Colors.white),
+                              Obx((){
+                                if(controller.isLeaveLoading){
+                                  return const Center(child: CircularProgressIndicator());
+                                }
+                                if(controller.getLeaveHistory.isEmpty){
+                                  return const Center(child: Text("No leave history."));
+                                }
+                                return Wrap(
+                                  spacing: 5,
+                                  runSpacing: 0.5,
+                                  children:
+                                  controller.getLeaveHistory.map((leave)=>
+                                      Chip(
+                                          avatar: leave.leaveDetailStatus == "1" || leave.leaveDetailStatus == "7" ? CircleAvatar(
+                                            backgroundColor: CommonWidget.lightColor,
+                                            child: const Text('P'),
+                                          ): leave.leaveDetailStatus =="2"? const CircleAvatar(
+                                            backgroundColor: Color(0xFF009865),
+                                            child: Text('A'),
+                                          ): leave.leaveDetailStatus == "3"? const CircleAvatar(
+                                            backgroundColor: Colors.redAccent,
+                                            child: Text('R'),
+                                          ):null,
+                                          backgroundColor: const Color(0xFF006C3F),
+                                          label: Text("${DateFormat('MM/d/y').format(controller.parseDate(leave.leaveDate!))} ( ${_getPeriod(int.parse(leave.period??"0"))} )"
+                                            ,style: const TextStyle(color: Colors.white),
+                                          )
                                       )
-                                  ),
-                                  const SizedBox(width: 10,),
-                                  Chip(
-                                      avatar: const CircleAvatar(
-                                        backgroundColor: Color(0xFFEAB2B2),
-                                        child: Text('R'),
-                                      ),
-                                      backgroundColor: const Color(0xFFAB3A3A),
-                                      label: Text("${DateFormat('MM/d/y').format(DateTime.now())} ( Full )"
-                                        ,style: const TextStyle(color: Colors.white),
-                                      )
-                                  ),
-                                ],
-                              ),
+                                  ).toList(),
+                                );
+                              }),
                               const SizedBox(height: 20),
                               Row(children: const [
                                 Text(
@@ -147,45 +153,43 @@ class _DashboardState extends State<Dashboard> {
                                 ),
                               ]),
                               const SizedBox(height: 10),
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                color: CommonWidget.softColor,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("${DateFormat('MM/d/y').format(DateTime.now())}"),
-                                      const Text("|"),
-                                      Text("${DateFormat('h:m a').format(DateTime.now())} ~ ${DateFormat('h:m a').format(DateTime.now())}"),
-                                      const Text("|"),
-                                      const Text("1 hour")
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              Obx((){
+                                if(controller.isOvertimeLoading){
+                                  return const Center(child: CircularProgressIndicator(),);
+                                }
+                                if(controller.getOvertimeHistory.isEmpty){
+                                  return const Center(child: Text("No overtime history."));
+                                }
+                                return Row(
+                                  children: controller.getOvertimeHistory.map((overtime){
+                                    return Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      color: overtime.overTimeStatus == "1" || overtime.overTimeStatus == "7" ?
+                                      CommonWidget.lightColor:
+                                      overtime.overTimeStatus == "2" ? const Color(0xFF009865):
+                                      overtime.overTimeStatus == "3" ? Colors.redAccent:
+                                      overtime.overTimeStatus == "4" ? CommonWidget.softColor: null,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(DateFormat('MM/d/y').format(controller.parseDate(overtime.appliedDate!))),
+                                            const Text("|"),
+                                            Text("${overtime.fromTime} ~ ${overtime.toTime}"),
+                                            const Text("|"),
+                                            Text(controller.timeDifference(overtime.fromTime??"00:00", overtime.toTime??"00:00"))
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                );
+                              })
+                              ,
                               const SizedBox(height: 10),
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                color: CommonWidget.softColor,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("${DateFormat('MM/d/y').format(DateTime.now())}"),
-                                      const Text("|"),
-                                      Text("${DateFormat('h:m a').format(DateTime.now())} ~ ${DateFormat('h:m a').format(DateTime.now())}"),
-                                      const Text("|"),
-                                      const Text("1 hour")
-                                    ],
-                                  ),
-                                ),
-                              )
                             ],
                           ),
                         )

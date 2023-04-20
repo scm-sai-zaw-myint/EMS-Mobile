@@ -251,6 +251,16 @@ class CommonWidget {
 
   static BoxDecoration calendarDayActive() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: primaryColor);
+  static BoxDecoration calendarWFHDay() => BoxDecoration(
+      borderRadius: BorderRadius.circular(10), color: softColor);
+  static BoxDecoration calendarOfficeDay() => BoxDecoration(
+      borderRadius: BorderRadius.circular(10), color: lightColor);
+  static BoxDecoration calendarLeaveDay() => BoxDecoration(
+      borderRadius: BorderRadius.circular(10), color: Colors.redAccent);
+  static BoxDecoration calendarNoRecDay() => BoxDecoration(
+      borderRadius: BorderRadius.circular(10), color: Colors.black54);
+  static BoxDecoration calendarHolidayDay() => BoxDecoration(
+      borderRadius: BorderRadius.circular(10), color: Colors.black12);
 
   static Future displayTimePicker(
       BuildContext context, OnTimeChange onTimeChange) async {

@@ -32,4 +32,7 @@ class Config {
   static final String overtimeRegist = "/registerOvertime";
 
   static final String attendanceData = "/historyAttendanceReport";
+  static final String leaveHistoryRecord = "/historyleaveRecord";
+  static final String overtimeHistoryRecord = "/searchHistory";
+  static final String holidayList = "/getHolidays";
 }
