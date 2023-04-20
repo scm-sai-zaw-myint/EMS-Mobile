@@ -12,6 +12,7 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: CommonWidget.lightColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -29,12 +30,11 @@ class DrawerWidget extends StatelessWidget {
                       children: [
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                "assets/images/ems_logo.png",
-                                width: 80,
-                                height: 80,
-                              )
+                            children: const [
+                              CircleAvatar(
+                                radius: 50.0, // adjust the radius as needed
+                                backgroundImage: AssetImage('assets/images/profile.webp'),
+                              ),
                             ]),
                         const SizedBox(
                           height: 10,
@@ -78,7 +78,7 @@ class DrawerWidget extends StatelessWidget {
                             width: 10,
                           ),
                           Container(
-                            color: Colors.white,
+                            color: CommonWidget.lightColor,
                             padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: Icon(
                               Icons.account_box,
@@ -86,7 +86,7 @@ class DrawerWidget extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            color: Colors.white,
+                            color: CommonWidget.lightColor,
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 5),
                             child: const Text("Account",
@@ -138,7 +138,7 @@ class DrawerWidget extends StatelessWidget {
                             width: 10,
                           ),
                           Container(
-                            color: Colors.white,
+                            color: CommonWidget.lightColor,
                             padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: Icon(
                               Icons.add_box_rounded,
@@ -146,7 +146,7 @@ class DrawerWidget extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            color: Colors.white,
+                            color: CommonWidget.lightColor,
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 5),
                             child: const Text("Requests",
@@ -177,7 +177,7 @@ class DrawerWidget extends StatelessWidget {
                     ),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Config.longLeaveRequestPage);
+                      Get.toNamed(Config.longTermLeaveRequestPage);
                     },
                   ),
                   ListTile(
@@ -234,7 +234,7 @@ class DrawerWidget extends StatelessWidget {
                             width: 10,
                           ),
                           Container(
-                            color: Colors.white,
+                            color: CommonWidget.lightColor,
                             padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: Icon(
                               Icons.list,
@@ -242,7 +242,7 @@ class DrawerWidget extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            color: Colors.white,
+                            color: CommonWidget.lightColor,
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 5),
                             child: const Text("History",
@@ -256,24 +256,12 @@ class DrawerWidget extends StatelessWidget {
                     dense: true,
                     title: const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 40),
-                      child: Text("Single leave history",
+                      child: Text("Leave history",
                           style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Config.singleLeaveRequestPage);
-                    },
-                  ),
-                  ListTile(
-                    dense: true,
-                    title: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40),
-                      child: Text("Long term history",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                    ),
-                    onTap: () {
-                      Get.back();
-                      Get.toNamed(Config.longLeaveRequestPage);
+                      Get.toNamed(Config.leaveHistoryPage);
                     },
                   ),
                   ListTile(

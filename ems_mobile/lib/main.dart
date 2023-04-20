@@ -12,6 +12,7 @@ Widget pageDefault = LoginPage();
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // Credential.clearStorage();
   final result = await Credential.isLoggedIn();
   await Future.delayed(const Duration(seconds: 2));
   FlutterNativeSplash.remove();
