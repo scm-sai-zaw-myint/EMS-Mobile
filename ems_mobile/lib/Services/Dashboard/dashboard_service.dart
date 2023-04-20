@@ -32,7 +32,7 @@ class DashboardService extends GetxController {
 
   @override
   void onInit() {
-    DateTime now = /*DateTime.now() */DateTime(2023, 3, 1);
+    DateTime now = DateTime.now() /*DateTime(2023, 3, 1)*/;
     getAttendanceData(now);
     fetchLeaveHistory(now);
     fetchOvertimeHistory(now);

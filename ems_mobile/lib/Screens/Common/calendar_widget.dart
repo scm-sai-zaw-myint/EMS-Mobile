@@ -33,7 +33,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   void _generateCalendar() {
     DateTime d = DateTime.now();
-    mainDate = DateTime(d.year, d.month - 1, d.day);
+    mainDate = DateTime(d.year, d.month, d.day);
     firstDayOfMonth = DateTime(mainDate.year, mainDate.month, 1);
     lastDayOfMonth = DateTime(mainDate.year, mainDate.month + 1, 0);
     if (firstDayOfMonth.weekday == 5 && lastDayOfMonth.day > 30) {
