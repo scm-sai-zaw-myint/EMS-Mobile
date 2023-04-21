@@ -1,3 +1,4 @@
+import 'package:ems_mobile/Screens/AddressChange/address_change_report.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_edit.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_history.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_report.dart';
@@ -36,11 +37,13 @@ class PagesConfig {
         name: Config.attendanceHistoryPage,
         page: () => const AttendanceHistory()),
     GetPage(
-        
         name: Config.overtimeRequestPage, page: () => const OvertimeReport()),
     GetPage(
         name: Config.overtimeHistoryPage, page: () => const OvertimeHistory()),
     GetPage(
         name: Config.dailyTemperatureReportPage, page: () => DailyTempReport()),
+    GetPage(
+        name: Config.addressChangeRequestPage,
+        page: () => AddressChangeRequest()),
   ];
 }

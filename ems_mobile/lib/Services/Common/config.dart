@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_declarations
 
 class Config {
-  static final String domainUrl = "http://172.20.90.74:8080/ems/api";
+  static final String domainUrl = "http://172.20.90.23:8084/ems/api";
   static final String imgUrl = domainUrl.replaceAll("api", "");
 
   /// Pages Routes Start ///
@@ -21,6 +21,8 @@ class Config {
   static final String attendanceHistoryPage = "/attendanceHistory";
   static final String transportationHistoryPage = "";
   static final String dailyTemperatureReportPage = "/dailyTemperatureReport";
+  static final String addressChangeRequestPage = "/addressChangeRequest";
+  static final String addressChangeHistoryPage = "/addressChangeHistory";
 
   /// Pages Routes End ///
 
