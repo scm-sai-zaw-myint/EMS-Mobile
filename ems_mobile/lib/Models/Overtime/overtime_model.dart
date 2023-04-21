@@ -18,13 +18,14 @@ class Overtime {
     required this.employeeId,
     required this.employeeName,
     required this.departmentName,
-    // required this.appliedDate,
-    // required this.fromTime,
-    // required this.toTime,
-    // required this.otHour,
-    // required this.description,
-    // required this.remark,
-    // required this.delFlag,
+    required this.appliedDate,
+    required this.fromTime,
+    required this.toTime,
+    required this.otHour,
+    required this.description,
+    required this.remark,
+    required this.delFlag,
+    required this.overTimeStatus
   });
 
   Overtime.empty()
@@ -44,13 +45,14 @@ class Overtime {
       employeeId: json['employeeId'],
       employeeName: json['employeeName'],
       departmentName: json['departmentName'],
-      // appliedDate: json['appliedDate'] == null ? "" : DateTime.parse(json['appliedDate']),
-      // fromTime: json['fromTime'],
-      // toTime: json['toTime'],
-      // otHour: json['otHour'],
-      // description: json['description'],
-      // remark: json['remark'],
-      // delFlag: json['delFlag'],
+      appliedDate: json['appliedDate'],
+      fromTime: json['fromTime'],
+      toTime: json['toTime'],
+      otHour: json['otHour'],
+      description: json['description'],
+      remark: json['remark'],
+      delFlag: json['delFlag'],
+      overTimeStatus: json['overtimeStatus'],
     );
   }
   static Map<String, dynamic> toJson(Overtime overtime) {

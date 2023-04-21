@@ -49,7 +49,7 @@ class Leave {
   int? leftDay; //            "leftDay": null,
   int? totalHour; //            "totalHour": null,
   int? usedHour; //            "usedHour": null,
-  int? leftHour; //            "leftHour": null,
+  double? leftHour; //            "leftHour": null,
   bool? isBeforeResetLeave; //            "isBeforeResetLeave": false,
   String? joinDate; //            "joinDate": null,
   String? annualResetDate; //            "annualResetDate": null,
