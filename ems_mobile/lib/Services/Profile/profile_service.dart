@@ -19,9 +19,10 @@ class ProfileService extends GetxController {
     Map<String, dynamic> map = jsonDecode(response.body);
     emp.value = Employee.formJson(map["profileForm"]);
     _loading(false);
+    print(employee.photo?.split("/").last);
   }
 
-  Image commonImageWidget() => _loading.value || employee.photo == null
+  Image commonImageWidget() => _loading.value || employee.photo?.split("/").last == "null"
       ? Image.asset("assets/images/img_profile.jpg", width: 100, height: 100)
       : Image.network(employee.photo!, width: 100, height: 100);
 }
