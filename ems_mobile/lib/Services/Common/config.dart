@@ -17,9 +17,10 @@ class Config {
   static final String transportationRequestPage = "";
   static final String leaveHistoryPage = "/leaveHistory";
   static final String leaveDetailPage = "/leaveDetail";
-  static final String overtimeHistoryPage = "";
+  static final String overtimeHistoryPage = "/overtimeHistory";
   static final String attendanceHistoryPage = "";
   static final String transportationHistoryPage = "";
+  static final String dailyTemperatureReportPage = "/dailyTemperatureReport";
 
   /// Pages Routes End ///
 

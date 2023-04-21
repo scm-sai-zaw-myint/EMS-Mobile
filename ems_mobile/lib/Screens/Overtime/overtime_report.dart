@@ -204,8 +204,8 @@ class _OvertimeReportState extends State<OvertimeReport> {
                                         }
                                       }
                                     },
-                                    child: Text("Save"),
                                     style: CommonWidget.secondaryButtonStyle(),
+                                    child: const Text("Save"),
                                   ),
                                 ),
                                 const SizedBox(width: 20),

@@ -1,14 +1,16 @@
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
 import 'package:flutter/material.dart';
 
-class LeaveHistory extends StatelessWidget {
-  const LeaveHistory({super.key});
+class OvertimeHistory extends StatelessWidget {
+  const OvertimeHistory({super.key});
 
   @override
   Widget build(BuildContext context) {
+    double cWidth = MediaQuery.of(context).size.width * 0.45;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Leave History"),
+        title: const Text("Overtime History"),
+        backgroundColor: CommonWidget.primaryColor,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -17,23 +19,6 @@ class LeaveHistory extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CommonWidget.commonLeftLeave("Annual Leave"),
-                  CommonWidget.commonLeftLeave("Sick Leave"),
-                  CommonWidget.commonLeftLeave("Casual Leave")
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CommonWidget.commonLeftLeave("(10.0)"),
-                  CommonWidget.commonLeftLeave("(30.0)"),
-                  CommonWidget.commonLeftLeave("(6.0)")
-                ],
-              ),
-              const SizedBox(height: 10),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 decoration: BoxDecoration(
@@ -52,9 +37,9 @@ class LeaveHistory extends StatelessWidget {
                   child: ListTile(
                       leading: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          CommonWidget.commonLeftLeave("1.0 D"),
-                          CommonWidget.profileTitle("TBD")
+                          CommonWidget.commonLeftLeave("3.0 hr"),
                         ],
                       ),
                       title: Row(
@@ -67,7 +52,16 @@ class LeaveHistory extends StatelessWidget {
                                   Icon(Icons.calendar_month,
                                       color: CommonWidget.primaryColor),
                                   const SizedBox(width: 8),
-                                  const Text("05/04/2022"),
+                                  const Text("06/04/2022"),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Icon(Icons.access_time_outlined,
+                                      color: CommonWidget.primaryColor),
+                                  const SizedBox(width: 8),
+                                  const Text("17:00~20:00"),
                                 ],
                               ),
                               const SizedBox(height: 8),
@@ -76,7 +70,12 @@ class LeaveHistory extends StatelessWidget {
                                   Icon(Icons.message,
                                       color: CommonWidget.primaryColor),
                                   const SizedBox(width: 8),
-                                  const Text("Event Name"),
+                                  Container(
+                                      width: cWidth,
+                                      child: const Text(
+                                        "Overtime Report For test API",
+                                        textAlign: TextAlign.left,
+                                      )),
                                 ],
                               )
                             ],
