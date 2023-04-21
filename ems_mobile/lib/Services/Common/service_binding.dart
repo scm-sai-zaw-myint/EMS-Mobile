@@ -10,12 +10,11 @@ import '../Dashboard/dashboard_service.dart';
 class ServiceBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => LoginService());
-    Get.lazyPut(() => DashboardService());
-    Get.lazyPut(() => ChangePasswordService());
-    Get.lazyPut(() => ProfileService());
-    Get.lazyPut(() => LeaveService());
-    Get.lazyPut(() => OvertimeService());
-
+    Get.put(LoginService());
+    Get.put(DashboardService());
+    Get.put(ChangePasswordService());
+    Get.put(ProfileService());
+    Get.put(LeaveService());
+    Get.put(OvertimeService());
   }
 }

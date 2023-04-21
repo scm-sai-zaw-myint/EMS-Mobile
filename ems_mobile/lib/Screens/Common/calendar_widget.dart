@@ -66,7 +66,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30)),
               child: SizedBox(
-                height: rowFlag ? 360 : 350,
+                height: rowFlag ? 410 : 350,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                   child: Column(
@@ -79,6 +79,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                         Flexible(
                             flex: 1,
                             child: Container(
+
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
                                 color: CommonWidget.softColor,
@@ -117,7 +118,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   DateTime.daysPerWeek * (rowFlag ? 6 : 5),
                               itemBuilder: (context, index) {
                                 int day = (index) - firstDayOfMonth.weekday + 1;
-                                String currentDateString = "${controller.padZero(day)}/${controller.padZero(mainDate.month)}/${mainDate.year}";
+                                String currentDateString =
+                                    "${controller.padZero(day)}/${controller.padZero(mainDate.month)}/${mainDate.year}";
                                 return Obx(() {
                                   if (controller.isLoading) {
                                     return Center(
@@ -129,7 +131,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   return Container(
                                       decoration: _isToday(index + 1)
                                           ? CommonWidget.calendarDayActive()
-                                          : controller.isLeave(currentDateString)
+                                          : controller
+                                                  .isLeave(currentDateString)
                                               ? CommonWidget.calendarLeaveDay()
                                               : controller.attendanceRecord(
                                                           ((index) -
@@ -147,7 +150,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                           3
                                                       ? CommonWidget
                                                           .calendarWFHDay()
-                                                      : controller.isHoliday(currentDateString) ? CommonWidget.calendarHolidayDay() : null,
+                                                      : controller.isHoliday(
+                                                              currentDateString)
+                                                          ? CommonWidget
+                                                              .calendarHolidayDay()
+                                                          : null,
                                       child: Center(
                                           child: firstDayOfMonth.weekday <=
                                                       index &&
@@ -172,9 +179,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                             : FontWeight.bold),
                                                   ),
                                                 )
-                                              : Container(
-                                            decoration: CommonWidget.calendarHolidayDay(),
-                                          )));
+                                              : const SizedBox()));
                                 });
                               },
                             ))

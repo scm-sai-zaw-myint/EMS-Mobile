@@ -49,7 +49,7 @@ class Leave {
   int? leftDay; //            "leftDay": null,
   int? totalHour; //            "totalHour": null,
   int? usedHour; //            "usedHour": null,
-  int? leftHour; //            "leftHour": null,
+  double? leftHour; //            "leftHour": null,
   bool? isBeforeResetLeave; //            "isBeforeResetLeave": false,
   String? joinDate; //            "joinDate": null,
   String? annualResetDate; //            "annualResetDate": null,
@@ -119,6 +119,8 @@ class Leave {
       this.sickLeaveReset,
       this.reset,
       this.fullYearEmployee});
+
+  Leave.empty();
 
   factory Leave.fromJson(Map<String, dynamic> json) {
     return Leave(

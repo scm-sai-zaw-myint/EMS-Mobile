@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
 typedef EyeCallback = Function();
 typedef OnDOBChange = Function(DateTime datetime);
@@ -35,7 +38,7 @@ class CommonWidget {
       );
 
   static ButtonStyle primaryButtonStyle() => ElevatedButton.styleFrom(
-    backgroundColor: primaryColor,
+        backgroundColor: primaryColor,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
         padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
@@ -96,8 +99,8 @@ class CommonWidget {
   static Text commonLeftLeave(String text) => Text(
         text,
         textAlign: TextAlign.right,
-        style: const TextStyle(
-            fontSize: 16, fontWeight: FontWeight.w500, color: Colors.blue),
+        style: TextStyle(
+            fontSize: 16, fontWeight: FontWeight.w500, color: primaryColor),
       );
 
   //validor goes here
@@ -251,10 +254,10 @@ class CommonWidget {
 
   static BoxDecoration calendarDayActive() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: primaryColor);
-  static BoxDecoration calendarWFHDay() => BoxDecoration(
-      borderRadius: BorderRadius.circular(10), color: softColor);
-  static BoxDecoration calendarOfficeDay() => BoxDecoration(
-      borderRadius: BorderRadius.circular(10), color: lightColor);
+  static BoxDecoration calendarWFHDay() =>
+      BoxDecoration(borderRadius: BorderRadius.circular(10), color: softColor);
+  static BoxDecoration calendarOfficeDay() =>
+      BoxDecoration(borderRadius: BorderRadius.circular(10), color: lightColor);
   static BoxDecoration calendarLeaveDay() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: Colors.redAccent);
   static BoxDecoration calendarNoRecDay() => BoxDecoration(
@@ -298,6 +301,31 @@ class CommonWidget {
       ),
     )
   ];
+
+  static InputDecoration commonAttachmentFile() {
+    return InputDecoration(
+      hintText: "Attach File",
+      contentPadding: const EdgeInsets.all(8),
+      border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      suffixIcon: IconButton(
+          onPressed: () async {
+            await CommonWidget.pickFile();
+          },
+          icon: const Icon(Icons.attach_file)),
+    );
+  }
+
+  static Future<String> pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'doc'],
+    );
+    if (result == null) {
+      print("File is null");
+    }
+    return result!.files.single.path!;
+  }
 }
 
 extension ListTileWrapper on ListTile {
