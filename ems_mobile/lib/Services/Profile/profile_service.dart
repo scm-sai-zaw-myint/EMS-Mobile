@@ -12,6 +12,7 @@ class ProfileService extends GetxController {
   ApiService api = ApiService();
 
   Employee get employee => emp.value;
+  bool get isLoading => _loading.value;
 
   getProfile() async {
     _loading(true);

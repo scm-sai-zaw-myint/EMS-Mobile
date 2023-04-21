@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ems_mobile/Models/Attendance/attendance.dart';
+import 'package:ems_mobile/Models/Employee/employee.dart';
 import 'package:ems_mobile/Models/Leave/leave.dart';
 import 'package:ems_mobile/Models/Overtime/overtime_model.dart';
 import 'package:ems_mobile/Services/Common/api_service.dart';
@@ -17,6 +18,7 @@ class DashboardService extends GetxController {
   final _leaveHistory = <Leave>[].obs;
   final _overtimeHistory = <Overtime>[].obs;
   final _holidayLists = <String>[].obs;
+  final _employee = Employee.empty().obs;
 
   ApiService api = ApiService();
 
@@ -119,7 +121,8 @@ class DashboardService extends GetxController {
     if(response.statusCode != 200) return false;
     Map<String, dynamic> body = jsonDecode(response.body);
     final listBody = body["holidayList"] as List<dynamic>;
-    _holidayLists.value = listBody.map((e)=> e.toString()).toList();
+    // _holidayLists.value = listBody.map((e)=> e.toString()).toList();
+    _holidayLists.value = ["10/04/2023","11/04/2023","12/04/2023","13/04/2023","14/04/2023","17/04/2023"];
     _isHolidayLoading(false);
     return true;
   }
@@ -136,15 +139,16 @@ class DashboardService extends GetxController {
     Duration difference = dateTime2.difference(dateTime1);
     int hours = difference.inHours % 24;
     int minutes = difference.inMinutes % 60;
+    if(minutes == 0) return "$hours";
     return "$hours : $minutes";
   }
 
   isLeave(String dateTime) {
-    Leave? index = getLeaveHistory.firstWhereOrNull((element) => element.leaveDate == dateTime && element.leaveDetailStatus == "2");
+    Leave? index = getLeaveHistory.firstWhereOrNull((leave) => leave.leaveDate == dateTime && leave.leaveDetailStatus == "2");
     return index != null;
   }
   isHoliday(String dateTime) {
-    String? index = getHolidayLists.firstWhereOrNull((element) => element == dateTime);
+    String? index = getHolidayLists.firstWhereOrNull((holiday) => holiday == dateTime);
     return index != null;
   }
   String padZero(int value){

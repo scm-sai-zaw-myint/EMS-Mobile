@@ -6,8 +6,9 @@ import '../../Services/Common/config.dart';
 
 class DrawerWidget extends StatelessWidget {
   final String employeeName;
+  final Widget employeeProfile;
 
-  const DrawerWidget({super.key, required this.employeeName});
+  const DrawerWidget({super.key, required this.employeeName, required this.employeeProfile});
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +31,12 @@ class DrawerWidget extends StatelessWidget {
                       children: [
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               CircleAvatar(
                                 radius: 50.0, // adjust the radius as needed
-                                backgroundImage: AssetImage('assets/images/profile.webp'),
+                                child: ClipOval(
+                                  child: employeeProfile,
+                                ),
                               ),
                             ]),
                         const SizedBox(
