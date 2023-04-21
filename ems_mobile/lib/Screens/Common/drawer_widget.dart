@@ -33,7 +33,8 @@ class DrawerWidget extends StatelessWidget {
                             children: const [
                               CircleAvatar(
                                 radius: 50.0, // adjust the radius as needed
-                                backgroundImage: AssetImage('assets/images/profile.webp'),
+                                backgroundImage:
+                                    AssetImage('assets/images/profile.webp'),
                               ),
                             ]),
                         const SizedBox(
@@ -214,6 +215,18 @@ class DrawerWidget extends StatelessWidget {
                     onTap: () {
                       Get.back();
                       Get.toNamed(Config.transportationRequestPage);
+                    },
+                  ),
+                  ListTile(
+                    dense: true,
+                    title: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 40),
+                      child: Text("Daily Temperature request",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    onTap: () {
+                      Get.back();
+                      Get.toNamed(Config.dailyTemperatureReportPage);
                     },
                   ),
                   const Divider(),
