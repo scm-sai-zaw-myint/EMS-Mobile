@@ -120,6 +120,8 @@ class Leave {
       this.reset,
       this.fullYearEmployee});
 
+  Leave.empty();
+
   factory Leave.fromJson(Map<String, dynamic> json) {
     return Leave(
         leaveRecordId: json["leaveRecordId"],

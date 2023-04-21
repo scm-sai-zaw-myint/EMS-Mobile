@@ -3,8 +3,8 @@ import 'package:ems_mobile/Services/Leave/leave_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LeaveHistory extends StatelessWidget {
-  const LeaveHistory({super.key});
+class AttendanceHistory extends StatelessWidget {
+  const AttendanceHistory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class LeaveHistory extends StatelessWidget {
       controller.getLeave();
       return Obx(() => Scaffold(
             appBar: AppBar(
-              title: const Text("Leave History"),
+              title: const Text("Attendance History"),
             ),
             body: SingleChildScrollView(
               child: Container(
@@ -22,22 +22,6 @@ class LeaveHistory extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CommonWidget.commonLeftLeave("Annual Leave"),
-                        CommonWidget.commonLeftLeave("Sick Leave"),
-                        CommonWidget.commonLeftLeave("Casual Leave")
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CommonWidget.commonLeftLeave("(10.0)"),
-                        CommonWidget.commonLeftLeave("(30.0)"),
-                        CommonWidget.commonLeftLeave("(6.0)")
-                      ],
-                    ),
                     const SizedBox(height: 10),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 5),

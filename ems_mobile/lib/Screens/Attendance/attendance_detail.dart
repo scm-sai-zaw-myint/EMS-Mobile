@@ -17,7 +17,7 @@ class _LeaveDetailState extends State<LeaveDetail> {
     return GetBuilder<ProfileService>(builder: (controller) {
       controller.getProfile();
       return Scaffold(
-        appBar: AppBar(title: const Text('Leave Detail')),
+        appBar: AppBar(title: const Text('Attendance Detail INformation'),),
         body: Container(
             decoration: CommonWidget.commonBackground(),
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -30,21 +30,17 @@ class _LeaveDetailState extends State<LeaveDetail> {
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
                         children: [
-                          CommonWidget.profileTitle("Leave Detail Information"),
+                          CommonWidget.profileTitle("Detail Information"),
                           const SizedBox(height: 10),
                           Wrap(
                             children: [
                               CommonWidget.profileRow("Employee ID", "-"),
                               CommonWidget.profileRow("Employee Name", "-"),
-                              CommonWidget.profileRow("Department", "-"),
-                              CommonWidget.profileRow("Approved Date", "-"),
-                              CommonWidget.profileRow("Requested Date", "-"),
-                              CommonWidget.profileRow("Leave Date", "-"),
-                              CommonWidget.profileRow("Total Day", "-"),
-                              CommonWidget.profileRow("Leave Type", "-"),
-                              CommonWidget.profileRow("Status", "-"),
-                              CommonWidget.profileRow("Leave Reason", "-"),
-                              CommonWidget.profileRow("Remark", "-"),
+                              CommonWidget.profileRow("Attendance Type", "-"),
+                              CommonWidget.profileRow("Date", "-"),
+                              CommonWidget.profileRow("From Time", "-"),
+                              CommonWidget.profileRow("To Time", "-"),
+                              CommonWidget.profileRow("Description", "-"),
                             ],
                           )
                         ],
