@@ -326,6 +326,29 @@ class CommonWidget {
     }
     return result!.files.single.path!;
   }
+
+  static DecoratedBox commonStatus(String text) {
+    return DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: CommonWidget.primaryColor,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          child: Text(text,
+              style: TextStyle(fontSize: 10, color: CommonWidget.primaryColor)),
+        ));
+  }
+
+  static BoxDecoration commonDialogTitle(Color color) {
+    return BoxDecoration(
+        color: color,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)));
+  }
 }
 
 extension ListTileWrapper on ListTile {
