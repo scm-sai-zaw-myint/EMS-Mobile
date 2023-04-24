@@ -177,6 +177,7 @@ class CommonWidget {
   static InputDecoration commonInput(title, isDisabled) {
     return InputDecoration(
       filled: true,
+      enabled: !isDisabled,
       fillColor: isDisabled ? lightColor : Colors.white,
       hintText: title,
       contentPadding: const EdgeInsets.all(8),

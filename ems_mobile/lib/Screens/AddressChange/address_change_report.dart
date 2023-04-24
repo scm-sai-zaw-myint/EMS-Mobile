@@ -35,7 +35,7 @@ class _AddressChangeRequestState extends State<AddressChangeRequest> {
                   child: Form(
                     key: _formKey,
                     child: Container(
-                      padding: const EdgeInsets.all(10),
+                      // padding: const EdgeInsets.all(10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -161,6 +161,7 @@ class _AddressChangeRequestState extends State<AddressChangeRequest> {
                                   // onChanged: (value) =>
                                   //     controller.overtime.description = value,
                                 ),
+                                const SizedBox(height: 15),
                               ],
                             ),
                           ),
@@ -297,9 +298,9 @@ class _AddressChangeRequestState extends State<AddressChangeRequest> {
                                       flex: 1,
                                       child: ElevatedButton(
                                         onPressed: () {},
-                                        child: Text("Reset"),
                                         style:
                                             CommonWidget.primaryButtonStyle(),
+                                        child: const Text("Reset"),
                                       ),
                                     ),
                                     const SizedBox(width: 15),
@@ -307,13 +308,14 @@ class _AddressChangeRequestState extends State<AddressChangeRequest> {
                                       flex: 1,
                                       child: ElevatedButton(
                                         onPressed: () {},
-                                        child: Text("Request"),
                                         style:
                                             CommonWidget.primaryButtonStyle(),
+                                        child: const Text("Request"),
                                       ),
                                     )
                                   ],
                                 ),
+                                const SizedBox(height: 15),
                               ],
                             ),
                           )

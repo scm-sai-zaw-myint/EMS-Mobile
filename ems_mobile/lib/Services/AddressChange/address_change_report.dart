@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ems_mobile/Models/AddressChange/address_change.dart';
 import 'package:ems_mobile/Models/Overtime/overtime_model.dart';
 import 'package:ems_mobile/Services/Common/api_service.dart';
 import 'package:ems_mobile/Services/Common/config.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddressChangeService extends GetxController {
+  RxList<AddressChange> addressChange = RxList<AddressChange>([]);
+  ApiService api = ApiService();
   List<String> list = ["a", "b"];
   // final _overtime = Overtime.empty().obs;
   final _dateController = TextEditingController().obs;
@@ -17,8 +20,6 @@ class AddressChangeService extends GetxController {
   TextEditingController get otHourController => _otHourController.value;
   // Overtime get overtime => _overtime.value;
   bool get isLoading => _isloading.value;
-
-  ApiService api = ApiService();
 
   Future<void> overtimeRegister() async {
     _dateController.value.text = DateTime.now().toString().split(" ")[0];
@@ -52,4 +53,13 @@ class AddressChangeService extends GetxController {
   //   if (response.statusCode == 200) return true;
   //   return false;
   // }
+
+  getLeave() async {
+    final response = await api.get("${Config.domainUrl}${Config.leaveHistory}");
+    Map<String, dynamic> map = jsonDecode(response.body);
+    addressChange.value = RxList<AddressChange>.from(
+        (map["AddressChangeHistory"] as List)
+            .map((x) => AddressChange.fromJson(x)));
+    print(addressChange.value);
+  }
 }

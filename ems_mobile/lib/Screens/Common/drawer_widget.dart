@@ -337,7 +337,7 @@ class DrawerWidget extends StatelessWidget {
                     ),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Config.transportationHistoryPage);
+                      Get.toNamed(Config.addressChangeHistoryPage);
                     },
                   ),
                   const Divider(),

@@ -57,7 +57,6 @@ class _OvertimeReportState extends State<OvertimeReport> {
                                 CommonWidget.commonText("Employee Name"),
                                 const SizedBox(height: 5),
                                 TextFormField(
-                                  readOnly: true,
                                   initialValue:
                                       controller.overtime.employeeName,
                                   decoration: CommonWidget.commonInput(

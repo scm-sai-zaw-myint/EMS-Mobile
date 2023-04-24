@@ -4,6 +4,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
 import 'package:ems_mobile/Screens/Common/noti_bar.dart';
 import 'package:ems_mobile/Services/Common/config.dart';
+import 'package:ems_mobile/Services/Dashboard/dashboard_service.dart';
 import 'package:ems_mobile/Services/Login/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,8 +30,7 @@ class LoginPage extends StatelessWidget {
                     children: [
                       TextFormField(
                         controller: controller.loginIdController.value,
-                        decoration:
-                            CommonWidget.inputDecoration("Login ID"),
+                        decoration: CommonWidget.inputDecoration("Login ID"),
                         validator: (value) {
                           if (value == null) return "Login Id cannot be null!";
                           if (value.isEmpty) return "Login Id cannot be empty";
@@ -81,6 +81,8 @@ class LoginPage extends StatelessWidget {
                                       const Duration(seconds: 3));
                                   bool login = await controller.login();
                                   if (login) {
+                                    DashboardService dashboard = Get.find();
+                                    dashboard.onInit();
                                     Get.offNamed(Config.dashboardPage);
                                   } else {
                                     NotiBar.showSnackbar(

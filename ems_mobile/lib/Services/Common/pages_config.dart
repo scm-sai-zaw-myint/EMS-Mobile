@@ -1,3 +1,4 @@
+import 'package:ems_mobile/Screens/AddressChange/address_change_history.dart';
 import 'package:ems_mobile/Screens/AddressChange/address_change_report.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_edit.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_history.dart';
@@ -45,5 +46,8 @@ class PagesConfig {
     GetPage(
         name: Config.addressChangeRequestPage,
         page: () => AddressChangeRequest()),
+    GetPage(
+        name: Config.addressChangeHistoryPage,
+        page: () => const AddressChangeHistory()),
   ];
 }
