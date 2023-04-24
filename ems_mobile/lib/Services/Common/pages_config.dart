@@ -1,3 +1,4 @@
+import 'package:ems_mobile/Models/Leave/leave.dart';
 import 'package:ems_mobile/Screens/AddressChange/address_change_history.dart';
 import 'package:ems_mobile/Screens/AddressChange/address_change_report.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_edit.dart';
@@ -24,7 +25,10 @@ class PagesConfig {
     GetPage(name: Config.changePasswordPage, page: () => ChangePassword()),
     GetPage(name: Config.profilePage, page: () => const Profile()),
     GetPage(name: Config.leaveHistoryPage, page: () => const LeaveHistory()),
-    GetPage(name: Config.leaveDetailPage, page: () => const LeaveDetail()),
+    GetPage(
+        name: Config.leaveDetailPage,
+        page: () =>
+            LeaveDetail(leave: Leave(), status: const <String, dynamic>{})),
     GetPage(
         name: Config.singleLeaveRequestPage,
         page: () => const SingleLeaveReport()),
