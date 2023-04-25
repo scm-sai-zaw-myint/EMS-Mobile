@@ -85,11 +85,11 @@ class DashboardService extends GetxController {
       "fromDate": DateFormat("d/MM/y").format(fromDate),
       "toDate": DateFormat("d/MM/y").format(toDate),
     });
+    _isLeaveLoading(false);
     if(response.statusCode != 200) return false;
     Map<String, dynamic> body = jsonDecode(response.body);
     final listBody = body["leaveRecordHistory"] as List<dynamic>;
     _leaveHistory.value = listBody.map((e) => Leave.fromJson(e)).toList().reversed.toList();
-    _isLeaveLoading(false);
     return true;
   }
 
@@ -101,11 +101,14 @@ class DashboardService extends GetxController {
       "fromDate": DateFormat("d/MM/y").format(fromDate),
       "toDate": DateFormat("d/MM/y").format(toDate),
     });
-    if(response.statusCode != 200) return false;
+    _isOvertimeLoading(false);
+
+    if(response.statusCode != 200) {
+      return false;
+    };
     Map<String, dynamic> body = jsonDecode(response.body);
     final listBody = body["overtimeRecordHistory"] as List<dynamic>;
     _overtimeHistory.value = listBody.map((e) => Overtime.fromJson(e)).toList().reversed.toList();
-    _isOvertimeLoading(false);
     return true;
   }
   Future<bool> fetchHolidayLists(DateTime dateTime) async {
@@ -117,13 +120,13 @@ class DashboardService extends GetxController {
     }&toDate=${
         DateFormat("d/MM/y").format(toDate)
     }", null);
-
+    _isHolidayLoading(false);
     if(response.statusCode != 200) return false;
     Map<String, dynamic> body = jsonDecode(response.body);
     final listBody = body["holidayList"] as List<dynamic>;
     // _holidayLists.value = listBody.map((e)=> e.toString()).toList();
     _holidayLists.value = ["10/04/2023","11/04/2023","12/04/2023","13/04/2023","14/04/2023","17/04/2023"];
-    _isHolidayLoading(false);
+
     return true;
   }
   DateTime parseDate(String date){

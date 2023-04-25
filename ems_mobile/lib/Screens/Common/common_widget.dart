@@ -36,20 +36,22 @@ class CommonWidget {
       );
 
 
-  static ButtonStyle primaryButtonStyle() => ElevatedButton.styleFrom(
+  static ButtonStyle primaryButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
     backgroundColor: primaryColor,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
-        padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-      );
+        padding: const EdgeInsets.all(13),
+    minimumSize: minWidth != null ? Size(minWidth, 0) : null
+  );
 
-
-  static ButtonStyle secondaryButtonStyle() => ElevatedButton.styleFrom(
+  static ButtonStyle secondaryButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
-      padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+      padding: const EdgeInsets.all(13),
       backgroundColor: const Color.fromARGB(255, 224, 224, 224),
-      foregroundColor: Colors.black);
+      foregroundColor: Colors.black,
+      minimumSize: minWidth != null ? Size(minWidth, 0) : null
+  );
 
   static Padding profileRow(String left, String right) => Padding(
         padding: const EdgeInsets.all(8.0),
@@ -178,6 +180,7 @@ class CommonWidget {
     return InputDecoration(
       filled: true,
       fillColor: isDisabled ? const Color(0x22006b42) : Colors.white,
+      enabled: !isDisabled,
       hintText: title,
       contentPadding: const EdgeInsets.all(8),
       border: const OutlineInputBorder(
@@ -219,7 +222,7 @@ class CommonWidget {
       suffixIcon: IconButton(
           onPressed: () async {
             DateTime? date =
-                await _selectDate(context, DateTime.parse(initialDate));
+                await _selectDate(context, initialDate is DateTime ? initialDate : DateTime.parse(initialDate));
             if (date != null) {
               onDOBChange(date);
             }
