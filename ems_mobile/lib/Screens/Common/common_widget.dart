@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
 typedef EyeCallback = Function();
 typedef OnDOBChange = Function(DateTime datetime);
@@ -18,7 +21,6 @@ class CommonWidget {
           borderRadius: BorderRadius.circular(20),
         ),
       );
-
 
   static InputDecoration passwordInputDecoration(
           String name, Icon icon, EyeCallback callback) =>
@@ -257,10 +259,10 @@ class CommonWidget {
 
   static BoxDecoration calendarDayActive() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: primaryColor);
-  static BoxDecoration calendarWFHDay() => BoxDecoration(
-      borderRadius: BorderRadius.circular(10), color: softColor);
-  static BoxDecoration calendarOfficeDay() => BoxDecoration(
-      borderRadius: BorderRadius.circular(10), color: lightColor);
+  static BoxDecoration calendarWFHDay() =>
+      BoxDecoration(borderRadius: BorderRadius.circular(10), color: softColor);
+  static BoxDecoration calendarOfficeDay() =>
+      BoxDecoration(borderRadius: BorderRadius.circular(10), color: lightColor);
   static BoxDecoration calendarLeaveDay() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: Colors.redAccent);
   static BoxDecoration calendarNoRecDay() => BoxDecoration(
@@ -304,6 +306,54 @@ class CommonWidget {
       ),
     )
   ];
+
+  static InputDecoration commonAttachmentFile() {
+    return InputDecoration(
+      hintText: "Attach File",
+      contentPadding: const EdgeInsets.all(8),
+      border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      suffixIcon: IconButton(
+          onPressed: () async {
+            await CommonWidget.pickFile();
+          },
+          icon: const Icon(Icons.attach_file)),
+    );
+  }
+
+  static Future<String> pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'doc'],
+    );
+    if (result == null) {
+      print("File is null");
+    }
+    return result!.files.single.path!;
+  }
+
+  static DecoratedBox commonStatus(String text) {
+    return DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: CommonWidget.primaryColor,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          child: Text(text,
+              style: TextStyle(fontSize: 10, color: CommonWidget.primaryColor)),
+        ));
+  }
+
+  static BoxDecoration commonDialogTitle(Color color) {
+    return BoxDecoration(
+        color: color,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)));
+  }
 }
 
 extension ListTileWrapper on ListTile {

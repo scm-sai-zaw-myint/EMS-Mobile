@@ -120,13 +120,15 @@ class Leave {
       this.reset,
       this.fullYearEmployee});
 
+  Leave.empty();
+
   factory Leave.fromJson(Map<String, dynamic> json) {
     return Leave(
         leaveRecordId: json["leaveRecordId"],
         employeeId: json["employeeId"],
         employeeName: json["employeeName"],
-        departmentName: json["departmentName"],
-        approvedDate: json["approveDate"],
+        departmentName: json["departmentName"]??"-",
+        approvedDate: json["approvedDate"]??"-",
         leaveDate: json["leaveDate"],
         receivedDate: json["receivedDate"],
         leaveType: json["leaveType"],
@@ -134,7 +136,7 @@ class Leave {
         period: json["period"],
         description: json["description"],
         status: json["status"],
-        remark: json["remark"],
+        remark: json["remark"]??"-",
         checks: json["checks"],
         updatedUserId: json["updatedUserId"],
         totalDays: json["totalDays"],
