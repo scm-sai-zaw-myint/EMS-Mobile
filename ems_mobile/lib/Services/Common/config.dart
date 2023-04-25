@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_declarations
 
 class Config {
-  static final String domainUrl = "http://172.20.90.74:8080/ems/api";
+  static final String domainUrl = "http://172.20.90.23:8080/ems/api";
   static final String imgUrl = domainUrl.replaceAll("api", "");
 
   /// Pages Routes Start ///
@@ -17,10 +17,13 @@ class Config {
   static final String transportationRequestPage = "";
   static final String leaveHistoryPage = "/leaveHistory";
   static final String leaveDetailPage = "/leaveDetail";
-  static final String overtimeHistoryPage = "";
+  static final String overtimeHistoryPage = "/overtimeHistory";
   static final String attendanceHistoryPage = "/attendanceHistory";
   static final String editAttendancePage = "/editAttendance";
   static final String transportationHistoryPage = "";
+  static final String dailyTemperatureReportPage = "/dailyTemperatureReport";
+  static final String addressChangeRequestPage = "/addressChangeRequest";
+  static final String addressChangeHistoryPage = "/addressChangeHistory";
 
   /// Pages Routes End ///
 
@@ -37,6 +40,8 @@ class Config {
   static final String attendanceHistory = "/historyAttendanceReport?offset=1&limit=31";
   static final String editAttendance = "/deleteAttendanceRecord";
   static final String deleteAttendance = "/deleteAttendanceRecord";
+  static final String overtimeHistory = "/historyOvertime?offset=1&limit=20";
+  static final String attendanceData = "/historyAttendanceReport";
   static final String leaveHistoryRecord = "/historyleaveRecord";
   static final String overtimeHistoryRecord = "/searchHistory";
   static final String holidayList = "/getHolidays";

@@ -15,8 +15,13 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileService>(builder: (controller) {
-      controller.getProfile();
-      return Obx(() => Scaffold(
+      return Obx(() {
+        if (controller.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return Scaffold(
             appBar: AppBar(
               title: const Text('Profile'),
               actions: [
@@ -198,8 +203,8 @@ class _ProfileState extends State<Profile> {
                       ),
                     ],
                   )),
-            ),
-          ));
+            ));
+      });
     });
   }
 }

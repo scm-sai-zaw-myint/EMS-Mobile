@@ -8,7 +8,8 @@ class DrawerWidget extends StatelessWidget {
   final String employeeName;
   final Widget employeeProfile;
 
-  const DrawerWidget({super.key, required this.employeeName, required this.employeeProfile});
+  const DrawerWidget(
+      {super.key, required this.employeeName, required this.employeeProfile});
 
   @override
   Widget build(BuildContext context) {
@@ -219,6 +220,30 @@ class DrawerWidget extends StatelessWidget {
                       Get.toNamed(Config.transportationRequestPage);
                     },
                   ),
+                  ListTile(
+                    dense: true,
+                    title: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 40),
+                      child: Text("Address change request",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    onTap: () {
+                      Get.back();
+                      Get.toNamed(Config.addressChangeRequestPage);
+                    },
+                  ),
+                  ListTile(
+                    dense: true,
+                    title: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 40),
+                      child: Text("Daily temperature report",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    onTap: () {
+                      Get.back();
+                      Get.toNamed(Config.dailyTemperatureReportPage);
+                    },
+                  ),
                   const Divider(),
                   Stack(
                     children: [
@@ -301,6 +326,18 @@ class DrawerWidget extends StatelessWidget {
                     onTap: () {
                       Get.back();
                       Get.toNamed(Config.transportationHistoryPage);
+                    },
+                  ),
+                  ListTile(
+                    dense: true,
+                    title: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 40),
+                      child: Text("Address change history",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    onTap: () {
+                      Get.back();
+                      Get.toNamed(Config.addressChangeHistoryPage);
                     },
                   ),
                   const Divider(),

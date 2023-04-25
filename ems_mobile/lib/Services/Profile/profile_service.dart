@@ -14,6 +14,12 @@ class ProfileService extends GetxController {
   Employee get employee => emp.value;
   bool get isLoading => _loading.value;
 
+  @override
+  void onInit() {
+    getProfile();
+    super.onInit();
+  }
+
   getProfile() async {
     _loading(true);
     final response = await api.get("${Config.domainUrl}${Config.profile}");
@@ -22,7 +28,8 @@ class ProfileService extends GetxController {
     _loading(false);
   }
 
-  Image commonImageWidget() => _loading.value || employee.photo?.split("/").last == "null"
+  Image commonImageWidget() => _loading.value ||
+          employee.photo?.split("/").last == "null"
       ? Image.asset("assets/images/img_profile.jpg", width: 100, height: 100)
       : Image.network(employee.photo!, width: 100, height: 100);
 }
