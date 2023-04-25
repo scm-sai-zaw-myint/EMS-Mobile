@@ -47,7 +47,7 @@ class DashboardService extends GetxController {
     DateTime fromDate = DateTime(dateTime.year, dateTime.month, 1);
     DateTime toDate = DateTime(dateTime.year, dateTime.month + 1, 0);
     final response = await api.post(
-        "${Config.domainUrl}${Config.attendanceData}?offset=1&limit=31&search=true",
+        "${Config.domainUrl}${Config.attendanceHistory}&search=true",
         {
           "fromDate": DateFormat("d/MM/y").format(fromDate),
           "toDate": DateFormat("d/MM/y").format(toDate),
@@ -64,7 +64,7 @@ class DashboardService extends GetxController {
 
     return true;
   }
-  
+
   int attendanceRecord(int day) {
     Attendance? attendance = getAttendanceList.firstWhereOrNull(
             (element) => parseDate(element.recordDate!).day == day);

@@ -51,6 +51,14 @@ class CommonWidget {
       backgroundColor: const Color.fromARGB(255, 224, 224, 224),
       foregroundColor: Colors.black);
 
+
+  static ButtonStyle deleteButtonStyle(Color color) => ElevatedButton.styleFrom(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+      backgroundColor: color,
+      foregroundColor: Colors.white);
+
   static Padding profileRow(String left, String right) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(

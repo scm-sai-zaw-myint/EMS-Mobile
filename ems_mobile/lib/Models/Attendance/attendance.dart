@@ -82,7 +82,7 @@ class Attendance{
         wfhFlag: json["wfhFlag"],
         fingerpFlag: json["fingerpFlag"],
         wfhStatus: json["wfhStatus"],
-        description: json["description"],
+        description: json["description"]??"",
         remark: json["remark"],
         createdUserId: json["createdUserId"],
         updatedUserId: json["updatedUserId"],
