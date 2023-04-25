@@ -48,6 +48,7 @@ class LeaveHistory extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: controller.leaves.length,
                       itemBuilder: (BuildContext context, index) {
+                        final leave = controller.leaves[index];
                         return Container(
                           margin: const EdgeInsets.symmetric(vertical: 5),
                           decoration: BoxDecoration(
@@ -66,7 +67,7 @@ class LeaveHistory extends StatelessWidget {
                             child: ListTile(
                                 onTap: () {
                                   Get.to(() => LeaveDetail(
-                                        leave: controller.leaves[index],
+                                        leave: leave,
                                         status: controller.status,
                                       ));
                                 },
@@ -77,9 +78,8 @@ class LeaveHistory extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       CommonWidget.commonLeftLeave(
-                                          "${controller.leaves[index].totalDays} D"),
-                                      CommonWidget.profileTitle(controller
-                                          .leaves[index].leaveType
+                                          "${leave.totalDays} D"),
+                                      CommonWidget.profileTitle(leave.leaveType
                                           .toString()),
                                     ],
                                   ),
@@ -99,8 +99,7 @@ class LeaveHistory extends StatelessWidget {
                                                   color: CommonWidget
                                                       .primaryColor),
                                               const SizedBox(width: 8),
-                                              Text(controller
-                                                  .leaves[index].leaveDate
+                                              Text(leave.leaveDate
                                                   .toString()),
                                             ],
                                           ),
@@ -111,8 +110,7 @@ class LeaveHistory extends StatelessWidget {
                                                   color: CommonWidget
                                                       .primaryColor),
                                               const SizedBox(width: 8),
-                                              Text(controller
-                                                  .leaves[index].description
+                                              Text(leave.description
                                                   .toString()),
                                             ],
                                           )
@@ -129,8 +127,7 @@ class LeaveHistory extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CommonWidget.commonStatus(
-                                          controller.status[controller
-                                              .leaves[index].leaveDetailStatus])
+                                          controller.status[leave.leaveDetailStatus])
                                     ],
                                   ),
                                 )),
