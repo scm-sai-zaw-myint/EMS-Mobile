@@ -48,8 +48,8 @@ class CommonWidget {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
       padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-      backgroundColor: const Color.fromARGB(255, 224, 224, 224),
-      foregroundColor: Colors.black);
+      backgroundColor: Colors.grey,
+      foregroundColor: Colors.white);
 
 
   static ButtonStyle deleteButtonStyle(Color color) => ElevatedButton.styleFrom(
