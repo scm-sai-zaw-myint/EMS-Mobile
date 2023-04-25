@@ -41,7 +41,7 @@ class PagesConfig {
         name: Config.attendanceHistoryPage,
         page: () => const AttendanceHistory()),
     GetPage(
-        name: Config.overtimeRequestPage, page: () => const const OvertimeReport()),
+        name: Config.overtimeRequestPage, page: () => const OvertimeReport()),
     GetPage(name: Config.transportationRequestPage, page: () => TransportationPage()),
     GetPage(name: Config.transportationHistoryPage, page: () => const TransportationHistoryPage()),
     GetPage(name: Config.transportationDetailPage, page: () => const TransportationDetailPage()),
