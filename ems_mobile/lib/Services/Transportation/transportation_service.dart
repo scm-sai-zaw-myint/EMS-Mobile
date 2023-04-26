@@ -12,13 +12,7 @@ class TransportationService extends GetxController{
   final travelByLists = ["Bus","Motorbike","Taxi","Trishaw","Other"];
   final travelTypeLists = ["One Way","Round Trip"];
 
-  final statusList = {
-    "1": "Request",
-    "2": "Approve",
-    "3": "Reject",
-    "4": "Save",
-    "7": "Approve (M)"
-  };
+
 
   final Transportation _transportation = Transportation.empty();
   Transportation transportationDetail = Transportation.empty();
@@ -101,4 +95,12 @@ class TransportationService extends GetxController{
   List<Transportation> get transportationList => _transportationList.value;
 
   Transportation get transportation => _transportation;
+
+  set selectedTravelTypeValue(value) {
+    _selectedTravelTypeValue.value = value;
+  }
+
+  set selectedTravelByValue(value) {
+    _selectedTravelByValue.value = value;
+  }
 }

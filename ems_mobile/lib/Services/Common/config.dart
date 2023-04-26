@@ -21,6 +21,10 @@ class Config {
   static final String attendanceHistoryPage = "/attendanceHistory";
   static final String transportationHistoryPage = "/transportationHistoryPage";
   static final String transportationDetailPage = "/transportationDetailPage";
+  static final String profileChangeRequestPage = "/profileChangeRequestPage";
+  static final String profileChangeHistoryPage = "/profileChangeHistoryPage";
+  static final String profileChangeDetailPage = "/profileChangeDetailPage";
+
   /// Pages Routes End ///
 
   /// API Routes  ///
@@ -39,6 +43,21 @@ class Config {
   static final String holidayList = "/getHolidays";
   static final String transportationRequest = "/registerOtherTransportation";
   static final String transportationHistory = "/listOtherTransportation";
+
+  static final String profileChangeRequest = "/profileChangeRequest/request";
+  static final String profileChangeSave = "/profileChangeRequest/save";
+  static final String profileChangeHistory = "/profileChangeHistory?offset=1&limit=10";
+
+
+  //status list
+
+  static final statusList = {
+    "1": "Request",
+    "2": "Approve",
+    "3": "Reject",
+    "4": "Save",
+    "7": "Approve (M)"
+  };
 
 
 }

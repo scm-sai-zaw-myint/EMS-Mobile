@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:ems_mobile/Models/Attendance/attendance.dart';
-import 'package:ems_mobile/Models/Employee/employee.dart';
 import 'package:ems_mobile/Models/Leave/leave.dart';
 import 'package:ems_mobile/Models/Overtime/overtime_model.dart';
 import 'package:ems_mobile/Services/Common/api_service.dart';
@@ -18,7 +17,8 @@ class DashboardService extends GetxController {
   final _leaveHistory = <Leave>[].obs;
   final _overtimeHistory = <Overtime>[].obs;
   final _holidayLists = <String>[].obs;
-  final _employee = Employee.empty().obs;
+  final _greeting = "".obs;
+  // final _employee = Employee.empty().obs;
 
   ApiService api = ApiService();
 
@@ -39,6 +39,7 @@ class DashboardService extends GetxController {
     fetchLeaveHistory(now);
     fetchOvertimeHistory(now);
     fetchHolidayLists(now);
+    updateGreeting();
     super.onInit();
   }
 
@@ -122,8 +123,8 @@ class DashboardService extends GetxController {
     }", null);
     _isHolidayLoading(false);
     if(response.statusCode != 200) return false;
-    Map<String, dynamic> body = jsonDecode(response.body);
-    final listBody = body["holidayList"] as List<dynamic>;
+    // Map<String, dynamic> body = jsonDecode(response.body);
+    // final listBody = body["holidayList"] as List<dynamic>;
     // _holidayLists.value = listBody.map((e)=> e.toString()).toList();
     _holidayLists.value = ["10/04/2023","11/04/2023","12/04/2023","13/04/2023","14/04/2023","17/04/2023"];
 
@@ -145,7 +146,14 @@ class DashboardService extends GetxController {
     if(minutes == 0) return "$hours";
     return "$hours : $minutes";
   }
-
+  void updateGreeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      _greeting.value = 'Good morning!';
+    } else {
+      _greeting.value = 'Good evening!';
+    }
+  }
   isLeave(String dateTime) {
     Leave? index = getLeaveHistory.firstWhereOrNull((leave) => leave.leaveDate == dateTime && leave.leaveDetailStatus == "2");
     return index != null;
@@ -157,4 +165,7 @@ class DashboardService extends GetxController {
   String padZero(int value){
     return value < 10 ? "0$value" : value.toString();
   }
+
+  String get greeting => _greeting.value;
+
 }

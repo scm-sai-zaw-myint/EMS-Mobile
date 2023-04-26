@@ -1,7 +1,6 @@
 import 'package:ems_mobile/Models/Leave/leave.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_edit.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_history.dart';
-import 'package:ems_mobile/Screens/Attendance/attendance_report.dart';
 import 'package:ems_mobile/Screens/Dashboard/dashboard.dart';
 import 'package:ems_mobile/Screens/Leave/leave_detail.dart';
 import 'package:ems_mobile/Screens/Leave/leave_history.dart';
@@ -11,6 +10,9 @@ import 'package:ems_mobile/Screens/Login/login_page.dart';
 import 'package:ems_mobile/Screens/Overtime/overtime_report.dart';
 import 'package:ems_mobile/Screens/Profile/change_password.dart';
 import 'package:ems_mobile/Screens/Profile/profile.dart';
+import 'package:ems_mobile/Screens/Profile/profile_change_detail.dart';
+import 'package:ems_mobile/Screens/Profile/profile_change_history.dart';
+import 'package:ems_mobile/Screens/Profile/profile_change_request.dart';
 import 'package:ems_mobile/Screens/Transportation/transportation_detail_page.dart';
 import 'package:ems_mobile/Screens/Transportation/transportation_history.dart';
 import 'package:ems_mobile/Screens/Transportation/transportation_request_page.dart';
@@ -22,7 +24,7 @@ class PagesConfig {
     GetPage(name: Config.loginPage, page: () => LoginPage()),
     GetPage(name: Config.dashboardPage, page: () => const Dashboard()),
     GetPage(name: Config.changePasswordPage, page: () => ChangePassword()),
-    GetPage(name: Config.profilePage, page: () => const Profile()),
+    GetPage(name: Config.profilePage, page: () => const ProfilePage()),
     GetPage(name: Config.leaveHistoryPage, page: () => const LeaveHistory()),
     GetPage(
         name: Config.leaveDetailPage,
@@ -42,8 +44,23 @@ class PagesConfig {
         page: () => const AttendanceHistory()),
     GetPage(
         name: Config.overtimeRequestPage, page: () => const OvertimeReport()),
-    GetPage(name: Config.transportationRequestPage, page: () => TransportationPage()),
-    GetPage(name: Config.transportationHistoryPage, page: () => const TransportationHistoryPage()),
-    GetPage(name: Config.transportationDetailPage, page: () => const TransportationDetailPage()),
+    GetPage(
+        name: Config.transportationRequestPage,
+        page: () => TransportationPage()),
+    GetPage(
+        name: Config.transportationHistoryPage,
+        page: () => const TransportationHistoryPage()),
+    GetPage(
+        name: Config.transportationDetailPage,
+        page: () => const TransportationDetailPage()),
+    GetPage(
+        name: Config.profileChangeRequestPage,
+        page: () => ProfileChangeRequestPage()),
+    GetPage(
+      name: Config.profileChangeHistoryPage,
+      page: () => const ProfileChangeHistoryPage()),
+    GetPage(
+        name: Config.profileChangeDetailPage,
+        page: () => const ProfileChangeDetail()),
   ];
 }

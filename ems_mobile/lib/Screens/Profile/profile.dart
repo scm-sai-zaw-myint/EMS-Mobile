@@ -1,22 +1,23 @@
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
+import 'package:ems_mobile/Services/Common/config.dart';
 // import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:ems_mobile/Services/Profile/profile_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileService>(builder: (controller) {
-      controller.getProfile();
+      // controller.getProfile();
       return Obx(() => Scaffold(
             appBar: AppBar(
               title: const Text('Profile'),
@@ -27,6 +28,12 @@ class _ProfileState extends State<Profile> {
                   offset: const Offset(-50, 0),
                   itemBuilder: (BuildContext context) {
                     return [
+                      PopupMenuItem(
+                        onTap: (){
+                          Get.toNamed(Config.profileChangeRequestPage);
+                        },
+                        child: const Text('Profile Change'),
+                      ),
                       const PopupMenuItem(
                         child: Text('Address Change'),
                       ),

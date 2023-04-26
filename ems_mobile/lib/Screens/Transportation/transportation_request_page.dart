@@ -1,6 +1,5 @@
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
 import 'package:ems_mobile/Services/Common/config.dart';
-import 'package:ems_mobile/Services/Common/pages_config.dart';
 import 'package:ems_mobile/Services/Profile/profile_service.dart';
 import 'package:ems_mobile/Services/Transportation/transportation_service.dart';
 import 'package:flutter/material.dart';
@@ -119,7 +118,10 @@ class TransportationPage extends StatelessWidget{
                           );
                         }).toList(),
                     onChanged: (String? newValue) {
-
+                      if(newValue == null || newValue.isEmpty){
+                        return;
+                      }
+                      controller.selectedTravelByValue = newValue;
                     },
                   ),
                   const SizedBox(height: 20,),
@@ -139,7 +141,10 @@ class TransportationPage extends StatelessWidget{
                           );
                         }).toList(),
                     onChanged: (String? newValue) {
-
+                      if(newValue == null || newValue.isEmpty){
+                        return;
+                      }
+                      controller.selectedTravelTypeValue = newValue;
                     },
                   ),
                   const SizedBox(height: 20,),

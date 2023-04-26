@@ -1,5 +1,5 @@
-import 'package:ems_mobile/Models/Transportation/transportation.dart';
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
+import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:ems_mobile/Services/Transportation/transportation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -129,7 +129,7 @@ class TransportationDetailPage extends StatelessWidget{
                                                 children: [
                                                   Chip(
 
-                                                    label: Text(controller.statusList[controller.transportationDetail.status]??"",
+                                                    label: Text(Config.statusList[controller.transportationDetail.status]??"",
                                                       style: const TextStyle(fontSize: 17),
                                                       overflow: TextOverflow.ellipsis, maxLines: 2,),
                                                     backgroundColor: controller.transportationDetail.status == "1" || controller.transportationDetail.status == "7" ? Colors.black26:

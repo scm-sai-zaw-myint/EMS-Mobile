@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -12,6 +11,7 @@ class CommonWidget {
   static Color primaryColor = const Color(0xff7f00fe);
   static Color lightColor = const Color(0xfff2e5fe);
   static Color softColor = const Color(0xffbf7ffe);
+  static Color dangerColor = const Color(0xffbe2146);
 
   static InputDecoration inputDecoration(String name) => InputDecoration(
         hintText: name,
@@ -45,7 +45,13 @@ class CommonWidget {
         padding: const EdgeInsets.all(13),
     minimumSize: minWidth != null ? Size(minWidth, 0) : null
   );
-
+  static ButtonStyle saveButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
+      backgroundColor: softColor,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      padding: const EdgeInsets.all(13),
+      minimumSize: minWidth != null ? Size(minWidth, 0) : null
+  );
   static ButtonStyle secondaryButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -258,11 +264,11 @@ class CommonWidget {
   }
 
   static BoxDecoration calendarDayActive() => BoxDecoration(
-      borderRadius: BorderRadius.circular(10), color: primaryColor);
+      borderRadius: BorderRadius.circular(10), color: Colors.lightBlue);
   static BoxDecoration calendarWFHDay() =>
       BoxDecoration(borderRadius: BorderRadius.circular(10), color: softColor);
   static BoxDecoration calendarOfficeDay() =>
-      BoxDecoration(borderRadius: BorderRadius.circular(10), color: lightColor);
+      BoxDecoration(borderRadius: BorderRadius.circular(10), color: softColor);
   static BoxDecoration calendarLeaveDay() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: Colors.redAccent);
   static BoxDecoration calendarNoRecDay() => BoxDecoration(

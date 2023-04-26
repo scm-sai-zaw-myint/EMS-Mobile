@@ -247,7 +247,7 @@ class Employee {
       "graduateUniversity": graduateUniversity,
       "homeAddress": homeAddress,
       "iqTestRemark": iqTestRemark,
-      "jlpt": jlpt,
+      "jlpt": jlpt=="-"?"11":jlpt,
       "joinDate": joinDate,
       "languageSkill": languageSkill,
       "macAddress": macAddress,
@@ -270,7 +270,8 @@ class Employee {
       "signOutDate": signOutDate,
       "type": type,
       "updatedUserId": updatedUserId,
-      "useFerry": useFerry
+      "useFerry": useFerry,
+      "religion": religion
     };
   }
 }

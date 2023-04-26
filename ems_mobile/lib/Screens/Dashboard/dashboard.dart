@@ -1,6 +1,7 @@
 import 'package:ems_mobile/Screens/Common/calendar_widget.dart';
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
 import 'package:ems_mobile/Screens/Common/drawer_widget.dart';
+import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:ems_mobile/Services/Dashboard/dashboard_service.dart';
 import 'package:ems_mobile/Services/Profile/profile_service.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class _DashboardState extends State<Dashboard> {
     return GetBuilder<DashboardService>(
       builder: (controller) {
         return Scaffold(
-          backgroundColor: CommonWidget.lightColor,
+          // backgroundColor: CommonWidget.lightColor,
           body: SafeArea(
             child: Column(
               children: [
@@ -62,24 +63,18 @@ class _DashboardState extends State<Dashboard> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Column(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: const [
+                            children: [
+                              Icon( DateTime.now().hour < 12 ? Icons.sunny_snowing : Icons.sunny ),
+                              const SizedBox(width: 10,),
                               Text(
-                                "Good Morning",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              Divider(
-                                thickness: 2,
-                                color: Colors.black12,
-                                indent: 10,
-                                endIndent: 10,
-                              ),
-                              Text(
-                                "Employee",
-                                style: TextStyle(fontSize: 14),
-                              ),
+                                controller.greeting,
+                                style: const TextStyle(fontSize: 18,),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              )
                             ],
                           ),
                         ),
@@ -87,9 +82,15 @@ class _DashboardState extends State<Dashboard> {
                       CircleAvatar(
                         backgroundColor: CommonWidget.primaryColor,
                         child: IconButton(
-                            onPressed: () => {},
-                            icon: const Icon(Icons.account_box)),
-                      ),
+                            color: Colors.transparent,
+                            padding: EdgeInsets.zero,
+                            onPressed: () => {
+                              Get.toNamed(Config.profilePage)
+                            },
+                            icon: CircleAvatar(
+                              child: ClipOval(child: profileService.commonImageWidget()),
+                            ),
+                      ),)
                     ],
                   ),
                 ),
@@ -99,7 +100,7 @@ class _DashboardState extends State<Dashboard> {
                     child: Column(
                       children: [
                         const SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         const CalendarWidget(),
                         Padding(
@@ -129,21 +130,21 @@ class _DashboardState extends State<Dashboard> {
                                   children:
                                   controller.getLeaveHistory.map((leave)=>
                                       Chip(
+                                          elevation: 8,
                                           avatar: leave.leaveDetailStatus == "1" || leave.leaveDetailStatus == "7" ? CircleAvatar(
                                             backgroundColor: CommonWidget.softColor,
                                             child: const Text('P'),
-                                          ): leave.leaveDetailStatus =="2"? const CircleAvatar(
-                                            backgroundColor: Color(0xFF009865),
-                                            child: Text('A'),
+                                          ): leave.leaveDetailStatus =="2"? CircleAvatar(
+                                            backgroundColor: CommonWidget.primaryColor,
+                                            child: const Text('A'),
                                           ): leave.leaveDetailStatus == "3"? const CircleAvatar(
                                             backgroundColor: Colors.redAccent,
                                             child: Text('R'),
                                           ):null,
-                                          backgroundColor: const Color(0xFF006C3F),
+                                          backgroundColor: CommonWidget.lightColor,
                                           label: Padding(
                                             padding: const EdgeInsets.all(7),
-                                            child: Text("${DateFormat('MM/d/y').format(controller.parseDate(leave.leaveDate!))} ( ${_getPeriod(int.parse(leave.period??"0"))} )"
-                                              ,style: const TextStyle(color: Colors.white),
+                                            child: Text("${DateFormat('MM/d/y').format(controller.parseDate(leave.leaveDate!))} ( ${_getPeriod(int.parse(leave.period??"0"))} )",
                                             ),
                                           )
                                       )
@@ -170,14 +171,11 @@ class _DashboardState extends State<Dashboard> {
                                   children: controller.getOvertimeHistory.map((overtime){
                                     return Flexible(
                                       child: Card(
+                                        elevation: 8,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(20),
                                         ),
-                                        color: overtime.overTimeStatus == "1" || overtime.overTimeStatus == "7" ?
-                                        CommonWidget.lightColor:
-                                        overtime.overTimeStatus == "2" ? const Color(0xFF009865):
-                                        overtime.overTimeStatus == "3" ? Colors.redAccent:
-                                        overtime.overTimeStatus == "4" ? CommonWidget.softColor: null,
+                                        color: CommonWidget.lightColor,
                                         child: Padding(
                                           padding: const EdgeInsets.fromLTRB(5,5,10,5),
                                           child: Row(
@@ -185,19 +183,22 @@ class _DashboardState extends State<Dashboard> {
                                             children: [
                                               CircleAvatar(
                                                 radius: 15,
-                                                backgroundColor:const Color(
-                                                    0x47000000),
+                                                backgroundColor:overtime.overTimeStatus == "1" || overtime.overTimeStatus == "7" ?
+                                                CommonWidget.lightColor:
+                                                overtime.overTimeStatus == "2" ? CommonWidget.primaryColor:
+                                                overtime.overTimeStatus == "3" ? Colors.redAccent:
+                                                overtime.overTimeStatus == "4" ? CommonWidget.softColor: null,
                                                 child: Text(
                                                   overtime.overTimeStatus == "1" ? "P" :
                                                       overtime.overTimeStatus == "2" ? "A" :
                                                           overtime.overTimeStatus == "3" ? "R" : "P"
                                                 ),
                                               ),
-                                              Text(DateFormat('MM/d/y').format(controller.parseDate(overtime.appliedDate!))),
+                                              Text(DateFormat('MM/d/y').format(controller.parseDate(overtime.appliedDate!)), overflow: TextOverflow.ellipsis, maxLines: 1,),
                                               const Text("|"),
-                                              Text("${overtime.fromTime} ~ ${overtime.toTime}"),
+                                              Text("${overtime.fromTime} ~ ${overtime.toTime}", overflow: TextOverflow.ellipsis, maxLines: 1,),
                                               const Text("|"),
-                                              Text("${controller.timeDifference(overtime.fromTime??'00:00', overtime.toTime??'00:00')} hour"),
+                                              Text("${controller.timeDifference(overtime.fromTime??'00:00', overtime.toTime??'00:00')} hour", overflow: TextOverflow.ellipsis, maxLines: 1,),
                                             ],
                                           ),
                                         ),

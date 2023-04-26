@@ -65,7 +65,7 @@ class Credential {
     setEmployeeType(authResponse.userInformation!.employeeType);
     setToken(authResponse.token);
   }
-  static void clearStorage() async {
+  static Future<void> clearStorage() async {
     await storage.deleteAll();
   }
 
