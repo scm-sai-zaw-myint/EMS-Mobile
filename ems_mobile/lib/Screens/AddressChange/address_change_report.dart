@@ -38,8 +38,11 @@ class _AddressChangeRequestState extends State<AddressChangeRequest> {
       employeeName: _employeeName.text,
       address: _address.text,
       newAddress: _newAddress.text,
-      startDate: _startDate.text,
-      requestDate: _requestDate.text,
+      startDate: _startDate.text != ""
+          ? CommonWidget.YMDtoDMY(_startDate.text)
+          : _startDate.text,
+      requestDate: CommonWidget.YMDtoDMY(_today),
+      totalFees: _fees.text,
     );
     return GetBuilder<AddressChangeService>(builder: (controller) {
       controller.addressChangeRegister();

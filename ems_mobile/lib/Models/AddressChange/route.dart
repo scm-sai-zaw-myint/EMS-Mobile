@@ -1,4 +1,4 @@
-class AddressChangeRoute {
+class RouteForm {
   int? addressChangeId;
   String fromRoute;
   String toRoute;
@@ -8,7 +8,7 @@ class AddressChangeRoute {
   bool? delFlg;
   double fees;
 
-  AddressChangeRoute({
+  RouteForm({
     this.addressChangeId,
     required this.fromRoute,
     required this.toRoute,
@@ -19,7 +19,7 @@ class AddressChangeRoute {
     this.delFlg,
   });
 
-  AddressChangeRoute.empty()
+  RouteForm.empty()
       : fromRoute = "",
         toRoute = "",
         routeOrder = 0,
@@ -27,8 +27,8 @@ class AddressChangeRoute {
         fees = 0.0,
         delFlg = false;
 
-  factory AddressChangeRoute.fromJson(Map<String, dynamic> json) {
-    return AddressChangeRoute(
+  factory RouteForm.fromJson(Map<String, dynamic> json) {
+    return RouteForm(
       addressChangeId: json['address_change_id'],
       fromRoute: json['from_route'],
       toRoute: json['to_route'],
@@ -40,7 +40,7 @@ class AddressChangeRoute {
     );
   }
 
-  static Map<String, dynamic> toJson(AddressChangeRoute route) {
+  static Map<String, dynamic> toJson(RouteForm route) {
     return {
       "fromRoute": route.fromRoute,
       "toRoute": route.toRoute,

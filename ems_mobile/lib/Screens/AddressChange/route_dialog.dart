@@ -24,7 +24,7 @@ class _RouteDialogState extends State<RouteDialog> {
   Widget build(BuildContext context) {
     const List<String> list = <String>['Bus', 'Taxi', 'Other'];
 
-    AddressChangeRoute route = AddressChangeRoute(
+    RouteForm route = RouteForm(
         fromRoute: _fromInput.text,
         toRoute: _toInput.text,
         routeOrder: 0,

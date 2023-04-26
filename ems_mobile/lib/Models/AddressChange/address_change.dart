@@ -12,7 +12,7 @@ class AddressChange {
   String? status;
   String? remark;
   String? delFlag;
-  List<AddressChangeRoute>? route;
+  List<dynamic>? route;
 
   AddressChange({
     this.addressChangeId,
@@ -51,7 +51,7 @@ class AddressChange {
         requestDate: json['requestDate'],
         totalFees: json['totalFees'],
         status: json['status'],
-        remark: json['remark'],
+        remark: json['remark'] ?? "",
         route: json['routeList'],
         delFlag: json['delFlag']);
   }

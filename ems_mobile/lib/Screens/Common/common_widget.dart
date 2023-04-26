@@ -100,9 +100,11 @@ class CommonWidget {
       );
 
   static BoxDecoration commonBackground() => const BoxDecoration(
-      image: DecorationImage(
-          image: AssetImage("assets/images/img_bg.png"),
-          repeat: ImageRepeat.repeat));
+        image: DecorationImage(
+            image: AssetImage("assets/images/img_bg.png"),
+            repeat: ImageRepeat.repeat),
+        color: Color(0xffedfaf6),
+      );
 
   static Text commonLeftLeave(String text) => Text(
         text,
@@ -277,9 +279,7 @@ class CommonWidget {
 
   static Future displayTimePicker(BuildContext context,
       OnTimeChange onTimeChange, TimeOfDay inputTime) async {
-    var time = await showTimePicker(
-      context: context,
-      initialTime: inputTime);
+    var time = await showTimePicker(context: context, initialTime: inputTime);
     if (time != null) {
       onTimeChange(time);
     }
@@ -376,6 +376,16 @@ class CommonWidget {
         color: color,
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)));
+  }
+
+  static String YMDtoDMY(String ymd) {
+    List<String> dmy = ymd.toString().split("-");
+    return "${dmy[2]}/${dmy[1]}/${dmy[0]}";
+  }
+
+  static String DMYtoYMD(String dmy) {
+    List<String> ymd = dmy.toString().split("/");
+    return "${ymd[2]}-${ymd[1]}-${ymd[0]}";
   }
 }
 
