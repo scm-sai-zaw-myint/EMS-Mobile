@@ -15,16 +15,17 @@ class Config {
   static final String longTermLeaveRequestPage = "/longTermLeaveReport";
   static final String overtimeRequestPage = "/overtimeRequest";
   static final String attendanceRequestPage = "/attendanceRequest";
-  static final String transportationRequestPage = "";
+  static final String transportationRequestPage = "/transportationRequest";
   static final String leaveHistoryPage = "/leaveHistory";
   static final String leaveDetailPage = "/leaveDetail";
-  static final String overtimeHistoryPage = "/overtimeHistory";
+  static final String overtimeHistoryPage = "";
   static final String attendanceHistoryPage = "/attendanceHistory";
   static final String editAttendancePage = "/editAttendance";
-  static final String transportationHistoryPage = "";
-  static final String dailyTemperatureReportPage = "/dailyTemperatureReport";
-  static final String addressChangeRequestPage = "/addressChangeRequest";
-  static final String addressChangeHistoryPage = "/addressChangeHistory";
+  static final String transportationHistoryPage = "/transportationHistoryPage";
+  static final String transportationDetailPage = "/transportationDetailPage";
+  static final String profileChangeRequestPage = "/profileChangeRequestPage";
+  static final String profileChangeHistoryPage = "/profileChangeHistoryPage";
+  static final String profileChangeDetailPage = "/profileChangeDetailPage";
 
   /// Pages Routes End ///
 
@@ -41,7 +42,7 @@ class Config {
   static final String attendanceHistory = "/historyAttendanceReport?offset=1&limit=31";
   static final String editAttendance = "/updateAttendanceReport";
   static final String deleteAttendance = "/deleteAttendanceRecord";
-  static final String overtimeHistory = "/historyOvertime?offset=1&limit=20";
+
   static final String attendanceData = "/historyAttendanceReport";
   static final String leaveHistoryRecord = "/historyleaveRecord";
   static final String overtimeHistoryRecord = "/searchHistory";
@@ -52,4 +53,23 @@ class Config {
   static final String addressChangeSave = "/saveAddressChangeRegistration";
   static final String addressChangeRequest =
       "/requestAddressChangeRegistration";
+  static final String transportationRequest = "/registerOtherTransportation";
+  static final String transportationHistory = "/listOtherTransportation";
+
+  static final String profileChangeRequest = "/profileChangeRequest/request";
+  static final String profileChangeSave = "/profileChangeRequest/save";
+  static final String profileChangeHistory = "/profileChangeHistory?offset=1&limit=10";
+
+
+  //status list
+
+  static final statusList = {
+    "1": "Request",
+    "2": "Approve",
+    "3": "Reject",
+    "4": "Save",
+    "7": "Approve (M)"
+  };
+
+
 }

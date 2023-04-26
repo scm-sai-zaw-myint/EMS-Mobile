@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 
 class OvertimeService extends GetxController {
   final _overtime = Overtime.empty().obs;
-  RxList<Overtime> overtimeList = RxList<Overtime>([]);
+  RxList<Overtime> _overtimeList = RxList<Overtime>([]);
   RxMap<String, dynamic> status = RxMap<String, dynamic>();
   final _dateController = TextEditingController().obs;
   final _fromTimeController = TextEditingController().obs;
@@ -21,8 +21,8 @@ class OvertimeService extends GetxController {
   TextEditingController get toTimeController => _toTimeController.value;
   TextEditingController get otHourController => _otHourController.value;
   Overtime get overtime => _overtime.value;
-  // RxList<Overtime> get overtimeList => _overtimeList.value;
-  bool get isLoading => _isloading.value;
+  RxList<Overtime> get overtimeList => _overtimeList.value.obs;
+  bool get isloading => _isloading.value;
 
   ApiService api = ApiService();
 
