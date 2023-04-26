@@ -6,6 +6,7 @@ import 'package:ems_mobile/Screens/Common/noti_bar.dart';
 import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:ems_mobile/Services/Dashboard/dashboard_service.dart';
 import 'package:ems_mobile/Services/Login/login_service.dart';
+import 'package:ems_mobile/Services/Profile/profile_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -82,6 +83,8 @@ class LoginPage extends StatelessWidget {
                                   bool login = await controller.login();
                                   if (login) {
                                     DashboardService dashboard = Get.find();
+                                    ProfileService profile = Get.find();
+                                    profile.onInit();
                                     dashboard.onInit();
                                     Get.offNamed(Config.dashboardPage);
                                   } else {

@@ -20,6 +20,7 @@ class Config {
   static final String leaveDetailPage = "/leaveDetail";
   static final String overtimeHistoryPage = "/overtimeHistory";
   static final String attendanceHistoryPage = "/attendanceHistory";
+  static final String editAttendancePage = "/editAttendance";
   static final String transportationHistoryPage = "";
   static final String dailyTemperatureReportPage = "/dailyTemperatureReport";
   static final String addressChangeRequestPage = "/addressChangeRequest";
@@ -36,6 +37,10 @@ class Config {
   static final String singleLeaveRequest = "/leaveReport";
   static final String longLeaveRequest = "/longTermLeaveReport";
   static final String overtimeRegist = "/registerOvertime";
+
+  static final String attendanceHistory = "/historyAttendanceReport?offset=1&limit=31";
+  static final String editAttendance = "/updateAttendanceReport";
+  static final String deleteAttendance = "/deleteAttendanceRecord";
   static final String overtimeHistory = "/historyOvertime?offset=1&limit=20";
   static final String attendanceData = "/historyAttendanceReport";
   static final String leaveHistoryRecord = "/historyleaveRecord";
