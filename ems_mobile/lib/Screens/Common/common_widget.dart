@@ -6,6 +6,7 @@ typedef EyeCallback = Function();
 typedef OnDOBChange = Function(DateTime datetime);
 typedef OnTimeChange = Function(TimeOfDay time);
 typedef DashboardRoute = Function();
+typedef FileCallBack = Function(PlatformFile? file);
 
 class CommonWidget {
   static Color primaryColor = const Color(0xff7f00fe);
@@ -321,19 +322,23 @@ class CommonWidget {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       suffixIcon: IconButton(
           onPressed: () async {
-            await CommonWidget.pickFile();
+            await CommonWidget.pickFile((file)=>{});
           },
           icon: const Icon(Icons.attach_file)),
     );
   }
 
-  static Future<String> pickFile() async {
+  static Future<String?> pickFile([FileCallBack? fileCallback]) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf', 'doc'],
+      allowedExtensions: ['png', 'jpg', 'jpeg', 'pdf', 'txt']
     );
     if (result == null) {
       print("File is null");
+      return null;
+    }
+    if(fileCallback != null) {
+      fileCallback(result!.files.single);
     }
     return result!.files.single.path!;
   }

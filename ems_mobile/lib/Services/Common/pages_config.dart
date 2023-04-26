@@ -35,7 +35,7 @@ class PagesConfig {
         page: () => const SingleLeaveReport()),
     GetPage(
         name: Config.longTermLeaveRequestPage,
-        page: () => const LongTermLeaveReport()),
+        page: () => LongTermLeaveReport()),
     GetPage(
         name: Config.attendanceRequestPage,
         page: () => const AttendanceEditReport()),

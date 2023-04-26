@@ -78,6 +78,7 @@ class ProfileService extends GetxController {
     requestEmployee.pcNo = pcNoController.text;
     requestEmployee.pcPassword = pcPasswordController.text;
     _analyzeDatesBeforeChangeRequest();
+
     final result = await api.post("${Config.domainUrl}${ request?Config.profileChangeRequest:Config.profileChangeSave}", requestEmployee.toJson());
     requestEmployee = Employee.empty();
     _isChanging(false);

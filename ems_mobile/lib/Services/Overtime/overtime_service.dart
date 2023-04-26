@@ -12,21 +12,21 @@ class OvertimeService extends GetxController {
   final _fromTimeController = TextEditingController().obs;
   final _toTimeController = TextEditingController().obs;
   final _otHourController = TextEditingController().obs;
-  var _isloading = false.obs;
+  final _isLoading = false.obs;
 
   TextEditingController get dateController => _dateController.value;
   TextEditingController get fromTimeController => _fromTimeController.value;
   TextEditingController get toTimeController => _toTimeController.value;
   TextEditingController get otHourController => _otHourController.value;
   Overtime get overtime => _overtime.value;
-  bool get isLoading => _isloading.value;
+  bool get isLoading => _isLoading.value;
 
   ApiService api = ApiService();
 
   Future<void> overtimeRegister() async {
     _dateController.value.text = DateTime.now().toString().split(" ")[0];
     _overtime.value.appliedDate = DateTime.now().toString().split(" ")[0];
-    _isloading(true);
+    _isLoading(true);
     final response =
         await api.get("${Config.domainUrl}${Config.overtimeRegist}");
     Map<String, dynamic> jsonResponse = jsonDecode(response.body);
@@ -47,7 +47,7 @@ class OvertimeService extends GetxController {
     } else {
       _otHourController.value.text = "0.0";
     }
-    _isloading(false);
+    _isLoading(false);
   }
 
   Future<bool> overtimeRequest(isSave) async {

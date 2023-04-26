@@ -12,8 +12,6 @@ class TransportationService extends GetxController{
   final travelByLists = ["Bus","Motorbike","Taxi","Trishaw","Other"];
   final travelTypeLists = ["One Way","Round Trip"];
 
-
-
   final Transportation _transportation = Transportation.empty();
   Transportation transportationDetail = Transportation.empty();
 
@@ -47,6 +45,7 @@ class TransportationService extends GetxController{
     final body = jsonDecode(result.body);
     final list = body["otherTransportationList"] as List<dynamic>;
     _transportationList.value = list.map((e) => Transportation.fromJson(e)).toList();
+    print(_transportationList);
     return true;
   }
 
