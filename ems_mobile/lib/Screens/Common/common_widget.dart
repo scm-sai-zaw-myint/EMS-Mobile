@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -8,11 +7,13 @@ typedef EyeCallback = Function();
 typedef OnDOBChange = Function(DateTime datetime);
 typedef OnTimeChange = Function(TimeOfDay time);
 typedef DashboardRoute = Function();
+typedef FileCallBack = Function(PlatformFile? file);
 
 class CommonWidget {
   static Color primaryColor = const Color(0xff7f00fe);
   static Color lightColor = const Color(0xfff2e5fe);
   static Color softColor = const Color(0xffbf7ffe);
+  static Color dangerColor = const Color(0xffbe2146);
 
   static InputDecoration inputDecoration(String name) => InputDecoration(
         hintText: name,
@@ -38,17 +39,25 @@ class CommonWidget {
         ),
       );
 
-  static ButtonStyle primaryButtonStyle() => ElevatedButton.styleFrom(
-        backgroundColor: primaryColor,
+
+  static ButtonStyle primaryButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
+    backgroundColor: primaryColor,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
-        padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-      );
-
-  static ButtonStyle secondaryButtonStyle() => ElevatedButton.styleFrom(
+        padding: const EdgeInsets.all(13),
+    minimumSize: minWidth != null ? Size(minWidth, 0) : null
+  );
+  static ButtonStyle saveButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
+      backgroundColor: softColor,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
-      padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+      padding: const EdgeInsets.all(13),
+      minimumSize: minWidth != null ? Size(minWidth, 0) : null
+  );
+  static ButtonStyle secondaryButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      padding: const EdgeInsets.all(13),
       backgroundColor: Colors.grey,
       foregroundColor: Colors.white);
 
@@ -57,7 +66,9 @@ class CommonWidget {
           borderRadius: BorderRadius.all(Radius.circular(20))),
       padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
       backgroundColor: color,
-      foregroundColor: Colors.white);
+      foregroundColor: Colors.white,
+      minimumSize: minWidth != null ? Size(minWidth, 0) : null
+  );
 
   static Padding profileRow(String left, String right) => Padding(
         padding: const EdgeInsets.all(8.0),
@@ -176,10 +187,10 @@ class CommonWidget {
   static Text commonText(text) {
     return Text(
       "$text",
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.bold,
-        color: primaryColor,
+        color: Color(0xFF006b42),
       ),
     );
   }
@@ -187,8 +198,8 @@ class CommonWidget {
   static InputDecoration commonInput(title, isDisabled) {
     return InputDecoration(
       filled: true,
+      fillColor: isDisabled ? const Color(0x22006b42) : Colors.white,
       enabled: !isDisabled,
-      fillColor: isDisabled ? lightColor : Colors.white,
       hintText: title,
       contentPadding: const EdgeInsets.all(8),
       border: const OutlineInputBorder(
@@ -230,7 +241,7 @@ class CommonWidget {
       suffixIcon: IconButton(
           onPressed: () async {
             DateTime? date =
-                await _selectDate(context, DateTime.parse(initialDate));
+                await _selectDate(context, initialDate is DateTime ? initialDate : DateTime.parse(initialDate));
             if (date != null) {
               onDOBChange(date);
             }
@@ -265,11 +276,11 @@ class CommonWidget {
   }
 
   static BoxDecoration calendarDayActive() => BoxDecoration(
-      borderRadius: BorderRadius.circular(10), color: primaryColor);
+      borderRadius: BorderRadius.circular(10), color: Colors.lightBlue);
   static BoxDecoration calendarWFHDay() =>
       BoxDecoration(borderRadius: BorderRadius.circular(10), color: softColor);
   static BoxDecoration calendarOfficeDay() =>
-      BoxDecoration(borderRadius: BorderRadius.circular(10), color: lightColor);
+      BoxDecoration(borderRadius: BorderRadius.circular(10), color: softColor);
   static BoxDecoration calendarLeaveDay() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: Colors.redAccent);
   static BoxDecoration calendarNoRecDay() => BoxDecoration(
@@ -327,19 +338,23 @@ class CommonWidget {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       suffixIcon: IconButton(
           onPressed: () async {
-            await CommonWidget.pickFile();
+            await CommonWidget.pickFile((file)=>{});
           },
           icon: const Icon(Icons.attach_file)),
     );
   }
 
-  static Future<String> pickFile() async {
+  static Future<String?> pickFile([FileCallBack? fileCallback]) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf', 'doc'],
+      allowedExtensions: ['png', 'jpg', 'jpeg', 'pdf', 'txt']
     );
     if (result == null) {
       print("File is null");
+      return null;
+    }
+    if(fileCallback != null) {
+      fileCallback(result!.files.single);
     }
     return result!.files.single.path!;
   }

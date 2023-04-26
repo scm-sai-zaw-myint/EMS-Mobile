@@ -61,12 +61,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           Flexible(
             flex: 6,
             child: Card(
-              color: Colors.white,
-              elevation: 2,
+              elevation: 7,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30)),
               child: SizedBox(
-                height: rowFlag ? 410 : 350,
+                height: rowFlag ? 410 : 360,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                   child: Column(
@@ -74,34 +73,45 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Flexible(flex: 1, child: Text(_month)),
+                        Flexible(flex: 1, child: Text(_month, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 23),)),
                         const SizedBox(height: 20),
                         Flexible(
                             flex: 1,
                             child: Container(
-
+                              constraints: const BoxConstraints(
+                                minHeight: 40,
+                                maxHeight: 40
+                              ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
                                 color: CommonWidget.softColor,
                               ),
-                              child: GridView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 7,
-                                        crossAxisSpacing: 6,
-                                        mainAxisSpacing: 6),
-                                itemCount: 7,
-                                itemBuilder: (context, index) {
-                                  return SizedBox(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    child: Center(
-                                        child: Text(titleD[index],
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold))),
-                                  );
-                                },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: GridView.builder(
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 7,
+                                              crossAxisSpacing: 6,
+                                              mainAxisSpacing: 6),
+                                      itemCount: 7,
+                                      itemBuilder: (context, index) {
+                                        return SizedBox(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          child: Center(
+                                              child: Text(titleD[index],
+                                                  style: const TextStyle(
+                                                      fontWeight: FontWeight.bold))),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
                             )),
                         const SizedBox(height: 5),
@@ -125,7 +135,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     return Center(
                                         child: Container(
                                       decoration:
-                                          CommonWidget.calendarOfficeDay(),
+                                          CommonWidget.calendarHolidayDay(),
                                     ));
                                   }
                                   return Container(
@@ -155,6 +165,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                           ? CommonWidget
                                                               .calendarHolidayDay()
                                                           : null,
+
                                       child: Center(
                                           child: firstDayOfMonth.weekday <=
                                                       index &&
@@ -164,15 +175,16 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                       index
                                               ? TextButton(
                                                   onPressed: () {},
+                                            style: TextButton.styleFrom(
+                                              elevation: !_isWeekend(index) || controller.isHoliday(currentDateString) || controller.isLeave(currentDateString) ? 6 : null
+                                            ),
                                                   child: Text(
                                                     "${(index) - firstDayOfMonth.weekday + 1}",
                                                     style: TextStyle(
                                                         color: _isToday(
                                                                 index + 1)
                                                             ? Colors.white
-                                                            : _isWeekend(index)
-                                                                ? Colors.black54
-                                                                : Colors.black,
+                                                            : Colors.black,
                                                         fontWeight: _isWeekend(
                                                                 index)
                                                             ? FontWeight.normal

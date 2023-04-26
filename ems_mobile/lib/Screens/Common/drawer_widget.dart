@@ -1,4 +1,6 @@
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
+import 'package:ems_mobile/Services/Credential/credential.dart';
+import 'package:ems_mobile/Services/Profile/profile_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,8 +10,7 @@ class DrawerWidget extends StatelessWidget {
   final String employeeName;
   final Widget employeeProfile;
 
-  const DrawerWidget(
-      {super.key, required this.employeeName, required this.employeeProfile});
+  const DrawerWidget({super.key, required this.employeeName, required this.employeeProfile});
 
   @override
   Widget build(BuildContext context) {
@@ -23,39 +24,55 @@ class DrawerWidget extends StatelessWidget {
               child: DrawerHeader(
                 padding: const EdgeInsets.all(0),
                 margin: const EdgeInsets.all(0),
-                child: Container(
-                    color: CommonWidget.primaryColor,
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CircleAvatar(
-                                radius: 50.0, // adjust the radius as needed
-                                child: ClipOval(
-                                  child: employeeProfile,
-                                ),
-                              ),
-                            ]),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                  child: Text(
-                                employeeName,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontSize: 20, color: Colors.white),
-                              ))
-                            ]),
-                      ],
-                    )),
+                child: Stack(
+                  children: [
+                    Container(
+                        color: CommonWidget.primaryColor,
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 50.0, // adjust the radius as needed
+                                    child: ClipOval(
+                                      child: employeeProfile,
+                                    ),
+                                  ),
+                                ]),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                      child: Text(
+                                    employeeName,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ))
+                                ]),
+                          ],
+                        )),
+                    Positioned(
+                        top: 10,
+                        right: 10,
+                        child: IconButton(
+                          icon: const Icon(Icons.power_settings_new),
+                          color: CommonWidget.lightColor,
+                          onPressed: () async {
+                            await Credential.clearStorage();
+                            Get.offNamed(Config.loginPage);
+                          },
+                        )
+                    )
+                  ],
+                ),
               )),
           Flexible(
             flex: 6,
@@ -110,6 +127,20 @@ class DrawerWidget extends StatelessWidget {
                     onTap: () {
                       Get.back();
                       Get.toNamed(Config.profilePage);
+                    },
+                  ),
+                  ListTile(
+                    dense: true,
+                    title: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 40),
+                      child: Text("Profile Change",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    onTap: (){
+                      Get.back();
+                      ProfileService profile = Get.find();
+                      profile.fetchProfileHistory();
+                      Get.toNamed(Config.profileChangeHistoryPage);
                     },
                   ),
                   ListTile(
@@ -220,30 +251,6 @@ class DrawerWidget extends StatelessWidget {
                       Get.toNamed(Config.transportationRequestPage);
                     },
                   ),
-                  ListTile(
-                    dense: true,
-                    title: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40),
-                      child: Text("Address change request",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                    ),
-                    onTap: () {
-                      Get.back();
-                      Get.toNamed(Config.addressChangeRequestPage);
-                    },
-                  ),
-                  ListTile(
-                    dense: true,
-                    title: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40),
-                      child: Text("Daily temperature report",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                    ),
-                    onTap: () {
-                      Get.back();
-                      Get.toNamed(Config.dailyTemperatureReportPage);
-                    },
-                  ),
                   const Divider(),
                   Stack(
                     children: [
@@ -326,18 +333,6 @@ class DrawerWidget extends StatelessWidget {
                     onTap: () {
                       Get.back();
                       Get.toNamed(Config.transportationHistoryPage);
-                    },
-                  ),
-                  ListTile(
-                    dense: true,
-                    title: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40),
-                      child: Text("Address change history",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                    ),
-                    onTap: () {
-                      Get.back();
-                      Get.toNamed(Config.addressChangeHistoryPage);
                     },
                   ),
                   const Divider(),

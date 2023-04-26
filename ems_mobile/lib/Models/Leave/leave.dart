@@ -19,14 +19,7 @@ class Leave {
   int? leaveRecordDetailId; //            "leaveRecordDetailId": 1940,
   String? leaveDetailStatus; //            "leaveDetailStatus": "2",
   int? singleTotalCount; //            "singleTotalCount": null,
-  List<dynamic>? leaveTypeList; //            "leaveTypeList": [
-  //            "Casual",
-  //            "Sick",
-  //            "Absent",
-  //            "Special Leave",
-  //            "Compensatory",
-  //            "Unpaid"
-  //            ],
+  List<dynamic>? leaveTypeList;
   int? annualLeaveCount; //            "annualLeaveCount": null,
   int? casualLeaveCount; //            "casualLeaveCount": null,
   int? sickLeaveCount; //            "sickLeaveCount": null,
@@ -62,6 +55,7 @@ class Leave {
   bool? sickLeaveReset; //            "sickLeaveReset": false,
   bool? reset; //            "reset": false,
   bool? fullYearEmployee;
+  String? date;
 
   Leave(
       {this.leaveRecordId,
@@ -237,7 +231,8 @@ class Leave {
       "attachment": attachment,
       "sickLeaveReset": sickLeaveReset,
       "reset": reset,
-      "fullYearEmployee": fullYearEmployee
+      "fullYearEmployee": fullYearEmployee,
+      "date": date
     };
   }
 }
