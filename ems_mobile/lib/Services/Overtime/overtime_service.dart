@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 class OvertimeService extends GetxController {
   final _overtime = Overtime.empty().obs;
+  final _overtimeList = <Overtime>[].obs;
   final _dateController = TextEditingController().obs;
   final _fromTimeController = TextEditingController().obs;
   final _toTimeController = TextEditingController().obs;
@@ -19,6 +20,7 @@ class OvertimeService extends GetxController {
   TextEditingController get toTimeController => _toTimeController.value;
   TextEditingController get otHourController => _otHourController.value;
   Overtime get overtime => _overtime.value;
+  RxList<Overtime> get overtimeList => _overtimeList.value.obs;
   bool get isLoading => _isLoading.value;
 
   ApiService api = ApiService();
@@ -57,5 +59,14 @@ class OvertimeService extends GetxController {
         Overtime.toJson(overtime));
     if (response.statusCode == 200) return true;
     return false;
+  }
+
+  getOvertimeList() async {
+    final response =
+        await api.get("${Config.domainUrl}${Config.overtimeHistoryRecord}");
+    Map<String, dynamic> map = jsonDecode(response.body);
+    overtimeList.value = RxList<Overtime>.from(
+        (map["overtimeRecordHistory"] as List)
+            .map((element) => Overtime.fromJson(element)));
   }
 }
