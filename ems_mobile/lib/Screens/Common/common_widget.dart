@@ -332,7 +332,11 @@ class CommonWidget {
     return DecoratedBox(
         decoration: BoxDecoration(
           border: Border.all(
-            color: CommonWidget.primaryColor,
+            color: text == "Request" || text == "Approve (M)"
+                ? CommonWidget.primaryColor
+                : text == "Approve"
+                    ? const Color.fromARGB(255, 3, 98, 66)
+                    : Colors.redAccent,
             width: 1,
           ),
           borderRadius: BorderRadius.circular(4),
@@ -340,7 +344,14 @@ class CommonWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
           child: Text(text,
-              style: TextStyle(fontSize: 10, color: CommonWidget.primaryColor)),
+              style: TextStyle(
+                fontSize: 13,
+                color: text == "Request" || text == "Approve (M)"
+                    ? CommonWidget.primaryColor
+                    : text == "Approve"
+                        ? const Color.fromARGB(255, 3, 98, 66)
+                        : Colors.redAccent,
+              )),
         ));
   }
 

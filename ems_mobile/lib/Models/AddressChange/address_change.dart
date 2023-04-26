@@ -1,28 +1,38 @@
+import 'package:ems_mobile/Models/AddressChange/route.dart';
+
 class AddressChange {
   int? addressChangeId;
   String employeeId;
   String employeeName;
-  String newAddress;
+  String? newAddress;
   String? address;
-  String startDate;
+  String? startDate;
   String? requestDate;
-  String totalFees;
+  String? totalFees;
   String? status;
   String? remark;
-  String delFlag;
+  String? delFlag;
+  List<AddressChangeRoute>? route;
 
   AddressChange({
+    this.addressChangeId,
     required this.employeeId,
     required this.employeeName,
-    required this.newAddress,
-    required this.startDate,
-    required this.totalFees,
-    required this.delFlag,
+    this.address,
+    this.newAddress,
+    this.startDate,
+    this.requestDate,
+    this.remark,
+    this.totalFees,
+    this.status,
+    this.delFlag,
+    this.route,
   });
 
   AddressChange.empty()
       : employeeId = "",
         employeeName = "",
+        address = "",
         newAddress = "",
         startDate = "",
         totalFees = "",
@@ -32,11 +42,17 @@ class AddressChange {
 
   factory AddressChange.fromJson(Map<String, dynamic> json) {
     return AddressChange(
+        addressChangeId: json['addressChangeId'],
         employeeId: json['employeeId'],
         employeeName: json['employeeName'],
         newAddress: json['newAddress'],
+        address: json['address'],
         startDate: json['startDate'],
+        requestDate: json['requestDate'],
         totalFees: json['totalFees'],
+        status: json['status'],
+        remark: json['remark'],
+        route: json['routeList'],
         delFlag: json['delFlag']);
   }
   static Map<String, dynamic> toJson(AddressChange addressChange) {
@@ -48,6 +64,7 @@ class AddressChange {
       "totalFees": addressChange.totalFees,
       "newAddress": addressChange.newAddress,
       "remark": addressChange.remark,
+      "routeList": addressChange.route,
       "delFlag": false,
     };
   }

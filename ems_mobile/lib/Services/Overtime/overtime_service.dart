@@ -8,19 +8,20 @@ import 'package:get/get.dart';
 
 class OvertimeService extends GetxController {
   final _overtime = Overtime.empty().obs;
-  final _overtimeList = <Overtime>[].obs;
+  RxList<Overtime> overtimeList = RxList<Overtime>([]);
+  RxMap<String, dynamic> status = RxMap<String, dynamic>();
   final _dateController = TextEditingController().obs;
   final _fromTimeController = TextEditingController().obs;
   final _toTimeController = TextEditingController().obs;
   final _otHourController = TextEditingController().obs;
-  var _isloading = false.obs;
+  final _isloading = false.obs;
 
   TextEditingController get dateController => _dateController.value;
   TextEditingController get fromTimeController => _fromTimeController.value;
   TextEditingController get toTimeController => _toTimeController.value;
   TextEditingController get otHourController => _otHourController.value;
   Overtime get overtime => _overtime.value;
-  RxList<Overtime> get overtimeList => _overtimeList.value.obs;
+  // RxList<Overtime> get overtimeList => _overtimeList.value;
   bool get isLoading => _isloading.value;
 
   ApiService api = ApiService();
@@ -36,19 +37,7 @@ class OvertimeService extends GetxController {
     _overtime.value = Overtime.fromJson(jsonResponse["overtimeRequest"]);
     var fromTime = _fromTimeController.value.text;
     var toTime = _toTimeController.value.text;
-    if ((fromTime != null && toTime != null) &&
-        (fromTime != "" && toTime != "")) {
-      String fTime =
-          (double.parse(fromTime.split(":")[1]) / 60).toString().split(".")[1];
-      String tTime =
-          (double.parse(toTime.split(":")[1]) / 60).toString().split(".")[1];
-
-      double timeFrom = double.parse("${fromTime.split(":")[0]}.$fTime");
-      double timeTo = double.parse("${toTime.split(":")[0]}.$tTime");
-      _otHourController.value.text = (timeTo - timeFrom).toString();
-    } else {
-      _otHourController.value.text = "0.0";
-    }
+    _calculateOtHour(fromTime, toTime);
     _isloading(false);
   }
 
@@ -62,11 +51,30 @@ class OvertimeService extends GetxController {
   }
 
   getOvertimeList() async {
+    _isloading(true);
     final response =
-        await api.get("${Config.domainUrl}${Config.overtimeHistoryRecord}");
+        await api.get("${Config.domainUrl}${Config.overtimeHistory}");
     Map<String, dynamic> map = jsonDecode(response.body);
     overtimeList.value = RxList<Overtime>.from(
         (map["overtimeRecordHistory"] as List)
-            .map((element) => Overtime.fromJson(element)));
+            .map((x) => Overtime.fromJson(x)));
+    status.value = map["status"] as Map<String, dynamic>;
+    _isloading(false);
+  }
+
+  _calculateOtHour(fromTime, toTime) {
+    if ((fromTime != null && toTime != null) &&
+        (fromTime != "" && toTime != "")) {
+      String fTime =
+          (double.parse(fromTime.split(":")[1]) / 60).toString().split(".")[1];
+      String tTime =
+          (double.parse(toTime.split(":")[1]) / 60).toString().split(".")[1];
+
+      double timeFrom = double.parse("${fromTime.split(":")[0]}.$fTime");
+      double timeTo = double.parse("${toTime.split(":")[0]}.$tTime");
+      _otHourController.value.text = (timeTo - timeFrom).toString();
+    } else {
+      _otHourController.value.text = "0.0";
+    }
   }
 }
