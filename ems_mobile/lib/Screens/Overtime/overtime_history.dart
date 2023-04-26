@@ -12,7 +12,7 @@ class OvertimeHistory extends StatelessWidget {
     return GetBuilder<OvertimeService>(builder: (controller) {
       controller.getOvertimeList();
       return Obx(() {
-        if (controller.isLoading) {
+        if (controller.isloading) {
           return const Center(
             child: CircularProgressIndicator(),
           );

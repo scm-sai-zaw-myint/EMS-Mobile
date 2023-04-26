@@ -53,8 +53,8 @@ class ProfileService extends GetxController {
   }
 
   getProfile() async {
+    _loading(true);
     if (await Credential.isLoggedIn()) {
-      _loading(true);
       final response = await api.get("${Config.domainUrl}${Config.profile}");
       Map<String, dynamic> map = jsonDecode(response.body);
       emp.value = Employee.formJson(map["profileForm"]);

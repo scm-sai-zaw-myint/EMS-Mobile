@@ -82,9 +82,9 @@ class DashboardService extends GetxController {
     _isLeaveLoading(true);
     DateTime fromDate = DateTime(dateTime.year, dateTime.month, 1);
     DateTime toDate = DateTime(dateTime.year, dateTime.month + 1, 0);
-    final response = await api.post("${Config.domainUrl}${Config.leaveHistoryRecord}?offset=1&limit=31&search=true", {
-      "fromDate": DateFormat("d/MM/y").format(fromDate),
-      "toDate": DateFormat("d/MM/y").format(toDate),
+    final response = await api.post("${Config.domainUrl}${Config.leaveHistoryRecord}?offset=1&limit=31", {
+      "fromDate": DateFormat("dd/MM/yyyy").format(fromDate),
+      "toDate": DateFormat("dd/MM/yyyy").format(toDate),
     });
     _isLeaveLoading(false);
     if(response.statusCode != 200) return false;
@@ -99,8 +99,8 @@ class DashboardService extends GetxController {
     DateTime fromDate = DateTime(dateTime.year, dateTime.month, 1);
     DateTime toDate = DateTime(dateTime.year, dateTime.month + 1, 0);
     final response = await api.post("${Config.domainUrl}${Config.overtimeHistoryRecord}?offset=1&limit=31&search=true", {
-      "fromDate": DateFormat("d/MM/y").format(fromDate),
-      "toDate": DateFormat("d/MM/y").format(toDate),
+      "fromDate": DateFormat("dd/MM/yyyy").format(fromDate),
+      "toDate": DateFormat("dd/MM/yyyy").format(toDate),
     });
     _isOvertimeLoading(false);
 
@@ -117,9 +117,9 @@ class DashboardService extends GetxController {
     DateTime fromDate = DateTime(dateTime.year, dateTime.month, 1);
     DateTime toDate = DateTime(dateTime.year, dateTime.month + 1, 0);
     final response = await api.post("${Config.domainUrl}${Config.holidayList}?fromDate=${
-        DateFormat("d/MM/y").format(fromDate)
+        DateFormat("dd/MM/yyyy").format(fromDate)
     }&toDate=${
-        DateFormat("d/MM/y").format(toDate)
+        DateFormat("dd/MM/yyyy").format(toDate)
     }", null);
     _isHolidayLoading(false);
     if(response.statusCode != 200) return false;

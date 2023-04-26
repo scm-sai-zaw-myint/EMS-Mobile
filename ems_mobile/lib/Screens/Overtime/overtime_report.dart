@@ -19,7 +19,7 @@ class _OvertimeReportState extends State<OvertimeReport> {
     return GetBuilder<OvertimeService>(builder: (controller) {
       controller.overtimeRegister();
       return Obx(
-        () => controller.isLoading
+        () => controller.isloading
             ? const Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),

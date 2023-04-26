@@ -39,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     ProfileService profileService = Get.find();
-    profileService.getProfile();
+    // profileService.getProfile();
     return GetBuilder<DashboardService>(
       builder: (controller) {
         return Scaffold(
@@ -167,40 +167,38 @@ class _DashboardState extends State<Dashboard> {
                                 if(controller.getOvertimeHistory.isEmpty){
                                   return const Center(child: Text("No overtime history."));
                                 }
-                                return Row(
+                                return Column(
                                   children: controller.getOvertimeHistory.map((overtime){
-                                    return Flexible(
-                                      child: Card(
-                                        elevation: 8,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20),
-                                        ),
-                                        color: CommonWidget.lightColor,
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(5,5,10,5),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor:overtime.overTimeStatus == "1" || overtime.overTimeStatus == "7" ?
-                                                CommonWidget.lightColor:
-                                                overtime.overTimeStatus == "2" ? CommonWidget.primaryColor:
-                                                overtime.overTimeStatus == "3" ? Colors.redAccent:
-                                                overtime.overTimeStatus == "4" ? CommonWidget.softColor: null,
-                                                child: Text(
-                                                  overtime.overTimeStatus == "1" ? "P" :
-                                                      overtime.overTimeStatus == "2" ? "A" :
-                                                          overtime.overTimeStatus == "3" ? "R" : "P"
-                                                ),
+                                    return Card(
+                                      elevation: 8,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      color: CommonWidget.lightColor,
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(5,5,10,5),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            CircleAvatar(
+                                              radius: 15,
+                                              backgroundColor:overtime.overTimeStatus == "1" || overtime.overTimeStatus == "7" ?
+                                              CommonWidget.lightColor:
+                                              overtime.overTimeStatus == "2" ? CommonWidget.primaryColor:
+                                              overtime.overTimeStatus == "3" ? Colors.redAccent:
+                                              overtime.overTimeStatus == "4" ? CommonWidget.softColor: null,
+                                              child: Text(
+                                                overtime.overTimeStatus == "1" ? "P" :
+                                                    overtime.overTimeStatus == "2" ? "A" :
+                                                        overtime.overTimeStatus == "3" ? "R" : "P"
                                               ),
-                                              Text(DateFormat('MM/d/y').format(controller.parseDate(overtime.appliedDate!)), overflow: TextOverflow.ellipsis, maxLines: 1,),
-                                              const Text("|"),
-                                              Text("${overtime.fromTime} ~ ${overtime.toTime}", overflow: TextOverflow.ellipsis, maxLines: 1,),
-                                              const Text("|"),
-                                              Text("${controller.timeDifference(overtime.fromTime??'00:00', overtime.toTime??'00:00')} hour", overflow: TextOverflow.ellipsis, maxLines: 1,),
-                                            ],
-                                          ),
+                                            ),
+                                            Text(DateFormat('MM/d/y').format(controller.parseDate(overtime.appliedDate!)), overflow: TextOverflow.ellipsis, maxLines: 1,),
+                                            const Text("|"),
+                                            Text("${overtime.fromTime} ~ ${overtime.toTime}", overflow: TextOverflow.ellipsis, maxLines: 1,),
+                                            const Text("|"),
+                                            Text("${controller.timeDifference(overtime.fromTime??'00:00', overtime.toTime??'00:00')} hour", overflow: TextOverflow.ellipsis, maxLines: 1,),
+                                          ],
                                         ),
                                       ),
                                     );
@@ -221,7 +219,7 @@ class _DashboardState extends State<Dashboard> {
           ),
           drawer: SafeArea(
             child: Obx((){
-              if(profileService.isLoading) return Center(child: CircularProgressIndicator(),);
+              if(profileService.isLoading) return const Center(child: CircularProgressIndicator(),);
               return DrawerWidget(
                 employeeName: profileService.employee.employeeName!,
                 employeeProfile: profileService.commonImageWidget(),
