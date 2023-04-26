@@ -11,140 +11,138 @@ class LeaveHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<LeaveService>(builder: (controller) {
       controller.getLeave();
-      return Obx(() {
-        if (controller.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text("Leave History"),
-          ),
-          body: SingleChildScrollView(
-            child: Container(
-              decoration: CommonWidget.commonBackground(),
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CommonWidget.commonLeftLeave("Annual Leave"),
-                      CommonWidget.commonLeftLeave("Sick Leave"),
-                      CommonWidget.commonLeftLeave("Casual Leave")
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CommonWidget.commonLeftLeave(
-                          "(${controller.remainLeave["Annual"]})"),
-                      CommonWidget.commonLeftLeave(
-                          "(${controller.remainLeave["Sick"]})"),
-                      CommonWidget.commonLeftLeave(
-                          "(${controller.remainLeave["Casual"]})")
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: controller.leaves.length,
-                    itemBuilder: (BuildContext context, index) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(vertical: 5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: const Color(0XFFFFFFFF),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 3,
-                              offset: const Offset(2, 2),
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: ListTile(
-                              onTap: () {
-                                Get.to(() => LeaveDetail(
-                                      leave: controller.leaves[index],
-                                      status: controller.status,
-                                    ));
-                              },
-                              leading: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CommonWidget.commonLeftLeave(
-                                        "${controller.leaves[index].totalDays} D"),
-                                    CommonWidget.profileTitle(controller
-                                        .leaves[index].leaveType
-                                        .toString()),
-                                  ],
-                                ),
+      return Obx(() => Scaffold(
+            appBar: AppBar(
+              title: const Text("Leave History"),
+            ),
+            body: SingleChildScrollView(
+              child: Container(
+                decoration: CommonWidget.commonBackground(),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CommonWidget.commonLeftLeave("Annual Leave"),
+                        CommonWidget.commonLeftLeave("Sick Leave"),
+                        CommonWidget.commonLeftLeave("Casual Leave")
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CommonWidget.commonLeftLeave(
+                            "(${controller.remainLeave["Annual"]})"),
+                        CommonWidget.commonLeftLeave(
+                            "(${controller.remainLeave["Sick"]})"),
+                        CommonWidget.commonLeftLeave(
+                            "(${controller.remainLeave["Casual"]})")
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: controller.leaves.length,
+                      itemBuilder: (BuildContext context, index) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: const Color(0XFFFFFFFF),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 3,
+                                offset: const Offset(2, 2),
                               ),
-                              title: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.7,
-                                child: Row(
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(Icons.calendar_month,
-                                                color:
-                                                    CommonWidget.primaryColor),
-                                            const SizedBox(width: 8),
-                                            Text(controller
-                                                .leaves[index].leaveDate
-                                                .toString()),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Row(
-                                          children: [
-                                            Icon(Icons.message,
-                                                color:
-                                                    CommonWidget.primaryColor),
-                                            const SizedBox(width: 8),
-                                            Text(controller
-                                                .leaves[index].description
-                                                .toString()),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ],
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: ListTile(
+                                onTap: () {
+                                  Get.to(() => LeaveDetail(
+                                        leave: controller.leaves[index],
+                                        status: controller.status,
+                                      ));
+                                },
+                                leading: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.15,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CommonWidget.commonLeftLeave(
+                                          "${controller.leaves[index].totalDays} D"),
+                                      CommonWidget.profileTitle(controller
+                                          .leaves[index].leaveType
+                                          .toString()),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              trailing: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CommonWidget.commonStatus(controller.status[
-                                        controller
-                                            .leaves[index].leaveDetailStatus])
-                                  ],
+                                title: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(Icons.calendar_month,
+                                                  color: CommonWidget
+                                                      .primaryColor),
+                                              const SizedBox(width: 8),
+                                              Text(controller
+                                                  .leaves[index].leaveDate
+                                                  .toString()),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Row(
+                                            children: [
+                                              Icon(Icons.message,
+                                                  color: CommonWidget
+                                                      .primaryColor),
+                                              const SizedBox(width: 8),
+                                              Text(controller
+                                                  .leaves[index].description
+                                                  .toString()),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              )),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                                trailing: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.15,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CommonWidget.commonStatus(
+                                          controller.status[controller
+                                              .leaves[index].leaveDetailStatus])
+                                    ],
+                                  ),
+                                )),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      });
+          ));
     });
   }
 }

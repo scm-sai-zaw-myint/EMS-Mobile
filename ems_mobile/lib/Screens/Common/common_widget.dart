@@ -177,10 +177,10 @@ class CommonWidget {
   static Text commonText(text) {
     return Text(
       "$text",
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.bold,
-        color: primaryColor,
+        color: Color(0xFF006b42),
       ),
     );
   }
@@ -188,8 +188,8 @@ class CommonWidget {
   static InputDecoration commonInput(title, isDisabled) {
     return InputDecoration(
       filled: true,
+      fillColor: isDisabled ? const Color(0x22006b42) : Colors.white,
       enabled: !isDisabled,
-      fillColor: isDisabled ? lightColor : Colors.white,
       hintText: title,
       contentPadding: const EdgeInsets.all(8),
       border: const OutlineInputBorder(

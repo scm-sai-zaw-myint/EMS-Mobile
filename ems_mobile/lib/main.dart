@@ -16,7 +16,7 @@ void main() async {
   final result = await Credential.isLoggedIn();
   await Future.delayed(const Duration(seconds: 2));
   FlutterNativeSplash.remove();
-  if (result) {
+  if(result){
     pageDefault = const Dashboard();
   }
   runApp(const EmsApp());

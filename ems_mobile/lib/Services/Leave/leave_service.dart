@@ -9,12 +9,10 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 
 class LeaveService extends GetxController {
-  final _loading = false.obs;
   RxList<Leave> leaves = RxList<Leave>([]);
   RxMap<String, dynamic> remainLeave = RxMap<String, dynamic>();
   RxMap<String, dynamic> status = RxMap<String, dynamic>();
   ApiService api = ApiService();
-  bool get isLoading => _loading.value;
 
   final _isLoading = false.obs;
   final _requestDateController = TextEditingController().obs;
@@ -26,14 +24,12 @@ class LeaveService extends GetxController {
   LeaveReport leave = LeaveReport.empty();
 
   getLeave() async {
-    _loading(true);
     final response = await api.get("${Config.domainUrl}${Config.leaveHistory}");
     Map<String, dynamic> map = jsonDecode(response.body);
     leaves.value = RxList<Leave>.from(
         (map["leaveRecordHistory"] as List).map((x) => Leave.fromJson(x)));
     remainLeave.value = map["remainLeaves"] as Map<String, dynamic>;
     status.value = map["status"] as Map<String, dynamic>;
-    _loading(false);
   }
 
   showLongThermLeaveReport(){

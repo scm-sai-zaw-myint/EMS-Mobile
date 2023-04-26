@@ -1,4 +1,3 @@
-import 'package:ems_mobile/Services/AddressChange/address_change_report.dart';
 import 'package:ems_mobile/Services/Leave/leave_service.dart';
 import 'package:ems_mobile/Services/Login/login_service.dart';
 import 'package:ems_mobile/Services/Overtime/overtime_service.dart';
@@ -18,7 +17,6 @@ class ServiceBinding extends Bindings {
     Get.put(ProfileService());
     Get.put(LeaveService());
     Get.put(OvertimeService());
-    Get.put(AddressChangeService());
     Get.put(TransportationService());
   }
 }
