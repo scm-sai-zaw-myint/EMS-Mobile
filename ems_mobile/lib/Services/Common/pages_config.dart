@@ -1,3 +1,4 @@
+import 'package:ems_mobile/Models/Attendance/attendance.dart';
 import 'package:ems_mobile/Models/Leave/leave.dart';
 import 'package:ems_mobile/Screens/AddressChange/address_change_history.dart';
 import 'package:ems_mobile/Screens/AddressChange/address_change_report.dart';
@@ -37,7 +38,7 @@ class PagesConfig {
         page: () => const LongTermLeaveReport()),
     GetPage(
         name: Config.attendanceRequestPage,
-        page: () => const AttendanceEditReport()),
+        page: () => AttendanceEditReport(attendance: Attendance(), attTypelist: [])),
     GetPage(
         name: Config.attendanceHistoryPage,
         page: () => const AttendanceHistory()),

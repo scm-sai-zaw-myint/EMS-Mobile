@@ -111,7 +111,9 @@ class _AttendanceReportState extends State<AttendanceReport> {
                                                       .fromTimeController.text =
                                                   "${time.hour}:${time.minute}";
                                             }),
-                                          }),
+                                          },
+                                CommonWidget.getTimeOfDayFromString(
+                                    controller.fromTimeController.text)),
                                   validator: (value) =>
                                       CommonWidget.isEmpty(value, "From Time"),
                                   onChanged: (v) {
@@ -133,7 +135,9 @@ class _AttendanceReportState extends State<AttendanceReport> {
                                               controller.toTimeController.text =
                                                   "${time.hour}:${time.minute}";
                                             }),
-                                          }),
+                                          },
+                                CommonWidget.getTimeOfDayFromString(
+                                    controller.toTimeController.text)),
                                   validator: (value) =>
                                       CommonWidget.isEmpty(value, "To Time"),
                                   onChanged: (v) {

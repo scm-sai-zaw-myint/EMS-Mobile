@@ -57,7 +57,8 @@ class AttendanceHistory extends StatelessWidget {
                         ListTile(
                           onTap: () {
                             if (isModify) {
-                              Get.to(() => const AttendanceEditReport());
+                              Get.to(() =>
+                                  AttendanceEditReport(attendance: attendance, attTypelist: controller.attendanceTypeList));
                             }
                           },
                           leading: SizedBox(

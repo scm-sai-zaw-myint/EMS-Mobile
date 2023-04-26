@@ -119,11 +119,18 @@ class _OvertimeReportState extends State<OvertimeReport> {
                                       "From Time",
                                       (time) => {
                                             setState(() {
-                                              controller
-                                                      .fromTimeController.text =
-                                                  "${time.hour}:${time.minute}";
+                                              final hour = time.hour
+                                                  .toString()
+                                                  .padLeft(2, '0');
+                                              final minute = time.minute
+                                                  .toString()
+                                                  .padLeft(2, '0');
+                                              controller.fromTimeController
+                                                  .text = "$hour:$minute";
                                             }),
-                                          }),
+                                          },
+                                CommonWidget.getTimeOfDayFromString(
+                                    controller.fromTimeController.text)),
                                   validator: (value) =>
                                       CommonWidget.isEmpty(value, "From Time"),
                                   onChanged: (v) {
@@ -145,7 +152,9 @@ class _OvertimeReportState extends State<OvertimeReport> {
                                               controller.toTimeController.text =
                                                   "${time.hour}:${time.minute}";
                                             }),
-                                          }),
+                                          },
+                                CommonWidget.getTimeOfDayFromString(
+                                    controller.toTimeController.text)),
                                   validator: (value) =>
                                       CommonWidget.isEmpty(value, "To Time"),
                                   onChanged: (v) {

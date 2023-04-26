@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:intl/intl.dart';
 
 typedef EyeCallback = Function();
 typedef OnDOBChange = Function(DateTime datetime);
@@ -50,7 +51,6 @@ class CommonWidget {
       padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
       backgroundColor: Colors.grey,
       foregroundColor: Colors.white);
-
 
   static ButtonStyle deleteButtonStyle(Color color) => ElevatedButton.styleFrom(
       shape: const RoundedRectangleBorder(
@@ -247,7 +247,8 @@ class CommonWidget {
     return date;
   }
 
-  static InputDecoration timeInput(context, text, OnTimeChange onTimeChange) {
+  static InputDecoration timeInput(
+      context, text, OnTimeChange onTimeChange, TimeOfDay inputTime) {
     return InputDecoration(
       hintText: "$text",
       contentPadding: const EdgeInsets.all(8),
@@ -255,7 +256,7 @@ class CommonWidget {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       suffixIcon: IconButton(
           onPressed: () async {
-            displayTimePicker(context, onTimeChange);
+            displayTimePicker(context, onTimeChange, inputTime);
           },
           icon: const Icon(Icons.access_time_sharp)),
     );
@@ -274,13 +275,20 @@ class CommonWidget {
   static BoxDecoration calendarHolidayDay() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: Colors.black12);
 
-  static Future displayTimePicker(
-      BuildContext context, OnTimeChange onTimeChange) async {
-    var time =
-        await showTimePicker(context: context, initialTime: TimeOfDay.now());
+  static Future displayTimePicker(BuildContext context,
+      OnTimeChange onTimeChange, TimeOfDay inputTime) async {
+    var time = await showTimePicker(
+      context: context,
+      initialTime: inputTime);
     if (time != null) {
       onTimeChange(time);
     }
+  }
+
+  static TimeOfDay getTimeOfDayFromString(String timeString) {
+    final DateFormat formatter = DateFormat.Hm();
+    final DateTime dateTime = formatter.parse(timeString);
+    return TimeOfDay.fromDateTime(dateTime);
   }
 
   /// Menu lists
