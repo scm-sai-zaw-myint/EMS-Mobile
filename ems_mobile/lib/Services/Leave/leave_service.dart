@@ -14,7 +14,6 @@ class LeaveService extends GetxController {
   RxMap<String, dynamic> remainLeave = RxMap<String, dynamic>();
   RxMap<String, dynamic> status = RxMap<String, dynamic>();
   ApiService api = ApiService();
-  bool get isLoading => _loading.value;
 
   final _isLoading = false.obs;
   final _requestDateController = TextEditingController().obs;
@@ -62,7 +61,7 @@ class LeaveService extends GetxController {
     // };
     final requestData = leave.toJson();
     final response = await api.multipartRequest("${Config.domainUrl}${Config.longLeaveRequest}", requestData, leave.attachFile);
-    print("I am here with the following" + jsonEncode(response!.body));
+    // print("I am here with the following" + jsonEncode(response!.body));
     return true;
   }
 

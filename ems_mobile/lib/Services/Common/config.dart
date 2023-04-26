@@ -25,6 +25,9 @@ class Config {
   static final String profileChangeHistoryPage = "/profileChangeHistoryPage";
   static final String profileChangeDetailPage = "/profileChangeDetailPage";
 
+  static final String addressChangeRequestPage = "/addressChangeRequestPage";
+  static final String dailyTemperatureReportPage = "/dailyTemperatureReportPage";
+  static final String addressChangeHistoryPage = "/addressChangeHistoryPage";
   /// Pages Routes End ///
 
   /// API Routes  ///
@@ -58,6 +61,9 @@ class Config {
     "4": "Save",
     "7": "Approve (M)"
   };
+
+
+
 
 
 }
