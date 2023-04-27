@@ -9,6 +9,7 @@ typedef EyeCallback = Function();
 typedef OnDOBChange = Function(DateTime datetime);
 typedef OnTimeChange = Function(TimeOfDay time);
 typedef DashboardRoute = Function();
+typedef FileCallBack = Function(PlatformFile? file);
 
 class CommonWidget {
   static Color primaryColor = const Color(0xff7f00fe);
@@ -39,26 +40,35 @@ class CommonWidget {
         ),
       );
 
-  static ButtonStyle primaryButtonStyle() => ElevatedButton.styleFrom(
-        backgroundColor: primaryColor,
+  static ButtonStyle primaryButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
+    backgroundColor: primaryColor,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
-        padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-      );
-
-  static ButtonStyle secondaryButtonStyle() => ElevatedButton.styleFrom(
+        padding: const EdgeInsets.all(13),
+    minimumSize: minWidth != null ? Size(minWidth, 0) : null
+  );
+  static ButtonStyle saveButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
+      backgroundColor: softColor,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
-      padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+      padding: const EdgeInsets.all(13),
+      minimumSize: minWidth != null ? Size(minWidth, 0) : null
+  );
+  static ButtonStyle secondaryButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      padding: const EdgeInsets.all(13),
       backgroundColor: Colors.grey,
       foregroundColor: Colors.white);
 
-  static ButtonStyle deleteButtonStyle(Color color) => ElevatedButton.styleFrom(
+  static ButtonStyle deleteButtonStyle(Color color,[double? minWidth]) => ElevatedButton.styleFrom(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
       padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
       backgroundColor: color,
-      foregroundColor: Colors.white);
+      foregroundColor: Colors.white,
+      minimumSize: minWidth != null ? Size(minWidth, 0) : null
+  );
 
   static Padding profileRow(String left, String right) => Padding(
         padding: const EdgeInsets.all(8.0),
@@ -266,7 +276,7 @@ class CommonWidget {
   static BoxDecoration calendarDayActive() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: primaryColor);
   static BoxDecoration calendarWFHDay() =>
-      BoxDecoration(borderRadius: BorderRadius.circular(10), color: softColor);
+      BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.yellow);
   static BoxDecoration calendarOfficeDay() =>
       BoxDecoration(borderRadius: BorderRadius.circular(10), color: lightColor);
   static BoxDecoration calendarLeaveDay() => BoxDecoration(
@@ -275,6 +285,8 @@ class CommonWidget {
       borderRadius: BorderRadius.circular(10), color: Colors.black54);
   static BoxDecoration calendarHolidayDay() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: Colors.black12);
+  static BoxDecoration calendarNoRecord() => BoxDecoration(
+      borderRadius: BorderRadius.circular(10), color: Colors.black);
 
   static Future displayTimePicker(BuildContext context,
       OnTimeChange onTimeChange, TimeOfDay inputTime) async {
@@ -285,6 +297,7 @@ class CommonWidget {
   }
 
   static TimeOfDay getTimeOfDayFromString(String timeString) {
+    if(timeString.isEmpty) return TimeOfDay.now();
     final DateFormat formatter = DateFormat.Hm();
     final DateTime dateTime = formatter.parse(timeString);
     return TimeOfDay.fromDateTime(dateTime);
@@ -326,21 +339,25 @@ class CommonWidget {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       suffixIcon: IconButton(
           onPressed: () async {
-            await CommonWidget.pickFile();
+            await CommonWidget.pickFile((file)=>{});
           },
           icon: const Icon(Icons.attach_file)),
     );
   }
 
-  static Future<String> pickFile() async {
+  static Future<String?> pickFile([FileCallBack? fileCallback]) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf', 'doc'],
+      allowedExtensions: ['png', 'jpg', 'jpeg', 'pdf', 'txt']
     );
     if (result == null) {
       print("File is null");
+      return null;
     }
-    return result!.files.single.path!;
+    if(fileCallback != null) {
+      fileCallback(result.files.single);
+    }
+    return result.files.single.path!;
   }
 
   static DecoratedBox commonStatus(String text) {

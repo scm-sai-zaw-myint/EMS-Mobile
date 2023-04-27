@@ -5,30 +5,33 @@ import 'package:ems_mobile/Services/Common/api_service.dart';
 import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class OvertimeService extends GetxController {
   final _overtime = Overtime.empty().obs;
   final _overtimeList = <Overtime>[].obs;
+  RxMap<String, dynamic> status = RxMap<String, dynamic>();
   final _dateController = TextEditingController().obs;
   final _fromTimeController = TextEditingController().obs;
   final _toTimeController = TextEditingController().obs;
   final _otHourController = TextEditingController().obs;
-  var _isloading = false.obs;
+  final _isLoading = false.obs;
+  RxList<Overtime> overtimeList = RxList<Overtime>([]);
 
   TextEditingController get dateController => _dateController.value;
   TextEditingController get fromTimeController => _fromTimeController.value;
   TextEditingController get toTimeController => _toTimeController.value;
   TextEditingController get otHourController => _otHourController.value;
   Overtime get overtime => _overtime.value;
-  RxList<Overtime> get overtimeList => _overtimeList.value.obs;
-  bool get isLoading => _isloading.value;
+  // List<Overtime> get overtimeList => _overtimeList.value;
+  bool get isLoading => _isLoading.value;
 
   ApiService api = ApiService();
 
   Future<void> overtimeRegister() async {
     _dateController.value.text = DateTime.now().toString().split(" ")[0];
     _overtime.value.appliedDate = DateTime.now().toString().split(" ")[0];
-    _isloading(true);
+    _isLoading(true);
     final response =
         await api.get("${Config.domainUrl}${Config.overtimeRegist}");
     Map<String, dynamic> jsonResponse = jsonDecode(response.body);
@@ -36,6 +39,52 @@ class OvertimeService extends GetxController {
     _overtime.value = Overtime.fromJson(jsonResponse["overtimeRequest"]);
     var fromTime = _fromTimeController.value.text;
     var toTime = _toTimeController.value.text;
+    _calculateOtHour(fromTime, toTime);
+    _isLoading(false);
+  }
+
+  Future<bool> overtimeRequest(isSave) async {
+    var param = isSave ? "save" : "request";
+    final response = await api.post(
+        "${Config.domainUrl}${Config.overtimeRegist}?request=$param",
+        Overtime.toJson(overtime));
+    if (response.statusCode == 200) return true;
+    return false;
+  }
+
+  Future<bool> fetchOvertimeHistory (DateTime dateTime) async{
+    _isLoading(true);
+    DateTime fromDate = DateTime(dateTime.year, dateTime.month, 1);
+    DateTime toDate = DateTime(dateTime.year, dateTime.month + 1, 0);
+    final response = await api.post("${Config.domainUrl}${Config.overtimeHistoryRecord}?offset=1&limit=31&search=true", {
+      "fromDate": DateFormat("dd/MM/yyyy").format(fromDate),
+      "toDate": DateFormat("dd/MM/yyyy").format(toDate),
+    });
+    _isLoading(false);
+    if(response.statusCode != 200) {
+      return false;
+    }
+    Map<String, dynamic> body = jsonDecode(response.body);
+    final listBody = body["overtimeRecordHistory"] as List<dynamic>;
+    print(listBody);
+    _overtimeList.value = listBody.map((e) => Overtime.fromJson(e)).toList().reversed.toList();
+    status.value = body["status"] as Map<String, dynamic>;
+    return true;
+  }
+
+  // getOvertimeList() async {
+  //   _isLoading(true);
+  //   final response =
+  //       await api.get("${Config.domainUrl}${Config.overtimeHistory}");
+  //   _isLoading(false);
+  //   Map<String, dynamic> map = jsonDecode(response.body);
+  //   overtimeList.value = RxList<Overtime>.from(
+  //       (map["overtimeRecordHistory"] as List)
+  //           .map((x) => Overtime.fromJson(x)));
+  //   status.value = map["status"] as Map<String, dynamic>;
+  // }
+
+  _calculateOtHour(fromTime, toTime) {
     if ((fromTime != null && toTime != null) &&
         (fromTime != "" && toTime != "")) {
       String fTime =
@@ -49,16 +98,7 @@ class OvertimeService extends GetxController {
     } else {
       _otHourController.value.text = "0.0";
     }
-    _isloading(false);
-  }
-
-  Future<bool> overtimeRequest(isSave) async {
-    var param = isSave ? "save" : "request";
-    final response = await api.post(
-        "${Config.domainUrl}${Config.overtimeRegist}?request=$param",
-        Overtime.toJson(overtime));
-    if (response.statusCode == 200) return true;
-    return false;
+    _isLoading(false);
   }
 
   getOvertimeList() async {

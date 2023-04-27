@@ -17,13 +17,16 @@ class Config {
   static final String transportationRequestPage = "";
   static final String leaveHistoryPage = "/leaveHistory";
   static final String leaveDetailPage = "/leaveDetail";
-  static final String overtimeHistoryPage = "/overtimeHistory";
+  static final String overtimeHistoryPage = "/overtimeHistoryPage";
   static final String attendanceHistoryPage = "/attendanceHistory";
   static final String editAttendancePage = "/editAttendance";
   static final String transportationHistoryPage = "";
   static final String dailyTemperatureReportPage = "/dailyTemperatureReport";
   static final String addressChangeRequestPage = "/addressChangeRequest";
   static final String addressChangeHistoryPage = "/addressChangeHistory";
+  static final String profileChangeRequestPage = "/profileChangeRequestPage";
+  static final String profileChangeHistoryPage = "/profileChangeHistoryPage";
+  static final String profileChangeDetailPage = "/profileChangeDetailPage";
 
   /// Pages Routes End ///
 
@@ -45,4 +48,29 @@ class Config {
   static final String leaveHistoryRecord = "/historyleaveRecord";
   static final String overtimeHistoryRecord = "/searchHistory";
   static final String holidayList = "/getHolidays";
+  static final String addressChangeHistory =
+      "/addressChangeHistory?offset=1&limit=10";
+  static final String addressChangeRegist = "/addressChangeRegistration";
+  static final String addressChangeSave = "/saveAddressChangeRegistration";
+  static final String addressChangeRequest =
+      "/requestAddressChangeRegistration";
+  static final String transportationRequest = "/registerOtherTransportation";
+  static final String transportationHistory = "/listOtherTransportation";
+  static final String editTransportation = "/editOtherTransportation/update";
+
+  static final String profileChangeRequest = "/profileChangeRequest/request";
+  static final String profileChangeEdit = "/profileChangeEdit?url=1";
+  static final String profileChangeSave = "/profileChangeRequest/save";
+  static final String profileChangeHistory =
+      "/profileChangeHistory?offset=1&limit=10";
+
+  //status list
+
+  static final statusList = {
+    "1": "Request",
+    "2": "Approve",
+    "3": "Reject",
+    "4": "Save",
+    "7": "Approve (M)"
+  };
 }

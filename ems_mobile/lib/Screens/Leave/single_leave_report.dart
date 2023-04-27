@@ -48,7 +48,7 @@ class _SingleLeaveReportState extends State<SingleLeaveReport> {
         appBar: AppBar(title: const Text("Leave Report")),
         body: Container(
           decoration: CommonWidget.commonBackground(),
-          padding: const EdgeInsets.symmetric( horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
@@ -160,7 +160,8 @@ class _SingleLeaveReportState extends State<SingleLeaveReport> {
                         ],
                       )),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 30),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 30),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

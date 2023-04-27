@@ -1,6 +1,5 @@
 import 'package:ems_mobile/Models/Attendance/attendance.dart';
 import 'package:ems_mobile/Models/Leave/leave.dart';
-import 'package:ems_mobile/Screens/AddressChange/address_change_history.dart';
 import 'package:ems_mobile/Screens/AddressChange/address_change_report.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_edit.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_history.dart';
@@ -16,6 +15,9 @@ import 'package:ems_mobile/Screens/Overtime/overtime_history.dart';
 import 'package:ems_mobile/Screens/Overtime/overtime_report.dart';
 import 'package:ems_mobile/Screens/Profile/change_password.dart';
 import 'package:ems_mobile/Screens/Profile/profile.dart';
+import 'package:ems_mobile/Screens/Profile/profile_change_detail.dart';
+import 'package:ems_mobile/Screens/Profile/profile_change_history.dart';
+import 'package:ems_mobile/Screens/Profile/profile_change_request.dart';
 import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:get/get.dart';
 
@@ -41,7 +43,8 @@ class PagesConfig {
         page: () => const AttendanceReport()),
     GetPage(
         name: Config.editAttendancePage,
-        page: () => AttendanceEditReport(attendance: Attendance(), attTypelist: [])),
+        page: () =>
+            AttendanceEditReport(attendance: Attendance(), attTypelist: [])),
     GetPage(
         name: Config.attendanceHistoryPage,
         page: () => const AttendanceHistory()),
@@ -55,7 +58,15 @@ class PagesConfig {
         name: Config.addressChangeRequestPage,
         page: () => AddressChangeRequest()),
     GetPage(
-        name: Config.addressChangeHistoryPage,
-        page: () => const AddressChangeHistory()),
+        name: Config.profileChangeRequestPage,
+        page: () => ProfileChangeRequestPage()),
+    GetPage(
+        name: Config.profileChangeHistoryPage,
+        page: () => const ProfileChangeHistoryPage()),
+    GetPage(
+        name: Config.profileChangeDetailPage,
+        page: () => const ProfileChangeDetail()),
+    GetPage(
+        name: Config.overtimeHistoryPage, page: () => const OvertimeHistory()),
   ];
 }

@@ -10,9 +10,15 @@ class OvertimeHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     double cWidth = MediaQuery.of(context).size.width * 0.45;
     return GetBuilder<OvertimeService>(builder: (controller) {
-      controller.getOvertimeList();
-      return Obx(
-        () => Scaffold(
+      // controller.getOvertimeList();
+      controller.fetchOvertimeHistory(DateTime.now());
+      return Obx(() {
+        if (controller.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return Scaffold(
           appBar: AppBar(
             title: const Text("Overtime History"),
             backgroundColor: CommonWidget.primaryColor,
@@ -116,7 +122,7 @@ class OvertimeHistory extends StatelessWidget {
               // )
             ),
           ),
-        ),
+        );},
       );
     });
   }
