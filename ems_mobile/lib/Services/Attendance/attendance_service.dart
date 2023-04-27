@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ems_mobile/Screens/Common/common_widget.dart';
 import 'package:ems_mobile/Services/Common/api_service.dart';
 import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:ems_mobile/Models/Attendance/attendance.dart';
@@ -11,6 +12,34 @@ class AttendanceService extends GetxController {
   RxMap<String, dynamic> attendanceTypeMap = RxMap<String, dynamic>();
   List<String> attendanceTypeList = List.empty();
   ApiService api = ApiService();
+
+  registerAttendance(
+      Attendance attendance, String fromDate, String toDate) async {
+    List<String> fDate = CommonWidget.DMYtoYMD(fromDate).split("-");
+    List<String> tDate = CommonWidget.DMYtoYMD(toDate).split("-");
+    DateTime startDate =
+        DateTime(int.parse(fDate[0]), int.parse(fDate[1]), int.parse(fDate[2]));
+    DateTime endDate =
+        DateTime(int.parse(tDate[0]), int.parse(tDate[1]), int.parse(tDate[2]));
+    List<DateTime> weekdays =
+        CommonWidget.getWeekdaysBetweenDates(startDate, endDate);
+    List<Map<String, dynamic>> wfhRegisterFormList = [];
+
+    for (DateTime days in weekdays) {
+      Map<String, dynamic> wfhRegisterForm = {
+        "recordDate": CommonWidget.YMDtoDMY(days.toString().split(" ")[0]),
+        "fromTime": attendance.arrivalTime,
+        "toTime": attendance.leaveTime,
+        "isWFH": false,
+        "description": ""
+      };
+      wfhRegisterFormList.add(wfhRegisterForm);
+      attendances.add(Attendance());
+    }
+    await api.post(
+        "${Config.domainUrl}${Config.registerAttendance}",
+        {"wfhRegisterFormList": wfhRegisterFormList});
+  }
 
   getAttendance() async {
     final response =
@@ -33,7 +62,6 @@ class AttendanceService extends GetxController {
     if (attendance.wfhFlag == null) {
       attendance.wfhStatus = null;
     }
-    final response =
         await api.post("${Config.domainUrl}${Config.editAttendance}", {
       "attendanceRecordId": attendance.attendanceRecordId,
       "employeeId": attendance.employeeId,

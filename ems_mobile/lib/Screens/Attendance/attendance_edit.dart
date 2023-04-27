@@ -85,7 +85,6 @@ class _AttendanceEditReportState extends State<AttendanceEditReport> {
                                 CommonWidget.commonInput("Employee Id", true),
                             validator: (value) =>
                                 CommonWidget.isEmpty(value, "Employee Id"),
-                            onChanged: (value) => attendance.employeeId = value,
                           ),
                           const SizedBox(height: 15),
                           CommonWidget.commonText("Employee Name"),
@@ -96,8 +95,6 @@ class _AttendanceEditReportState extends State<AttendanceEditReport> {
                                 CommonWidget.commonInput("Employee Name", true),
                             validator: (value) =>
                                 CommonWidget.isEmpty(value, "Employee Name"),
-                            onChanged: (value) =>
-                                attendance.employeeName = value,
                           ),
                           const SizedBox(height: 15),
                           CommonWidget.commonText("Date"),

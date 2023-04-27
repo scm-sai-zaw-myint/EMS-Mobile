@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 typedef EyeCallback = Function();
@@ -227,8 +228,7 @@ class CommonWidget {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       suffixIcon: IconButton(
           onPressed: () async {
-            DateTime? date =
-                await _selectDate(context, DateTime.parse(initialDate));
+            DateTime? date = await _selectDate(context, initialDate);
             if (date != null) {
               onDOBChange(date);
             }
@@ -237,12 +237,13 @@ class CommonWidget {
     );
   }
 
-  static Future<DateTime?> _selectDate(context, DateTime? initialDate) async {
+  static Future<DateTime?> _selectDate(context, String? initialDate) async {
+    DateTime inputDate =initialDate == "" ? DateTime.now() : DateTime.parse(DMYtoYMD(initialDate!));
     final DateTime? date = await showDatePicker(
       context: context,
-      initialDate: initialDate ?? DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      initialDate:inputDate
+          ,
+      firstDate: DateTime(1900), lastDate: DateTime(2050),
     );
     return date;
   }
@@ -277,9 +278,7 @@ class CommonWidget {
 
   static Future displayTimePicker(BuildContext context,
       OnTimeChange onTimeChange, TimeOfDay inputTime) async {
-    var time = await showTimePicker(
-      context: context,
-      initialTime: inputTime);
+    var time = await showTimePicker(context: context, initialTime: inputTime);
     if (time != null) {
       onTimeChange(time);
     }
@@ -366,6 +365,91 @@ class CommonWidget {
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)));
   }
+
+  static String YMDtoDMY(String ymd) {
+    List<String> dmy = ymd.toString().split("-");
+    return "${dmy[2]}/${dmy[1]}/${dmy[0]}";
+  }
+
+  static String DMYtoYMD(String dmy) {
+    List<String> ymd = dmy.toString().split("/");
+    return "${ymd [2]}-${ymd[1]}-${ymd[0]}";
+  }
+
+  static Dialog errorAlert(String errMsg) {
+    return Dialog(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: CommonWidget.commonDialogTitle(Colors.red),
+              child: const Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    "Error!",
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.warning, size: 60, color: Colors.red),
+                    const SizedBox(height: 8),
+                    Text(errMsg, style: const TextStyle(fontSize: 20))
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      style: CommonWidget.deleteButtonStyle(Colors.grey),
+                      child: const Text("Close"),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 15.0,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static List<DateTime> getWeekdaysBetweenDates(DateTime startDate, DateTime endDate) {
+  List<DateTime> weekdays = [];
+  for (var date = startDate; date.isBefore(endDate.add(const Duration(days: 1))); date = date.add(const Duration(days: 1))) {
+    if (date.weekday != 6 && date.weekday != 7) {
+      weekdays.add(date);
+    }
+  }
+  return weekdays;
+}
 }
 
 extension ListTileWrapper on ListTile {
