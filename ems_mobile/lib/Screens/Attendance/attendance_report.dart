@@ -46,130 +46,125 @@ class _AttendanceReportState extends State<AttendanceReport> {
         appBar: AppBar(title: const Text("Attendance Report")),
         body: Container(
           decoration: CommonWidget.commonBackground(),
-          margin: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("Employee Id"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: _empIdController,
+                        decoration:
+                            CommonWidget.commonInput("Employee Id", true),
+                        validator: (value) =>
+                            CommonWidget.isEmpty(value, "Employee Id"),
+                      ),
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("Employee Name"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: _empNameController,
+                        decoration:
+                            CommonWidget.commonInput("Employee Name", true),
+                        validator: (value) =>
+                            CommonWidget.isEmpty(value, "Employee Name"),
+                      ),
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("From Date"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: _fromDateController,
+                        decoration: CommonWidget.dobDecoration(
+                            context,
+                            "From Date",
+                            _fromDateController.text,
+                            (datetime) => {
+                                  setState(() {
+                                    _fromDateController.text =
+                                        CommonWidget.YMDtoDMY(
+                                            datetime.toString().split(" ")[0]);
+                                  })
+                                }),
+                        validator: (value) =>
+                            CommonWidget.isEmpty(value, "From Date"),
+                      ),
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("To Date"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: _toDateController,
+                        decoration: CommonWidget.dobDecoration(
+                            context,
+                            "To Date",
+                            _toDateController.text,
+                            (datetime) => {
+                                  setState(() {
+                                    _toDateController.text =
+                                        CommonWidget.YMDtoDMY(
+                                            datetime.toString().split(" ")[0]);
+                                  })
+                                }),
+                        validator: (value) =>
+                            CommonWidget.isEmpty(value, "To Date"),
+                      ),
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("From Time"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: _fromTimeController,
+                        decoration: CommonWidget.timeInput(
+                            context,
+                            "From Time",
+                            (time) => {
+                                  setState(() {
+                                    _fromTimeController.text =
+                                        "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
+                                    attendance.arrivalTime =
+                                        _fromTimeController.text;
+                                  }),
+                                },
+                            CommonWidget.getTimeOfDayFromString(
+                                _fromTimeController.text)),
+                        validator: (value) =>
+                            CommonWidget.isEmpty(value, "From Time"),
+                        onChanged: (v) {
+                          attendance.arrivalTime = v;
+                          _fromTimeController.text = v;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("To Time"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: _toTimeController,
+                        decoration: CommonWidget.timeInput(
+                            context,
+                            "To Time",
+                            (time) => {
+                                  setState(() {
+                                    _toTimeController.text =
+                                        "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
+                                    attendance.leaveTime =
+                                        _toTimeController.text;
+                                  }),
+                                },
+                            CommonWidget.getTimeOfDayFromString(
+                                _toTimeController.text)),
+                        validator: (value) =>
+                            CommonWidget.isEmpty(value, "To Time"),
+                      ),
+                    ],
+                  ),
                   Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("Employee Id"),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _empIdController,
-                            decoration:
-                                CommonWidget.commonInput("Employee Id", true),
-                            validator: (value) =>
-                                CommonWidget.isEmpty(value, "Employee Id"),
-                          ),
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("Employee Name"),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _empNameController,
-                            decoration:
-                                CommonWidget.commonInput("Employee Name", true),
-                            validator: (value) =>
-                                CommonWidget.isEmpty(value, "Employee Name"),
-                          ),
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("From Date"),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _fromDateController,
-                            decoration: CommonWidget.dobDecoration(
-                                context,
-                                "From Date",
-                                _fromDateController.text,
-                                (datetime) => {
-                                      setState(() {
-                                        _fromDateController.text =
-                                            CommonWidget.YMDtoDMY(datetime
-                                                .toString()
-                                                .split(" ")[0]);
-                                      })
-                                    }),
-                            validator: (value) =>
-                                CommonWidget.isEmpty(value, "From Date"),
-                          ),
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("To Date"),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _toDateController,
-                            decoration: CommonWidget.dobDecoration(
-                                context,
-                                "To Date",
-                                _toDateController.text,
-                                (datetime) => {
-                                      setState(() {
-                                        _toDateController.text =
-                                            CommonWidget.YMDtoDMY(datetime
-                                                .toString()
-                                                .split(" ")[0]);
-                                      })
-                                    }),
-                            validator: (value) =>
-                                CommonWidget.isEmpty(value, "To Date"),
-                          ),
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("From Time"),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _fromTimeController,
-                            decoration: CommonWidget.timeInput(
-                                context,
-                                "From Time",
-                                (time) => {
-                                      setState(() {
-                                        _fromTimeController.text =
-                                            "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
-                                        attendance.arrivalTime =
-                                            _fromTimeController.text;
-                                      }),
-                                    },
-                                CommonWidget.getTimeOfDayFromString(
-                                    _fromTimeController.text)),
-                            validator: (value) =>
-                                CommonWidget.isEmpty(value, "From Time"),
-                            onChanged: (v) {
-                              attendance.arrivalTime = v;
-                              _fromTimeController.text = v;
-                            },
-                          ),
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("To Time"),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _toTimeController,
-                            decoration: CommonWidget.timeInput(
-                                context,
-                                "To Time",
-                                (time) => {
-                                      setState(() {
-                                        _toTimeController.text =
-                                            "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
-                                        attendance.leaveTime =
-                                            _toTimeController.text;
-                                      }),
-                                    },
-                                CommonWidget.getTimeOfDayFromString(
-                                    _toTimeController.text)),
-                            validator: (value) =>
-                                CommonWidget.isEmpty(value, "To Time"),
-                          ),
-                          const SizedBox(height: 15),
-                        ],
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 30),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

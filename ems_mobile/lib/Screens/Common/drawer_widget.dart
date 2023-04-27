@@ -244,6 +244,18 @@ class DrawerWidget extends StatelessWidget {
                       Get.toNamed(Config.dailyTemperatureReportPage);
                     },
                   ),
+                  ListTile(
+                    dense: true,
+                    title: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 40),
+                      child: Text("Profile Change Request",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    onTap: () {
+                      Get.back();
+                      Get.toNamed(Config.profileChangeRequestPage);
+                    },
+                  ),
                   const Divider(),
                   Stack(
                     children: [
@@ -338,6 +350,18 @@ class DrawerWidget extends StatelessWidget {
                     onTap: () {
                       Get.back();
                       Get.toNamed(Config.addressChangeHistoryPage);
+                    },
+                  ),
+                  ListTile(
+                    dense: true,
+                    title: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 40),
+                      child: Text("Profile Change History",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    onTap: () {
+                      Get.back();
+                      Get.toNamed(Config.profileChangeHistoryPage);
                     },
                   ),
                   const Divider(),

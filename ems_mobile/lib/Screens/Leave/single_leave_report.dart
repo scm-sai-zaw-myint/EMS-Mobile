@@ -45,123 +45,118 @@ class _SingleLeaveReportState extends State<SingleLeaveReport> {
   Widget build(BuildContext context) {
     return GetBuilder<LeaveService>(builder: (controller) {
       return Scaffold(
-        appBar: AppBar(title: const Text("Leave Report")),
+        appBar: AppBar(title: const Text("Single Leave Report")),
         body: Container(
           decoration: CommonWidget.commonBackground(),
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("Employee Id"),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _empIdController,
-                            decoration:
-                                CommonWidget.commonInput("Employee Id", true),
-                            validator: (value) =>
-                                CommonWidget.isEmpty(value, "Employee Id"),
-                          ),
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("Employee Name"),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _empNameController,
-                            decoration:
-                                CommonWidget.commonInput("Employee Name", true),
-                            validator: (value) =>
-                                CommonWidget.isEmpty(value, "Employee Name"),
-                          ),
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("Leave Type"),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _typeController,
-                            decoration:
-                                CommonWidget.commonInput("Leave Type", true),
-                            validator: (value) =>
-                                CommonWidget.isEmpty(value, "Leave Type"),
-                          ),
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("Leave Date"),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _dateController,
-                            decoration: CommonWidget.dobDecoration(
-                                context,
-                                "Leave Date",
-                                _dateController.text,
-                                (datetime) => {
-                                      setState(() {
-                                        _dateController.text =
-                                            CommonWidget.YMDtoDMY(datetime
-                                                .toString()
-                                                .split(" ")[0]);
-                                        leave.leaveDate = _dateController.text;
-                                      })
-                                    }),
-                            validator: (value) =>
-                                CommonWidget.isEmpty(value, "Leave Date"),
-                          ),
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("Period"),
-                          const SizedBox(height: 5),
-                          DropdownButtonFormField<String>(
-                            decoration:
-                                CommonWidget.commonInput("Period", false),
-                            isExpanded: true,
-                            value: periodValue,
-                            items: periodList
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                periodValue = newValue!;
-                                leave.period = periodValue;
-                              });
-                            },
-                          ),
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("Leave Reason"),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                              controller: _reasonController,
-                              maxLines: 3,
-                              decoration: CommonWidget.commonInput(
-                                  "Leave Reason", false),
-                              validator: (value) =>
-                                  CommonWidget.isEmpty(value, "Leave Reason"),
-                              onChanged: (value) =>
-                                  leave.description = _reasonController.text),
-                          const SizedBox(height: 15),
-                          CommonWidget.commonText("Attach File"),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            readOnly: true,
-                            onTap: () async {
-                              await CommonWidget.pickFile();
-                            },
-                            initialValue: "",
-                            decoration: CommonWidget.commonAttachmentFile(),
-                          ),
-                        ],
-                      )),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("Employee Id"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: _empIdController,
+                        decoration:
+                            CommonWidget.commonInput("Employee Id", true),
+                        validator: (value) =>
+                            CommonWidget.isEmpty(value, "Employee Id"),
+                      ),
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("Employee Name"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: _empNameController,
+                        decoration:
+                            CommonWidget.commonInput("Employee Name", true),
+                        validator: (value) =>
+                            CommonWidget.isEmpty(value, "Employee Name"),
+                      ),
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("Leave Type"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: _typeController,
+                        decoration:
+                            CommonWidget.commonInput("Leave Type", true),
+                        validator: (value) =>
+                            CommonWidget.isEmpty(value, "Leave Type"),
+                      ),
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("Leave Date"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: _dateController,
+                        decoration: CommonWidget.dobDecoration(
+                            context,
+                            "Leave Date",
+                            _dateController.text,
+                            (datetime) => {
+                                  setState(() {
+                                    _dateController.text =
+                                        CommonWidget.YMDtoDMY(
+                                            datetime.toString().split(" ")[0]);
+                                    leave.leaveDate = _dateController.text;
+                                  })
+                                }),
+                        validator: (value) =>
+                            CommonWidget.isEmpty(value, "Leave Date"),
+                      ),
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("Period"),
+                      const SizedBox(height: 5),
+                      DropdownButtonFormField<String>(
+                        decoration: CommonWidget.commonInput("Period", false),
+                        isExpanded: true,
+                        value: periodValue,
+                        items: periodList
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            periodValue = newValue!;
+                            leave.period = periodValue;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("Leave Reason"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                          controller: _reasonController,
+                          maxLines: 3,
+                          decoration:
+                              CommonWidget.commonInput("Leave Reason", false),
+                          validator: (value) =>
+                              CommonWidget.isEmpty(value, "Leave Reason"),
+                          onChanged: (value) =>
+                              leave.description = _reasonController.text),
+                      const SizedBox(height: 15),
+                      CommonWidget.commonText("Attach File"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        readOnly: true,
+                        onTap: () async {
+                          await CommonWidget.pickFile();
+                        },
+                        initialValue: "",
+                        decoration: CommonWidget.commonAttachmentFile(),
+                      ),
+                    ],
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 30),
+                        vertical: 20, horizontal: 30),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

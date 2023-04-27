@@ -1,5 +1,6 @@
 import 'package:ems_mobile/Models/Attendance/attendance.dart';
 import 'package:ems_mobile/Models/Leave/leave.dart';
+import 'package:ems_mobile/Models/Transportation/transportation.dart';
 import 'package:ems_mobile/Screens/AddressChange/address_change_report.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_edit.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_history.dart';
@@ -18,6 +19,9 @@ import 'package:ems_mobile/Screens/Profile/profile.dart';
 import 'package:ems_mobile/Screens/Profile/profile_change_detail.dart';
 import 'package:ems_mobile/Screens/Profile/profile_change_history.dart';
 import 'package:ems_mobile/Screens/Profile/profile_change_request.dart';
+import 'package:ems_mobile/Screens/Transportation/transportation_detail_page.dart';
+import 'package:ems_mobile/Screens/Transportation/transportation_history.dart';
+import 'package:ems_mobile/Screens/Transportation/transportation_request_page.dart';
 import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:get/get.dart';
 
@@ -29,15 +33,15 @@ class PagesConfig {
     GetPage(name: Config.profilePage, page: () => const Profile()),
     GetPage(name: Config.leaveHistoryPage, page: () => const LeaveHistory()),
     GetPage(
-        name: Config.leaveDetailPage,
-        page: () =>
-            LeaveDetail(leave: Leave(), status: const <String, dynamic>{})),
-    GetPage(
         name: Config.singleLeaveRequestPage,
         page: () => const SingleLeaveReport()),
     GetPage(
         name: Config.longTermLeaveRequestPage,
         page: () => const LongTermLeaveReport()),
+    GetPage(
+        name: Config.leaveDetailPage,
+        page: () =>
+            LeaveDetail(leave: Leave(), status: const <String, dynamic>{})),
     GetPage(
         name: Config.attendanceRequestPage,
         page: () => const AttendanceReport()),
@@ -49,6 +53,15 @@ class PagesConfig {
         name: Config.attendanceHistoryPage,
         page: () => const AttendanceHistory()),
     GetPage(
+        name: Config.transportationRequestPage,
+        page: () => TransportationPage()),
+    GetPage(
+        name: Config.transportationHistoryPage,
+        page: () => const TransportationHistoryPage()),
+    GetPage(
+        name: Config.transportationDetailPage,
+        page: () => const TransportationDetailPage()),
+    GetPage(
         name: Config.overtimeRequestPage, page: () => const OvertimeReport()),
     GetPage(
         name: Config.overtimeHistoryPage, page: () => const OvertimeHistory()),
@@ -56,13 +69,13 @@ class PagesConfig {
         name: Config.dailyTemperatureReportPage, page: () => DailyTempReport()),
     GetPage(
         name: Config.addressChangeRequestPage,
-        page: () => AddressChangeRequest()),
+        page: () => const AddressChangeRequest()),
     GetPage(
         name: Config.profileChangeRequestPage,
         page: () => ProfileChangeRequestPage()),
     GetPage(
-        name: Config.profileChangeHistoryPage,
-        page: () => const ProfileChangeHistoryPage()),
+      name: Config.profileChangeHistoryPage,
+      page: () => const ProfileChangeHistoryPage()),
     GetPage(
         name: Config.profileChangeDetailPage,
         page: () => const ProfileChangeDetail()),

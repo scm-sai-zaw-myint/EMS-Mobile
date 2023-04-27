@@ -14,13 +14,14 @@ class Config {
   static final String longTermLeaveRequestPage = "/longTermLeaveReport";
   static final String overtimeRequestPage = "/overtimeRequest";
   static final String attendanceRequestPage = "/attendanceRequest";
-  static final String transportationRequestPage = "";
+  static final String transportationRequestPage = "/transportationRequest";
   static final String leaveHistoryPage = "/leaveHistory";
   static final String leaveDetailPage = "/leaveDetail";
   static final String overtimeHistoryPage = "/overtimeHistoryPage";
   static final String attendanceHistoryPage = "/attendanceHistory";
   static final String editAttendancePage = "/editAttendance";
-  static final String transportationHistoryPage = "";
+  static final String transportationHistoryPage = "/transportationHistoryPage";
+  static final String transportationDetailPage = "/transportationDetailPage";
   static final String dailyTemperatureReportPage = "/dailyTemperatureReport";
   static final String addressChangeRequestPage = "/addressChangeRequest";
   static final String addressChangeHistoryPage = "/addressChangeHistory";
