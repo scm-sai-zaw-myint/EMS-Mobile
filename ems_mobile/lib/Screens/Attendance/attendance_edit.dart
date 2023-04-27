@@ -62,17 +62,17 @@ class _AttendanceEditReportState extends State<AttendanceEditReport> {
       showDropdown(attTypeValue == "WFH" ? true : false);
       return Scaffold(
         appBar: AppBar(title: const Text("Attendance Report Edit")),
-        body: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Container(
-              padding: const EdgeInsets.only(bottom: 30, left: 10, right: 10),
+        body: Container(
+          decoration: CommonWidget.commonBackground(),
+          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -223,7 +223,7 @@ class _AttendanceEditReportState extends State<AttendanceEditReport> {
                         ],
                       )),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

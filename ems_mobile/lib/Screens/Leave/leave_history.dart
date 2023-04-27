@@ -17,15 +17,17 @@ class LeaveHistory extends StatelessWidget {
           appBar: AppBar(
             title: const Text("Leave History"),
             actions: [
-              IconButton(onPressed: () {
-                Get.to(() => const SingleLeaveReport());
-              }, icon: const Icon(Icons.add))
+              IconButton(
+                  onPressed: () {
+                    Get.to(() => const SingleLeaveReport());
+                  },
+                  icon: const Icon(Icons.add))
             ],
           ),
-          body: SingleChildScrollView(
-            child: Container(
-              decoration: CommonWidget.commonBackground(),
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          body: Container(
+            decoration: CommonWidget.commonBackground(),
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

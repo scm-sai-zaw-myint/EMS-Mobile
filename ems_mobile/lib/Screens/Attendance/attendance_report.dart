@@ -44,11 +44,12 @@ class _AttendanceReportState extends State<AttendanceReport> {
     return GetBuilder<AttendanceService>(builder: (controller) {
       return Scaffold(
         appBar: AppBar(title: const Text("Attendance Report")),
-        body: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Container(
-              padding: const EdgeInsets.only(bottom: 30, left: 10, right: 10),
+        body: Container(
+          decoration: CommonWidget.commonBackground(),
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [

@@ -46,11 +46,12 @@ class _SingleLeaveReportState extends State<SingleLeaveReport> {
     return GetBuilder<LeaveService>(builder: (controller) {
       return Scaffold(
         appBar: AppBar(title: const Text("Leave Report")),
-        body: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Container(
-              padding: const EdgeInsets.only(bottom: 30, left: 10, right: 10),
+        body: Container(
+          decoration: CommonWidget.commonBackground(),
+          padding: const EdgeInsets.symmetric( horizontal: 10),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -159,7 +160,7 @@ class _SingleLeaveReportState extends State<SingleLeaveReport> {
                         ],
                       )),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 30),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -168,8 +169,8 @@ class _SingleLeaveReportState extends State<SingleLeaveReport> {
                           child: ElevatedButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                               await controller
-                                    .registerSingleLeave(false,leave);
+                                await controller.registerSingleLeave(
+                                    false, leave);
                               }
                             },
                             style: CommonWidget.primaryButtonStyle(),
@@ -182,8 +183,8 @@ class _SingleLeaveReportState extends State<SingleLeaveReport> {
                           child: ElevatedButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                               await controller
-                                    .registerSingleLeave(false,leave);
+                                await controller.registerSingleLeave(
+                                    false, leave);
                               }
                               // if (_formKey.currentState!.validate()) {
                               //   DateTime now = DateTime.now();
