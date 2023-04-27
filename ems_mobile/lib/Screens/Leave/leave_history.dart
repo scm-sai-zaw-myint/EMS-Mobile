@@ -1,5 +1,6 @@
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
 import 'package:ems_mobile/Screens/Leave/leave_detail.dart';
+import 'package:ems_mobile/Screens/Leave/single_leave_report.dart';
 import 'package:ems_mobile/Services/Leave/leave_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,11 @@ class LeaveHistory extends StatelessWidget {
         () => Scaffold(
           appBar: AppBar(
             title: const Text("Leave History"),
+            actions: [
+              IconButton(onPressed: () {
+                Get.to(() => const SingleLeaveReport());
+              }, icon: const Icon(Icons.add))
+            ],
           ),
           body: SingleChildScrollView(
             child: Container(
