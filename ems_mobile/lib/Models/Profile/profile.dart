@@ -4,8 +4,8 @@ class Profile {
   String? employeeName;
   String? position;
   String? departmentName;
-  DateTime? joinDate;
-  int? dateOfBirth;
+  String? joinDate;
+  dynamic dateOfBirth;
   String? contactPerson;
   String? contactPhone;
   String? relation;
@@ -27,9 +27,9 @@ class Profile {
   String? cardId;
   int? employeeType;
   String? nrc;
-  int? nrcDob;
+  dynamic nrcDob;
   double? basicSalary;
-  int? signOutDate;
+  String? signOutDate;
   String? macAddress;
   String? bankAccount;
   String? bankAccountType;
@@ -50,6 +50,7 @@ class Profile {
   int? ssbCardIssueDate;
   String? religion;
   bool? tranFlg;
+  String? positionStartDate;
 
   Profile(this.profileUpdateID,
       this.employeeId,
@@ -101,7 +102,8 @@ class Profile {
       this.ssbNo,
       this.ssbCardIssueDate,
       this.religion,
-      this.tranFlg);
+      this.tranFlg,
+      this.positionStartDate);
 
   Profile.empty();
 
@@ -157,7 +159,9 @@ class Profile {
           json["ssbNo"],
           json["ssbCardIssueDate"],
           json["religion"],
-          json["tranFlg"]);
+          json["tranFlg"],
+        json["positionStartDate"]
+      );
 
   Map<String, dynamic> toJson() {
     return {
@@ -195,11 +199,11 @@ class Profile {
       "macAddress": macAddress,
       "bankAccount": bankAccount,
       "bankAccountType": bankAccountType,
-      "graduateUniversity": graduateUniversity,
-      "graduateDegree": graduateDegree,
+      "graduateUniversity": graduateUniversity??"-",
+      "graduateDegree": graduateDegree??"-",
       "pcNo": pcNo,
       "pcPassword": pcPassword,
-      "jlpt": jlpt,
+      "jlpt": jlpt=="-"?"11":jlpt,
       "languageSkill": languageSkill,
       "iqTestRemark": iqTestRemark,
       "useFerry": useFerry,
@@ -210,7 +214,8 @@ class Profile {
       "toDate": toDate,
       "ssbNo": ssbNo,
       "ssbCardIssueDate": ssbCardIssueDate,
-      "religion": religion
+      "religion": religion,
+      "positionStartDate": positionStartDate,
     };
   }
 }

@@ -19,7 +19,7 @@ class _OvertimeReportState extends State<OvertimeReport> {
     return GetBuilder<OvertimeService>(builder: (controller) {
       controller.overtimeRegister();
       return Obx(
-        () => controller.isloading
+        () => controller.isLoading
             ? const Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),
@@ -87,7 +87,7 @@ class _OvertimeReportState extends State<OvertimeReport> {
                                   decoration: CommonWidget.dobDecoration(
                                       context,
                                       "Overtime Date",
-                                      controller.dateController.text,
+                                      controller.dateController.text.isEmpty ? DateTime.now() : controller.dateController.text,
                                       (datetime) => {
                                             setState(() {
                                               controller.dateController.text =
@@ -131,7 +131,7 @@ class _OvertimeReportState extends State<OvertimeReport> {
                                             }),
                                           },
                                 CommonWidget.getTimeOfDayFromString(
-                                    controller.fromTimeController.text)),
+                                    controller.fromTimeController.text.isEmpty?DateTime.now().toString().split(" ")[1]:controller.fromTimeController.text)),
                                   validator: (value) =>
                                       CommonWidget.isEmpty(value, "From Time"),
                                   onChanged: (v) {
@@ -155,7 +155,7 @@ class _OvertimeReportState extends State<OvertimeReport> {
                                             }),
                                           },
                                 CommonWidget.getTimeOfDayFromString(
-                                    controller.toTimeController.text)),
+                                    controller.toTimeController.text.isEmpty?DateTime.now().toString().split(" ")[1]:controller.toTimeController.text)),
                                   validator: (value) =>
                                       CommonWidget.isEmpty(value, "To Time"),
                                   onChanged: (v) {

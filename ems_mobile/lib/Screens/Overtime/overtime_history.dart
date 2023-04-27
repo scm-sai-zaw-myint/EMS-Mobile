@@ -10,9 +10,10 @@ class OvertimeHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     double cWidth = MediaQuery.of(context).size.width * 0.42;
     return GetBuilder<OvertimeService>(builder: (controller) {
-      controller.getOvertimeList();
+      // controller.getOvertimeList();
+      controller.fetchOvertimeHistory(DateTime.now());
       return Obx(() {
-        if (controller.isloading) {
+        if (controller.isLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );

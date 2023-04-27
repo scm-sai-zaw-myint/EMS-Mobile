@@ -17,7 +17,9 @@ class ProfileChangeHistoryPage extends StatelessWidget{
           title: const Text("Profile Change History"),
           backgroundColor: CommonWidget.primaryColor,
           actions: [
-            IconButton(onPressed: (){
+            IconButton(onPressed: () async{
+              controller.isUpdate = false;
+              await controller.getProfile();
               Get.toNamed(Config.profileChangeRequestPage);
             }, icon: const Icon(Icons.add))
           ],

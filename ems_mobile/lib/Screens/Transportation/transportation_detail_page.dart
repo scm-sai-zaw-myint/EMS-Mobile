@@ -150,16 +150,14 @@ class TransportationDetailPage extends StatelessWidget{
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               ElevatedButton(
-                                                onPressed: (){},
+                                                onPressed: (){
+                                                  controller.transportation = controller.transportationDetail;
+                                                  controller.isUpdate = true;
+                                                  Get.toNamed(Config.transportationRequestPage);
+                                                },
                                                 style: CommonWidget.secondaryButtonStyle(100),
                                                 child: const Text("Edit"),
                                               ),
-                                              const SizedBox(width: 10,),
-                                              ElevatedButton(
-                                                onPressed: (){},
-                                                style: CommonWidget.primaryButtonStyle(100),
-                                                child: const Text("Request"),
-                                              )
                                             ],
                                           ),
                                         ) : const SizedBox()

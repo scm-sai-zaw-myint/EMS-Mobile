@@ -15,9 +15,11 @@ class TransportationPage extends StatelessWidget{
       controller.transportation.employeeId = profileController.employee.employeeId;
       controller.transportation.employeeName = profileController.employee.employeeName;
       controller.transportation.requestDate = controller.toDateString(DateTime.now());
+      controller.initializedData();
       return Scaffold(
         appBar: AppBar(
           title: const Text("Other Transportation Request"),
+          backgroundColor: CommonWidget.primaryColor,
         ),
         body: SingleChildScrollView(
           child: Form(
@@ -177,7 +179,14 @@ class TransportationPage extends StatelessWidget{
                           style: CommonWidget.secondaryButtonStyle(100),
                           child: const Text("Save")
                       ),
-                      ElevatedButton(
+                      controller.isUpdate ? ElevatedButton(
+                          onPressed: (){
+                            controller.isUpdate = false;
+                            Get.back();
+                          },
+                          style: CommonWidget.primaryButtonStyle(100),
+                          child: const Text("Back")
+                      ):ElevatedButton(
                           onPressed: () async{
                             if(_formKey.currentState!.validate()){
                               bool request = await controller.executeTransportation(true);

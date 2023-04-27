@@ -12,7 +12,7 @@ class TransportationService extends GetxController{
   final travelByLists = ["Bus","Motorbike","Taxi","Trishaw","Other"];
   final travelTypeLists = ["One Way","Round Trip"];
 
-  final Transportation _transportation = Transportation.empty();
+  late Transportation transportation = Transportation.empty();
   Transportation transportationDetail = Transportation.empty();
 
   final _transportationList = <Transportation>[].obs;
@@ -28,6 +28,7 @@ class TransportationService extends GetxController{
   final _selectedTravelTypeValue = "".obs;
 
   final _loading = false.obs;
+  final _isUpdate = false.obs;
 
   @override
   void onInit() {
@@ -39,35 +40,46 @@ class TransportationService extends GetxController{
 
   Future<bool> fetchData() async{
     _loading(true);
-    final result = await _api.get("${Config.domainUrl}${Config.transportationHistory}?offset=1&limit=10");
+    final result = await _api.post("${Config.domainUrl}${Config.transportationHistory}/search?offset=1&limit=10",{
+      "year": DateTime.now().year,
+      "month": DateTime.now().month
+    });
     _loading(false);
     if(result.statusCode != 200) return false;
     final body = jsonDecode(result.body);
     final list = body["otherTransportationList"] as List<dynamic>;
     _transportationList.value = list.map((e) => Transportation.fromJson(e)).toList();
-    print(_transportationList);
     return true;
   }
 
   Future<bool> executeTransportation(bool request) async{
-    _transportation.travelDate = travelDateController.text;
-    _transportation.fees = int.parse(feeController.text);
-    _transportation.source = sourceController.text;
-    _transportation.destination = destinationController.text;
-    _transportation.travelBy = selectedTravelByValue;
-    _transportation.travelType = selectedTravelTypeValue;
-    _transportation.description = descriptionController.text;
-
-    final response = await _api.post("${Config.domainUrl}${Config.transportationRequest}${request? "?request=request" :""}",
-      _transportation.toJson()
+    transportation.travelDate = travelDateController.text;
+    transportation.fees = int.parse(feeController.text);
+    transportation.source = sourceController.text;
+    transportation.destination = destinationController.text;
+    transportation.travelBy = selectedTravelByValue;
+    transportation.travelType = selectedTravelTypeValue;
+    transportation.description = descriptionController.text;
+    String requestURL = isUpdate ? Config.editTransportation : Config.transportationRequest;
+    final response = await _api.post("${Config.domainUrl}$requestURL${!isUpdate && request? "?request=request" :""}",
+      transportation.toJson()
     );
-    final body = jsonDecode(response.body);
-    Transportation transport = Transportation.fromJson(body);
-    print(transport.toJson());
+    transportation = Transportation.empty();
     if(response.statusCode != 200) {
       return false;
     }
+    await fetchData();
     return true;
+  }
+
+  initializedData(){
+    travelDateController.text = transportation.travelDate??"";
+    feeController.text = "${transportation.fees??0}";
+    sourceController.text = transportation.source??"";
+    descriptionController.text = transportation.description??"";
+    destinationController.text = transportation.destination??"";
+    _selectedTravelByValue.value = transportation.travelBy??"Bus";
+    _selectedTravelTypeValue.value = transportation.travelType??"One Way";
   }
 
   DateTime parseDate(String date){
@@ -93,7 +105,8 @@ class TransportationService extends GetxController{
 
   List<Transportation> get transportationList => _transportationList.value;
 
-  Transportation get transportation => _transportation;
+  bool get isUpdate => _isUpdate.value;
+  set isUpdate(bool b) => _isUpdate.value = b;
 
   set selectedTravelTypeValue(value) {
     _selectedTravelTypeValue.value = value;

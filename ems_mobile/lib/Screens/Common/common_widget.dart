@@ -278,7 +278,7 @@ class CommonWidget {
   static BoxDecoration calendarDayActive() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: Colors.lightBlue);
   static BoxDecoration calendarWFHDay() =>
-      BoxDecoration(borderRadius: BorderRadius.circular(10), color: softColor);
+      BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.yellow);
   static BoxDecoration calendarOfficeDay() =>
       BoxDecoration(borderRadius: BorderRadius.circular(10), color: softColor);
   static BoxDecoration calendarLeaveDay() => BoxDecoration(
@@ -287,6 +287,8 @@ class CommonWidget {
       borderRadius: BorderRadius.circular(10), color: Colors.black54);
   static BoxDecoration calendarHolidayDay() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: Colors.black12);
+  static BoxDecoration calendarNoRecord() => BoxDecoration(
+      borderRadius: BorderRadius.circular(10), color: Colors.black);
 
   static Future displayTimePicker(BuildContext context,
       OnTimeChange onTimeChange, TimeOfDay inputTime) async {
@@ -297,6 +299,7 @@ class CommonWidget {
   }
 
   static TimeOfDay getTimeOfDayFromString(String timeString) {
+    if(timeString.isEmpty) return TimeOfDay.now();
     final DateFormat formatter = DateFormat.Hm();
     final DateTime dateTime = formatter.parse(timeString);
     return TimeOfDay.fromDateTime(dateTime);
@@ -354,9 +357,9 @@ class CommonWidget {
       return null;
     }
     if(fileCallback != null) {
-      fileCallback(result!.files.single);
+      fileCallback(result.files.single);
     }
-    return result!.files.single.path!;
+    return result.files.single.path!;
   }
 
   static DecoratedBox commonStatus(String text) {

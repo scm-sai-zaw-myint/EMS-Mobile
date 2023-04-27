@@ -21,7 +21,7 @@ class _SingleLeaveReportState extends State<SingleLeaveReport> {
       controller.overtimeRegister();
       String dropdownValue = list.first;
       return Obx(
-        () => controller.isloading
+        () => controller.isLoading
             ? const Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),

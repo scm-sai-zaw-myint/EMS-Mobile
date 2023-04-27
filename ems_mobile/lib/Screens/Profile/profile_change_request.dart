@@ -33,7 +33,7 @@ class ProfileChangeRequestPage extends StatelessWidget {
                   const Text("Employee Id"),
                   const SizedBox(height: 10,),
                   TextFormField(
-                    initialValue: controller.employee.employeeName,
+                    initialValue: controller.employee.employeeId,
                     decoration: CommonWidget.commonInput("Employee Id", true),
                   ),
                   const SizedBox(height: 20,),
@@ -214,6 +214,15 @@ class ProfileChangeRequestPage extends StatelessWidget {
                           style: CommonWidget.saveButtonStyle(100),
                           child: const Text("Reset")
                       ),
+                      controller.isUpdate ?
+                      ElevatedButton(
+                          onPressed: () async{
+                            controller.isUpdate = false;
+                            Get.back();
+                          },
+                          style: CommonWidget.primaryButtonStyle(100),
+                          child: const Text("Back")
+                      ):
                       ElevatedButton(
                           onPressed: () async{
                             if(_formKey.currentState!.validate()){

@@ -12,13 +12,11 @@ import 'package:intl/intl.dart';
 class ProfileService extends GetxController {
   final _loading = false.obs;
   final _isChanging = false.obs;
-  var requestEmployee = Employee.empty();
+  var requestEmployee = Profile.empty();
+  final _isUpdate = false.obs;
 
   var emp = Employee.empty().obs;
   ApiService api = ApiService();
-
-  Employee get employee => emp.value;
-  bool get isLoading => _loading.value;
 
   ////
   final _phoneController = TextEditingController().obs;
@@ -69,6 +67,8 @@ class ProfileService extends GetxController {
 
   Future<String?> changeProfile(bool request) async{
     _isChanging(true);
+    setRequestEmployee = employee;
+    print(requestEmployee.toJson());
     requestEmployee.phone = phoneController.text;
     requestEmployee.email = privateEmailController.text;
     requestEmployee.officeEmail = officeEmailController.text;
@@ -81,21 +81,26 @@ class ProfileService extends GetxController {
     requestEmployee.pcNo = pcNoController.text;
     requestEmployee.pcPassword = pcPasswordController.text;
     _analyzeDatesBeforeChangeRequest();
-
-    final result = await api.post("${Config.domainUrl}${ request?Config.profileChangeRequest:Config.profileChangeSave}", requestEmployee.toJson());
-    requestEmployee = Employee.empty();
+    String requestURL = isUpdate ? Config.profileChangeEdit : request?Config.profileChangeRequest:Config.profileChangeSave;
+    final result = await api.post("${Config.domainUrl}$requestURL", requestEmployee.toJson());
+    requestEmployee = Profile.empty();
     _isChanging(false);
     final body = jsonDecode(result.body);
 
     if(result.statusCode != 200){
       return body["responseDescription"];
     }
+    if(isUpdate){
+      getProfile();
+      _isUpdate(false);
+    }
     await fetchProfileHistory();
     return null;
   }
 
   void initiatedValues() {
-    requestEmployee = employee;
+    if(!isUpdate) setRequestEmployee = employee;
+
     phoneController.text = requestEmployee.phone??"";
     privateEmailController.text = requestEmployee.email??"";
     officeEmailController.text = requestEmployee.officeEmail??"";
@@ -132,6 +137,51 @@ class ProfileService extends GetxController {
     return true;
   }
 
+  Employee get employee => emp.value;
+
+  set setEmployeeFromProfile(Profile e){
+    emp.value.employeeId = e.employeeId;
+    emp.value.employeeName = e.employeeName;
+    emp.value.position = e.position;
+    emp.value.email = e.email;
+    emp.value.officeEmail = e.officeEmail;
+    emp.value.bankAccount = e.bankAccount;
+    emp.value.bankAccountType = e.bankAccountType;
+    emp.value.contactPerson = e.contactPerson;
+    emp.value.contactPhone = e.contactPhone;
+    emp.value.relation = e.relation;
+    emp.value.macAddress = e.macAddress;
+    emp.value.pcNo = e.pcNo;
+    emp.value.pcPassword = e.pcPassword;
+  }
+
+  set setRequestEmployee(Employee e){
+    requestEmployee.employeeId = e.employeeId;
+    requestEmployee.employeeName = e.employeeName;
+    requestEmployee.position = e.position;
+    requestEmployee.phone = e.phone;
+    requestEmployee.email = e.email;
+    requestEmployee.officeEmail = e.officeEmail;
+    requestEmployee.bankAccount = e.bankAccount;
+    requestEmployee.bankAccountType = e.bankAccountType;
+    requestEmployee.contactPerson = e.contactPerson;
+    requestEmployee.contactPhone = e.contactPhone;
+    requestEmployee.relation = e.relation;
+    requestEmployee.macAddress = e.macAddress;
+    requestEmployee.pcNo = e.pcNo;
+    requestEmployee.pcPassword = e.pcPassword;
+    requestEmployee.nrcDob = e.nrcDob;
+    requestEmployee.dateOfBirth = e.dateOfBirth;
+    requestEmployee.graduateDegree = e.graduateDegree??"-";
+    requestEmployee.graduateUniversity = e.graduateUniversity??"-";
+    requestEmployee.jlpt = e.jlpt;
+    requestEmployee.nrc = e.nrc;
+    requestEmployee.religion = e.religion;
+    requestEmployee.maritalStatus = e.maritalStatus;
+  }
+
+  bool get isLoading => _loading.value;
+
   TextEditingController get pcPasswordController => _pcPasswordController.value;
 
   TextEditingController get pcNoController => _pcNoController.value;
@@ -159,5 +209,9 @@ class ProfileService extends GetxController {
   List<Profile> get profileHistory => _profileHistory.value;
 
   bool get isProfileHistoryLoading => _isProfileHistoryLoading.value;
+
+  bool get isUpdate => _isUpdate.value;
+
+  set isUpdate(bool t) => _isUpdate.value = t;
 
 }

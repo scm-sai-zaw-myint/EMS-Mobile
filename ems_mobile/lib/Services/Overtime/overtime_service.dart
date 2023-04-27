@@ -5,31 +5,32 @@ import 'package:ems_mobile/Services/Common/api_service.dart';
 import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class OvertimeService extends GetxController {
   final _overtime = Overtime.empty().obs;
-  RxList<Overtime> _overtimeList = RxList<Overtime>([]);
+  final _overtimeList = <Overtime>[].obs;
   RxMap<String, dynamic> status = RxMap<String, dynamic>();
   final _dateController = TextEditingController().obs;
   final _fromTimeController = TextEditingController().obs;
   final _toTimeController = TextEditingController().obs;
   final _otHourController = TextEditingController().obs;
-  final _isloading = false.obs;
+  final _isLoading = false.obs;
 
   TextEditingController get dateController => _dateController.value;
   TextEditingController get fromTimeController => _fromTimeController.value;
   TextEditingController get toTimeController => _toTimeController.value;
   TextEditingController get otHourController => _otHourController.value;
   Overtime get overtime => _overtime.value;
-  RxList<Overtime> get overtimeList => _overtimeList.value.obs;
-  bool get isloading => _isloading.value;
+  List<Overtime> get overtimeList => _overtimeList.value;
+  bool get isLoading => _isLoading.value;
 
   ApiService api = ApiService();
 
   Future<void> overtimeRegister() async {
     _dateController.value.text = DateTime.now().toString().split(" ")[0];
     _overtime.value.appliedDate = DateTime.now().toString().split(" ")[0];
-    _isloading(true);
+    _isLoading(true);
     final response =
         await api.get("${Config.domainUrl}${Config.overtimeRegist}");
     Map<String, dynamic> jsonResponse = jsonDecode(response.body);
@@ -38,7 +39,7 @@ class OvertimeService extends GetxController {
     var fromTime = _fromTimeController.value.text;
     var toTime = _toTimeController.value.text;
     _calculateOtHour(fromTime, toTime);
-    _isloading(false);
+    _isLoading(false);
   }
 
   Future<bool> overtimeRequest(isSave) async {
@@ -50,17 +51,37 @@ class OvertimeService extends GetxController {
     return false;
   }
 
-  getOvertimeList() async {
-    _isloading(true);
-    final response =
-        await api.get("${Config.domainUrl}${Config.overtimeHistory}");
-    Map<String, dynamic> map = jsonDecode(response.body);
-    overtimeList.value = RxList<Overtime>.from(
-        (map["overtimeRecordHistory"] as List)
-            .map((x) => Overtime.fromJson(x)));
-    status.value = map["status"] as Map<String, dynamic>;
-    _isloading(false);
+  Future<bool> fetchOvertimeHistory (DateTime dateTime) async{
+    _isLoading(true);
+    DateTime fromDate = DateTime(dateTime.year, dateTime.month, 1);
+    DateTime toDate = DateTime(dateTime.year, dateTime.month + 1, 0);
+    final response = await api.post("${Config.domainUrl}${Config.overtimeHistoryRecord}?offset=1&limit=31&search=true", {
+      "fromDate": DateFormat("dd/MM/yyyy").format(fromDate),
+      "toDate": DateFormat("dd/MM/yyyy").format(toDate),
+    });
+    _isLoading(false);
+    if(response.statusCode != 200) {
+      return false;
+    }
+    Map<String, dynamic> body = jsonDecode(response.body);
+    final listBody = body["overtimeRecordHistory"] as List<dynamic>;
+    print(listBody);
+    _overtimeList.value = listBody.map((e) => Overtime.fromJson(e)).toList().reversed.toList();
+    status.value = body["status"] as Map<String, dynamic>;
+    return true;
   }
+
+  // getOvertimeList() async {
+  //   _isLoading(true);
+  //   final response =
+  //       await api.get("${Config.domainUrl}${Config.overtimeHistory}");
+  //   _isLoading(false);
+  //   Map<String, dynamic> map = jsonDecode(response.body);
+  //   overtimeList.value = RxList<Overtime>.from(
+  //       (map["overtimeRecordHistory"] as List)
+  //           .map((x) => Overtime.fromJson(x)));
+  //   status.value = map["status"] as Map<String, dynamic>;
+  // }
 
   _calculateOtHour(fromTime, toTime) {
     if ((fromTime != null && toTime != null) &&

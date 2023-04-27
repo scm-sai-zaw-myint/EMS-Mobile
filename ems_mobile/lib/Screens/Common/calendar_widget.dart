@@ -30,7 +30,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     final dayOfWeek = (index) % DateTime.daysPerWeek + 1;
     return dayOfWeek == 1 || dayOfWeek == 7;
   }
-
   void _generateCalendar() {
     DateTime d = DateTime.now();
     mainDate = DateTime(d.year, d.month, d.day);
@@ -164,7 +163,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                               currentDateString)
                                                           ? CommonWidget
                                                               .calendarHolidayDay()
-                                                          : null,
+                                                          :null ,
 
                                       child: Center(
                                           child: firstDayOfMonth.weekday <=

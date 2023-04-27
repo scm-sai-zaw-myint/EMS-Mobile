@@ -19,7 +19,7 @@ class _AttendanceReportState extends State<AttendanceReport> {
     return GetBuilder<OvertimeService>(builder: (controller) {
       controller.overtimeRegister();
       return Obx(
-        () => controller.isloading
+        () => controller.isLoading
             ? const Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),

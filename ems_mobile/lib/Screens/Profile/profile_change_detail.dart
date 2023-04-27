@@ -179,17 +179,13 @@ class ProfileChangeDetail extends StatelessWidget{
                                             children: [
                                               ElevatedButton(
                                                 onPressed: (){
-                                                  
+                                                  controller.isUpdate = true;
+                                                  controller.requestEmployee = controller.profileChangeDetail;
+                                                  Get.toNamed(Config.profileChangeRequestPage);
                                                 },
                                                 style: CommonWidget.secondaryButtonStyle(100),
                                                 child: const Text("Edit"),
                                               ),
-                                              const SizedBox(width: 10,),
-                                              ElevatedButton(
-                                                onPressed: (){},
-                                                style: CommonWidget.primaryButtonStyle(100),
-                                                child: const Text("Request"),
-                                              )
                                             ],
                                           ),
                                         ) : const SizedBox()

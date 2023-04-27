@@ -2,6 +2,7 @@
 
 class Config {
   static final String domainUrl = "http://172.20.90.102:8080/ems/api";
+
   // static final String domainUrl = "http://150.95.82.104:8080/ems/api";
   static final String imgUrl = domainUrl.replaceAll("api", "");
 
@@ -18,7 +19,7 @@ class Config {
   static final String transportationRequestPage = "/transportationRequest";
   static final String leaveHistoryPage = "/leaveHistory";
   static final String leaveDetailPage = "/leaveDetail";
-  static final String overtimeHistoryPage = "";
+  static final String overtimeHistoryPage = "/overtimeHistoryPage";
   static final String attendanceHistoryPage = "/attendanceHistory";
   static final String editAttendancePage = "/editAttendance";
   static final String transportationHistoryPage = "/transportationHistoryPage";
@@ -39,7 +40,8 @@ class Config {
   static final String longLeaveRequest = "/longTermLeaveReport";
   static final String overtimeRegist = "/registerOvertime";
 
-  static final String attendanceHistory = "/historyAttendanceReport?offset=1&limit=31";
+  static final String attendanceHistory =
+      "/historyAttendanceReport?offset=1&limit=31";
   static final String editAttendance = "/updateAttendanceReport";
   static final String deleteAttendance = "/deleteAttendanceRecord";
 
@@ -55,10 +57,13 @@ class Config {
       "/requestAddressChangeRegistration";
   static final String transportationRequest = "/registerOtherTransportation";
   static final String transportationHistory = "/listOtherTransportation";
+  static final String editTransportation = "/editOtherTransportation/update";
 
   static final String profileChangeRequest = "/profileChangeRequest/request";
+  static final String profileChangeEdit = "/profileChangeEdit?url=1";
   static final String profileChangeSave = "/profileChangeRequest/save";
-  static final String profileChangeHistory = "/profileChangeHistory?offset=1&limit=10";
+  static final String profileChangeHistory =
+      "/profileChangeHistory?offset=1&limit=10";
   static final String overtimeHistory = "/overtimeHistory";
 
   //status list
@@ -70,6 +75,4 @@ class Config {
     "4": "Save",
     "7": "Approve (M)"
   };
-
-
 }
