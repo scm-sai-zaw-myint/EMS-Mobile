@@ -62,6 +62,7 @@ class Leave {
   bool? sickLeaveReset; //            "sickLeaveReset": false,
   bool? reset; //            "reset": false,
   bool? fullYearEmployee;
+  String? date;
 
   Leave(
       {this.leaveRecordId,

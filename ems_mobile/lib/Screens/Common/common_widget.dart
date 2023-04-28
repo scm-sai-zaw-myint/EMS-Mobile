@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 
 typedef EyeCallback = Function();
@@ -405,6 +407,84 @@ class CommonWidget {
     List<String> ymd = dmy.toString().split("/");
     return "${ymd[2]}-${ymd[1]}-${ymd[0]}";
   }
+
+  //zlt
+  static Dialog errorAlert(String errMsg) {
+    return Dialog(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: CommonWidget.commonDialogTitle(Colors.red),
+              child: const Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    "Error!",
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+              const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.warning, size: 60, color: Colors.red),
+                    const SizedBox(height: 8),
+                    Text(errMsg, style: const TextStyle(fontSize: 20))
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      style: CommonWidget.deleteButtonStyle(Colors.grey),
+                      child: const Text("Close"),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 15.0,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  //zlt
+  static List<DateTime> getWeekdaysBetweenDates(DateTime startDate, DateTime endDate) {
+    List<DateTime> weekdays = [];
+    for (var date = startDate; date.isBefore(endDate.add(const Duration(days: 1))); date = date.add(const Duration(days: 1))) {
+      if (date.weekday != 6 && date.weekday != 7) {
+        weekdays.add(date);
+      }
+    }
+    return weekdays;
+  }
+
 }
 
 extension ListTileWrapper on ListTile {

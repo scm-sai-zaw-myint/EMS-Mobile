@@ -65,9 +65,10 @@ class Config {
   static final String profileChangeHistory =
       "/profileChangeHistory?offset=1&limit=10";
   static final String overtimeHistory = "/overtimeHistory";
+  //zlt
+  static final String registerAttendance = "/registerAttendanceReport";
 
   //status list
-
   static final statusList = {
     "1": "Request",
     "2": "Approve",

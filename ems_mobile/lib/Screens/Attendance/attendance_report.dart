@@ -26,9 +26,7 @@ class _AttendanceReportState extends State<AttendanceReport> {
   @override
   void initState() {
     super.initState();
-
     ProfileService profileService = Get.find();
-    profileService.getProfile();
     _empIdController.text = profileService.employee.employeeId!;
     _empNameController.text = profileService.employee.employeeName!;
     attendance.employeeId = _empIdController.text;

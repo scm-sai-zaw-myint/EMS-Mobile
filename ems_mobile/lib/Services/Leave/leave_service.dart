@@ -12,6 +12,7 @@ class LeaveService extends GetxController {
   RxList<Leave> leaves = RxList<Leave>([]);
   RxMap<String, dynamic> remainLeave = RxMap<String, dynamic>();
   RxMap<String, dynamic> status = RxMap<String, dynamic>();
+  RxMap<String, dynamic> period = RxMap<String, dynamic>();
   ApiService api = ApiService();
 
   final _isLoading = false.obs;
@@ -23,6 +24,12 @@ class LeaveService extends GetxController {
 
   LeaveReport leave = LeaveReport.empty();
 
+  @override
+  void onInit() {
+    getLeave();
+    super.onInit();
+  }
+
   getLeave() async {
     final response = await api.get("${Config.domainUrl}${Config.leaveHistory}");
     Map<String, dynamic> map = jsonDecode(response.body);
@@ -30,6 +37,17 @@ class LeaveService extends GetxController {
         (map["leaveRecordHistory"] as List).map((x) => Leave.fromJson(x)));
     remainLeave.value = map["remainLeaves"] as Map<String, dynamic>;
     status.value = map["status"] as Map<String, dynamic>;
+    period.value = map["period"] as Map<String, dynamic>;
+  }
+
+  registerSingleLeave(bool request, Leave leave) async {
+    String type = request ? "?request" : "?save";
+    print("${Config.domainUrl}${Config.singleLeaveRequest}$type");
+    final response = await api.post(
+        "${Config.domainUrl}${Config.singleLeaveRequest}$type",
+        {"leaveReportDetail": leave});
+    Map<String, dynamic> map = jsonDecode(response.body);
+    print(map);
   }
 
   showLongThermLeaveReport(){

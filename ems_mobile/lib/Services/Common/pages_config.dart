@@ -2,6 +2,7 @@ import 'package:ems_mobile/Models/Attendance/attendance.dart';
 import 'package:ems_mobile/Models/Leave/leave.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_edit.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_history.dart';
+import 'package:ems_mobile/Screens/Attendance/attendance_report.dart';
 import 'package:ems_mobile/Screens/Dashboard/dashboard.dart';
 import 'package:ems_mobile/Screens/Leave/leave_detail.dart';
 import 'package:ems_mobile/Screens/Leave/leave_history.dart';
@@ -40,7 +41,7 @@ class PagesConfig {
         page: () => LongTermLeaveReport()),
     GetPage(
         name: Config.attendanceRequestPage,
-        page: () => AttendanceEditReport(attendance: Attendance(), attTypelist: [])),
+        page: () => const AttendanceReport()),
     GetPage(
         name: Config.attendanceHistoryPage,
         page: () => const AttendanceHistory()),

@@ -6,14 +6,14 @@ import 'package:ems_mobile/Services/Profile/profile_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileService>(builder: (controller) {
