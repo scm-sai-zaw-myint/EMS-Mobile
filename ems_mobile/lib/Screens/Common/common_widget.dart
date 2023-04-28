@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 
 typedef EyeCallback = Function();
@@ -41,37 +39,37 @@ class CommonWidget {
         ),
       );
 
+  static ButtonStyle primaryButtonStyle([double? minWidth]) =>
+      ElevatedButton.styleFrom(
+          backgroundColor: primaryColor,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          padding: const EdgeInsets.all(13),
+          minimumSize: minWidth != null ? Size(minWidth, 0) : null);
+  static ButtonStyle saveButtonStyle([double? minWidth]) =>
+      ElevatedButton.styleFrom(
+          backgroundColor: softColor,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          padding: const EdgeInsets.all(13),
+          minimumSize: minWidth != null ? Size(minWidth, 0) : null);
+  static ButtonStyle secondaryButtonStyle([double? minWidth]) =>
+      ElevatedButton.styleFrom(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          padding: const EdgeInsets.all(13),
+          minimumSize: minWidth != null ? Size(minWidth, 0) : null,
+          backgroundColor: Colors.grey,
+          foregroundColor: Colors.white);
 
-  static ButtonStyle primaryButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
-    backgroundColor: primaryColor,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        padding: const EdgeInsets.all(13),
-    minimumSize: minWidth != null ? Size(minWidth, 0) : null
-  );
-  static ButtonStyle saveButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
-      backgroundColor: softColor,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      padding: const EdgeInsets.all(13),
-      minimumSize: minWidth != null ? Size(minWidth, 0) : null
-  );
-  static ButtonStyle secondaryButtonStyle([double? minWidth]) => ElevatedButton.styleFrom(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      padding: const EdgeInsets.all(13),
-      minimumSize: minWidth != null ? Size(minWidth, 0) : null,
-      backgroundColor: Colors.grey,
-      foregroundColor: Colors.white);
-
-  static ButtonStyle deleteButtonStyle(Color color,[double? minWidth]) => ElevatedButton.styleFrom(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-      backgroundColor: color,
-      foregroundColor: Colors.white,
-      minimumSize: minWidth != null ? Size(minWidth, 0) : null
-  );
+  static ButtonStyle deleteButtonStyle(Color color, [double? minWidth]) =>
+      ElevatedButton.styleFrom(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+          backgroundColor: color,
+          foregroundColor: Colors.white,
+          minimumSize: minWidth != null ? Size(minWidth, 0) : null);
 
   static Padding profileRow(String left, String right) => Padding(
         padding: const EdgeInsets.all(8.0),
@@ -235,7 +233,8 @@ class CommonWidget {
   }
 
   static InputDecoration dobDecoration(
-      context, title, initialDate, OnDOBChange onDOBChange, [DateTime? maxDateTime,DateTime? minDateTime]) {
+      context, title, initialDate, OnDOBChange onDOBChange,
+      [DateTime? maxDateTime, DateTime? minDateTime]) {
     return InputDecoration(
       hintText: "$title",
       contentPadding: const EdgeInsets.all(8),
@@ -243,8 +242,13 @@ class CommonWidget {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       suffixIcon: IconButton(
           onPressed: () async {
-            DateTime? date =
-                await _selectDate(context, initialDate is DateTime ? initialDate : DateTime.parse(initialDate),maxDateTime,minDateTime);
+            DateTime? date = await _selectDate(
+                context,
+                initialDate is DateTime
+                    ? initialDate
+                    : DateTime.parse(initialDate),
+                maxDateTime,
+                minDateTime);
             if (date != null) {
               onDOBChange(date);
             }
@@ -253,12 +257,13 @@ class CommonWidget {
     );
   }
 
-  static Future<DateTime?> _selectDate(context, DateTime? initialDate, [DateTime? maxDate, DateTime? minDate]) async {
+  static Future<DateTime?> _selectDate(context, DateTime? initialDate,
+      [DateTime? maxDate, DateTime? minDate]) async {
     final DateTime? date = await showDatePicker(
       context: context,
       initialDate: initialDate ?? DateTime.now(),
-      firstDate: minDate??DateTime(1900),
-      lastDate: maxDate??DateTime.now(),
+      firstDate: minDate ?? DateTime(1900),
+      lastDate: maxDate ?? DateTime.now(),
     );
     return date;
   }
@@ -280,8 +285,8 @@ class CommonWidget {
 
   static BoxDecoration calendarDayActive() => BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: Colors.lightBlue);
-  static BoxDecoration calendarWFHDay() =>
-      BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.yellow);
+  static BoxDecoration calendarWFHDay() => BoxDecoration(
+      borderRadius: BorderRadius.circular(10), color: Colors.yellow);
   static BoxDecoration calendarOfficeDay() =>
       BoxDecoration(borderRadius: BorderRadius.circular(10), color: softColor);
   static BoxDecoration calendarLeaveDay() => BoxDecoration(
@@ -302,7 +307,7 @@ class CommonWidget {
   }
 
   static TimeOfDay getTimeOfDayFromString(String timeString) {
-    if(timeString.isEmpty) return TimeOfDay.now();
+    if (timeString.isEmpty) return TimeOfDay.now();
     final DateFormat formatter = DateFormat.Hm();
     final DateTime dateTime = formatter.parse(timeString);
     return TimeOfDay.fromDateTime(dateTime);
@@ -344,7 +349,7 @@ class CommonWidget {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       suffixIcon: IconButton(
           onPressed: () async {
-            await CommonWidget.pickFile((file)=>{});
+            await CommonWidget.pickFile((file) => {});
           },
           icon: const Icon(Icons.attach_file)),
     );
@@ -352,14 +357,13 @@ class CommonWidget {
 
   static Future<String?> pickFile([FileCallBack? fileCallback]) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['png', 'jpg', 'jpeg', 'pdf', 'txt']
-    );
+        type: FileType.custom,
+        allowedExtensions: ['png', 'jpg', 'jpeg', 'pdf', 'txt']);
     if (result == null) {
       print("File is null");
       return null;
     }
-    if(fileCallback != null) {
+    if (fileCallback != null) {
       fileCallback(result.files.single);
     }
     return result.files.single.path!;
@@ -436,7 +440,7 @@ class CommonWidget {
             ),
             Padding(
               padding:
-              const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
               child: Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -476,16 +480,18 @@ class CommonWidget {
   }
 
   //zlt
-  static List<DateTime> getWeekdaysBetweenDates(DateTime startDate, DateTime endDate) {
+  static List<DateTime> getWeekdaysBetweenDates(
+      DateTime startDate, DateTime endDate) {
     List<DateTime> weekdays = [];
-    for (var date = startDate; date.isBefore(endDate.add(const Duration(days: 1))); date = date.add(const Duration(days: 1))) {
+    for (var date = startDate;
+        date.isBefore(endDate.add(const Duration(days: 1)));
+        date = date.add(const Duration(days: 1))) {
       if (date.weekday != 6 && date.weekday != 7) {
         weekdays.add(date);
       }
     }
     return weekdays;
   }
-
 }
 
 extension ListTileWrapper on ListTile {

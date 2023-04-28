@@ -82,14 +82,19 @@ class _AttendanceReportState extends State<AttendanceReport> {
                         decoration: CommonWidget.dobDecoration(
                             context,
                             "From Date",
-                            _fromDateController.text==""?DateTime.now():CommonWidget.DMYtoYMD(_fromDateController.text),
+                            _fromDateController.text == ""
+                                ? DateTime.now()
+                                : CommonWidget.DMYtoYMD(
+                                    _fromDateController.text),
                             (datetime) => {
                                   setState(() {
                                     _fromDateController.text =
                                         CommonWidget.YMDtoDMY(
                                             datetime.toString().split(" ")[0]);
                                   })
-                                }),
+                                },
+                            DateTime.now(),
+                            DateTime.now().add(const Duration(days: 365))),
                         validator: (value) =>
                             CommonWidget.isEmpty(value, "From Date"),
                       ),
@@ -101,14 +106,18 @@ class _AttendanceReportState extends State<AttendanceReport> {
                         decoration: CommonWidget.dobDecoration(
                             context,
                             "To Date",
-                            _toDateController.text==""?DateTime.now():CommonWidget.DMYtoYMD(_toDateController.text),
+                            _toDateController.text == ""
+                                ? DateTime.now()
+                                : CommonWidget.DMYtoYMD(_toDateController.text),
                             (datetime) => {
                                   setState(() {
                                     _toDateController.text =
                                         CommonWidget.YMDtoDMY(
                                             datetime.toString().split(" ")[0]);
                                   })
-                                }),
+                                },
+                            DateTime.now(),
+                            DateTime.now().add(const Duration(days: 365))),
                         validator: (value) =>
                             CommonWidget.isEmpty(value, "To Date"),
                       ),

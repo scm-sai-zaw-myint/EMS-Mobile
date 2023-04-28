@@ -94,7 +94,9 @@ class _SingleLeaveReportState extends State<SingleLeaveReport> {
                         decoration: CommonWidget.dobDecoration(
                             context,
                             "Leave Date",
-                            _dateController.text==""?DateTime.now():CommonWidget.DMYtoYMD(_dateController.text),
+                            _dateController.text == ""
+                                ? DateTime.now()
+                                : CommonWidget.DMYtoYMD(_dateController.text),
                             (datetime) => {
                                   setState(() {
                                     _dateController.text =
@@ -102,7 +104,9 @@ class _SingleLeaveReportState extends State<SingleLeaveReport> {
                                             datetime.toString().split(" ")[0]);
                                     leave.leaveDate = _dateController.text;
                                   })
-                                }),
+                                },
+                            DateTime.now(),
+                            DateTime.now().add(const Duration(days: 365))),
                         validator: (value) =>
                             CommonWidget.isEmpty(value, "Leave Date"),
                       ),
