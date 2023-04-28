@@ -2,6 +2,7 @@ import 'package:ems_mobile/Screens/Attendance/attendance_edit.dart';
 import 'package:ems_mobile/Screens/Attendance/attendance_report.dart';
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
 import 'package:ems_mobile/Services/Attendance/attendance_service.dart';
+import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,9 +29,15 @@ class AttendanceHistory extends StatelessWidget {
       return Obx(() => Scaffold(
             appBar: AppBar(
               title: const Text("Attendance History"),
-              actions: [IconButton(onPressed: () {
-                Get.to(() => const AttendanceReport());
-              }, icon: const Icon(Icons.add),tooltip: "Attendance Report",)],
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Get.toNamed(Config.attendanceRequestPage);
+                  },
+                  icon: const Icon(Icons.add),
+                  tooltip: "Attendance Report",
+                )
+              ],
             ),
             body: Container(
               decoration: CommonWidget.commonBackground(),
@@ -67,7 +74,7 @@ class AttendanceHistory extends StatelessWidget {
                             }
                           },
                           leading: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.15,
+                            width: MediaQuery.of(context).size.width * 0.2,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [

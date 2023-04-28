@@ -6,7 +6,7 @@ import 'package:ems_mobile/Services/Common/api_service.dart';
 import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
+import 'package:ems_mobile/Services/Credential/credential.dart';
 
 class LeaveService extends GetxController {
   RxList<Leave> leaves = RxList<Leave>([]);
@@ -31,13 +31,16 @@ class LeaveService extends GetxController {
   }
 
   getLeave() async {
-    final response = await api.get("${Config.domainUrl}${Config.leaveHistory}");
-    Map<String, dynamic> map = jsonDecode(response.body);
-    leaves.value = RxList<Leave>.from(
-        (map["leaveRecordHistory"] as List).map((x) => Leave.fromJson(x)));
-    remainLeave.value = map["remainLeaves"] as Map<String, dynamic>;
-    status.value = map["status"] as Map<String, dynamic>;
-    period.value = map["period"] as Map<String, dynamic>;
+    if (await Credential.isLoggedIn()) {
+      final response =
+          await api.get("${Config.domainUrl}${Config.leaveHistory}");
+      Map<String, dynamic> map = jsonDecode(response.body);
+      leaves.value = RxList<Leave>.from(
+          (map["leaveRecordHistory"] as List).map((x) => Leave.fromJson(x)));
+      remainLeave.value = map["remainLeaves"] as Map<String, dynamic>;
+      status.value = map["status"] as Map<String, dynamic>;
+      period.value = map["period"] as Map<String, dynamic>;
+    }
   }
 
   registerSingleLeave(bool request, Leave leave) async {
@@ -50,7 +53,7 @@ class LeaveService extends GetxController {
     print(map);
   }
 
-  showLongThermLeaveReport(){
+  showLongThermLeaveReport() {
     DateTime fromDate = DateTime.parse(fromDateController.text);
     DateTime toDate = DateTime.parse(toDateController.text);
     DateTime requestDate = DateTime.parse(requestDateController.text);
@@ -59,9 +62,10 @@ class LeaveService extends GetxController {
     leave.description = leaveReasonController.text;
     final diff = toDate.difference(fromDate);
     List<Leave> leaveList = [];
-    for(int i = 0; i < diff.inDays;i++) {
+    for (int i = 0; i < diff.inDays; i++) {
       Leave dayLeave = Leave.empty();
-      dayLeave.date = "${requestDate.day}/${requestDate.month}/${requestDate.year}";
+      dayLeave.date =
+          "${requestDate.day}/${requestDate.month}/${requestDate.year}";
       dayLeave.period = "3";
       dayLeave.description = leaveReasonController.text;
       leaveList.add(dayLeave);
@@ -75,7 +79,10 @@ class LeaveService extends GetxController {
     //   'leaveReportDetail': leave
     // };
     final requestData = leave.toJson();
-    final response = await api.multipartRequest("${Config.domainUrl}${Config.longLeaveRequest}", requestData, leave.attachFile);
+    final response = await api.multipartRequest(
+        "${Config.domainUrl}${Config.longLeaveRequest}",
+        requestData,
+        leave.attachFile);
     print("I am here with the following" + jsonEncode(response!.body));
     return true;
   }
@@ -84,11 +91,13 @@ class LeaveService extends GetxController {
 
   TextEditingController get attachFileController => _attachFileController.value;
 
-  TextEditingController get leaveReasonController => _leaveReasonController.value;
+  TextEditingController get leaveReasonController =>
+      _leaveReasonController.value;
 
   TextEditingController get toDateController => _toDateController.value;
 
   TextEditingController get fromDateController => _fromDateController.value;
 
-  TextEditingController get requestDateController => _requestDateController.value;
+  TextEditingController get requestDateController =>
+      _requestDateController.value;
 }

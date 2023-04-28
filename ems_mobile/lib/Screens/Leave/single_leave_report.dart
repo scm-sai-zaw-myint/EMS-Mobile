@@ -27,9 +27,7 @@ class _SingleLeaveReportState extends State<SingleLeaveReport> {
   void initState() {
     super.initState();
     ProfileService profileService = Get.find();
-    profileService.getProfile();
     LeaveService leaveService = Get.find();
-    leaveService.getLeave();
     periodList =
         leaveService.period.values.toList().map((e) => e.toString()).toList();
     _empIdController.text = profileService.employee.employeeId!;
@@ -96,7 +94,7 @@ class _SingleLeaveReportState extends State<SingleLeaveReport> {
                         decoration: CommonWidget.dobDecoration(
                             context,
                             "Leave Date",
-                            _dateController.text,
+                            _dateController.text==""?DateTime.now():CommonWidget.DMYtoYMD(_dateController.text),
                             (datetime) => {
                                   setState(() {
                                     _dateController.text =

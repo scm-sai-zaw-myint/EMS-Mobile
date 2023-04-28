@@ -34,7 +34,6 @@ class AttendanceService extends GetxController {
         "description": ""
       };
       wfhRegisterFormList.add(wfhRegisterForm);
-      attendances.add(Attendance());
     }
     await api.post(
         "${Config.domainUrl}${Config.registerAttendance}",

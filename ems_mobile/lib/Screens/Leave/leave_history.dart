@@ -1,6 +1,7 @@
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
 import 'package:ems_mobile/Screens/Leave/leave_detail.dart';
 import 'package:ems_mobile/Screens/Leave/single_leave_report.dart';
+import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:ems_mobile/Services/Leave/leave_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ class LeaveHistory extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: () {
-                    Get.to(() => const SingleLeaveReport());
+                Get.toNamed(Config.singleLeaveRequestPage);
                   },
                   icon: const Icon(Icons.add))
             ],
@@ -92,7 +93,7 @@ class LeaveHistory extends StatelessWidget {
                                 ),
                               ),
                               title: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.7,
+                                width: MediaQuery.of(context).size.width * 0.65,
                                 child: Row(
                                   children: [
                                     Column(
@@ -124,7 +125,7 @@ class LeaveHistory extends StatelessWidget {
                                 ),
                               ),
                               trailing: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.15,
+                                width: MediaQuery.of(context).size.width * 0.2,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
