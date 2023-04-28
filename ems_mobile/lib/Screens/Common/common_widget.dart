@@ -235,7 +235,7 @@ class CommonWidget {
   }
 
   static InputDecoration dobDecoration(
-      context, title, initialDate, OnDOBChange onDOBChange) {
+      context, title, initialDate, OnDOBChange onDOBChange, [DateTime? maxDateTime,DateTime? minDateTime]) {
     return InputDecoration(
       hintText: "$title",
       contentPadding: const EdgeInsets.all(8),
@@ -244,7 +244,7 @@ class CommonWidget {
       suffixIcon: IconButton(
           onPressed: () async {
             DateTime? date =
-                await _selectDate(context, initialDate is DateTime ? initialDate : DateTime.parse(initialDate));
+                await _selectDate(context, initialDate is DateTime ? initialDate : DateTime.parse(initialDate),maxDateTime,minDateTime);
             if (date != null) {
               onDOBChange(date);
             }
@@ -253,12 +253,12 @@ class CommonWidget {
     );
   }
 
-  static Future<DateTime?> _selectDate(context, DateTime? initialDate) async {
+  static Future<DateTime?> _selectDate(context, DateTime? initialDate, [DateTime? maxDate, DateTime? minDate]) async {
     final DateTime? date = await showDatePicker(
       context: context,
       initialDate: initialDate ?? DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      firstDate: minDate??DateTime(1900),
+      lastDate: maxDate??DateTime.now(),
     );
     return date;
   }
