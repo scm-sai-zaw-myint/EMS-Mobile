@@ -60,6 +60,7 @@ class CommonWidget {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
       padding: const EdgeInsets.all(13),
+      minimumSize: minWidth != null ? Size(minWidth, 0) : null,
       backgroundColor: Colors.grey,
       foregroundColor: Colors.white);
 
