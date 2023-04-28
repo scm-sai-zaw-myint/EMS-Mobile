@@ -183,7 +183,7 @@ class ProfileChangeDetail extends StatelessWidget{
                                                   controller.requestEmployee = controller.profileChangeDetail;
                                                   Get.toNamed(Config.profileChangeRequestPage);
                                                 },
-                                                style: CommonWidget.secondaryButtonStyle(100),
+                                                style: CommonWidget.secondaryButtonStyle(),
                                                 child: const Text("Edit"),
                                               ),
                                             ],

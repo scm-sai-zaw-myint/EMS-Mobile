@@ -16,13 +16,14 @@ class OvertimeService extends GetxController {
   final _toTimeController = TextEditingController().obs;
   final _otHourController = TextEditingController().obs;
   final _isLoading = false.obs;
+  RxList<Overtime> overtimeList = RxList<Overtime>([]);
 
   TextEditingController get dateController => _dateController.value;
   TextEditingController get fromTimeController => _fromTimeController.value;
   TextEditingController get toTimeController => _toTimeController.value;
   TextEditingController get otHourController => _otHourController.value;
   Overtime get overtime => _overtime.value;
-  List<Overtime> get overtimeList => _overtimeList.value;
+  // List<Overtime> get overtimeList => _overtimeList.value;
   bool get isLoading => _isLoading.value;
 
   ApiService api = ApiService();
@@ -97,5 +98,15 @@ class OvertimeService extends GetxController {
     } else {
       _otHourController.value.text = "0.0";
     }
+    _isLoading(false);
+  }
+
+  getOvertimeList() async {
+    final response =
+        await api.get("${Config.domainUrl}${Config.overtimeHistoryRecord}");
+    Map<String, dynamic> map = jsonDecode(response.body);
+    overtimeList.value = RxList<Overtime>.from(
+        (map["overtimeRecordHistory"] as List)
+            .map((element) => Overtime.fromJson(element)));
   }
 }

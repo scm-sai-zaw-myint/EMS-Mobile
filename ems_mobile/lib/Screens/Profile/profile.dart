@@ -1,24 +1,29 @@
 import 'package:ems_mobile/Screens/Common/common_widget.dart';
+import 'package:ems_mobile/Screens/Profile/profile_change_request.dart';
 import 'package:ems_mobile/Services/Common/config.dart';
 // import 'package:ems_mobile/Services/Common/config.dart';
 import 'package:ems_mobile/Services/Profile/profile_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class Profile extends StatefulWidget {
+  const Profile({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<Profile> createState() => _ProfileState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileService>(builder: (controller) {
-      // controller.getProfile();
-      return Obx(() => Scaffold(
+      return Obx(() {
+        if (controller.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return Scaffold(
             appBar: AppBar(
               title: const Text('Profile'),
               actions: [
@@ -34,11 +39,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         child: const Text('Profile Change'),
                       ),
-                      const PopupMenuItem(
-                        child: Text('Address Change'),
-                      ),
-                      const PopupMenuItem(
-                        child: Text('Password Change'),
+                      PopupMenuItem(
+                        onTap: (){
+                          Get.toNamed(Config.changePasswordPage);
+                        },
+                        child: const Text('Password Change'),
                       ),
                     ];
                   },
@@ -206,8 +211,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   )),
-            ),
-          ));
+            ));
+      });
     });
   }
 }
